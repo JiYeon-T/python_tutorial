@@ -1,2 +1,1 @@
-# python_tutorial
-python 笔记
+This is a pyqt5 study nodebook.
