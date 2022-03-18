@@ -1,0 +1,14 @@
+A:ni hao
+B:hello
+A:Have you eat the breafast?
+B:Not yet.
+========================
+A:ni hao
+B:hello
+A:Have you eat the lunch?
+B:Not yet.
+========================
+A:ni hao
+B:hello
+A:Have you eat the dinner?
+B:Not yet.
