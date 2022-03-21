@@ -11,7 +11,7 @@ def init_db():
     print("db running......")
 
 def init_cache():
-    print(('init cache')
+    print('init cache')
     time.sleep(1)
     print('init cache')
     barrier.wait()

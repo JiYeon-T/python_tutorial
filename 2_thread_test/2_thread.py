@@ -73,6 +73,10 @@ class GetDetailList(th.Thread):
 # thread提供了低级别的、原始的线程以及一个简单的锁。
 # thread还提供了一个ThreadLocal类用于管理线程相关的数据，名为 thread._local，threading中引用了这个类。
 # 由于thread提供的线程功能不多，无法在主线程结束后继续运行，不提供条件变量等等原因，一般不使用thread模块，
+
+# _thread对于进程何时退出没有任何控制。当主线程结束时，所有其他线程也都强制结束。不会发出警告或者进行适当的清理。
+# 因而python多线程一般使用较为高级的threading模块，它提供了完整的线程控制机制以及信号量机制。
+# 但是这些event, condition, semaphore 都具体是怎么控制的呢?
 import _thread
 import time
 

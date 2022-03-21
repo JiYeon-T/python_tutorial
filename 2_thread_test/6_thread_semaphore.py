@@ -1,6 +1,7 @@
 import threading as th
 import time
 from queue import Queue
+
 # 线程同步
 # (4) sempahore 可以用来控制开启的线程数目
 # 可以参考:Queue put() 等的内部实现，-> 掌握 Semaphore
@@ -11,6 +12,7 @@ from queue import Queue
 # (1)爬虫, 当同一个 IP 过于频繁的访问一个 URL 的时候是会被反爬的, 因此就需要限制并发的线程的数量
 # 内部实现:
 # condition
+
 class HtmlSpider(th.Thread):
     def __init__(self, sem):
         super().__init__(name="spider", daemon=True)    # 设置为守护线程
