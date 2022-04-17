@@ -1,5 +1,7 @@
 import os, sys
 
+# python 中元组 以及 字典类型的变量如何作为形参以及实参使用
+
 def fun(time, *args, **kwargs):
     print(time)
     print(args)
@@ -13,7 +15,8 @@ def fun(time, *args, **kwargs):
 
 def test():
     fun(1)
-    fun(1, 2, 3 )
-    fun(1, a=1, b=2)
+    fun(1, 2, 3 )   # 传入元组类型
+    fun(1, a=1, b=2)    # 传入字典类型
+
 if __name__ == '__main__':
     test()

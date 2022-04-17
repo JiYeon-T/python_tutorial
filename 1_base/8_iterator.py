@@ -11,6 +11,7 @@ class Fibs:
 		if self.a > self.max:
 			raise StopIteration#次數大於max跳出，不執行return
 		return self.a
+
 fib = Fibs(100)
 try:
 	for each in fib:
