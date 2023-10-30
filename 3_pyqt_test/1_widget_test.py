@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import QTreeWidget, QTreeWidgetItem, QMessageBox, QInputDia
 # from PySide2.QtCore import QFile
 # from PySide2.QtGui import QIcon
 from PyQt5.QtGui import QIcon
-
+from PyQt5.QtWidgets import QGroupBox, QMainWindow, QVBoxLayout
 # TODO:
 # from PyQt5.QtBluetooth import
 

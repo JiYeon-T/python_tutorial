@@ -1,10 +1,11 @@
+import sys, time
 from PySide2.QtWidgets import QApplication, QMessageBox
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtCore import QFile
 from PySide2.QtGui import QIcon
 import requests     # 写一个 HTTP 调试助手
 
-class HttpClient:
+class HttpClient():
     def __init__(self):
         # 加载 ui 文件, 局部变量
         qfile = QFile("ui/2_http.ui")
@@ -31,10 +32,12 @@ class HttpClient:
     def clearDisplay(self):
         pass
 
-app = QApplication([])  # 整个 UI 界面的控件，信号管理等
-s = HttpClient()
-s.ui.window.show()
-app.exec_() #死循环，等待, 除法按下结束才会关闭
+def http_client_test():
+    app = QApplication([])  # 整个 UI 界面的控件，信号管理等
+    s = HttpClient()
+    s.ui.window.show()
+    app.exec_() #死循环，等待, 除法按下结束才会关闭
+
 
 if __name__ =='__main__':
     pass
