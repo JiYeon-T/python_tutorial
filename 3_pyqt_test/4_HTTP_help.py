@@ -38,7 +38,6 @@ def http_client_test():
     s.ui.window.show()
     app.exec_() #死循环，等待, 除法按下结束才会关闭
 
-
 if __name__ =='__main__':
     pass
 
