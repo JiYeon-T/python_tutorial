@@ -1,7 +1,7 @@
 import threading
 import time
  
-class Num:
+class Num(object):
     def __init__(self):
         self.num = 0
         self.lock = threading.Lock()

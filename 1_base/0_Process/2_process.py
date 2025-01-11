@@ -1,6 +1,6 @@
 import os
 import time
-import multiprocessing as p
+import multiprocessing as mp
 # 4.注意
 # 主進程默認會等待所有的子進程執行結束再結束
 # 需要的效果:主進程結束，所以子進程也結束
@@ -17,12 +17,11 @@ def work():
 	print('子進程執行結束')
 
 if __name__ == '__main__':
-	work_process = p.Process(target=work)
-	#work_process.daemon = True		# 設置爲 True 以後，主進程不在等待子進程執行結束
+	work_process = mp.Process(target=work)
+	work_process.daemon = True # 設置爲 True 以後，主進程不再等待子進程執行結束, 默认 False
 	work_process.start()
 
-	# 主進程睡眠1s
-	time.sleep(1)
+	time.sleep(1) # 主進程睡眠1s
 	print('主進程執行結束')	# 這裏主進程不會立即結束，而是要等待子進程結束
 
 

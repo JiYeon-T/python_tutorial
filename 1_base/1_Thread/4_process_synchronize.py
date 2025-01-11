@@ -6,4 +6,4 @@ import sys
 #同步原语和线程的库类似。
 
 if __name__ == '__main__':
-	
+    pass

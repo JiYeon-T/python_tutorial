@@ -1,5 +1,5 @@
 import time as t
-#####zhong jian bu neng kong zheng hang fou ze bao cuo
+
 class Timer:
 	def __init__(self):
 		self.unit = ['year', 'month', 'day', 'hour', 'minute', 'second']

@@ -3,8 +3,8 @@
 """
  
 """
-使用 Condition 类来完成，由于它也可以像锁机制那样用，所以它也有 acquire 方法和 release 方法，而且它还有
-wait， notify， notifyAll 方法。
+使用 Condition 类来完成，由于它也可以像锁机制那样用，所以它也有 acquire 方法和 release 方法，
+而且它还有wait， notify， notifyAll 方法 —— 可以用于线程同步。
 """
  
 import threading

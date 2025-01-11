@@ -1,5 +1,8 @@
 import keyword
 import math
+import os
+import time
+import datetime
 # 导入模块
 # 将整个模块(somemodule)导入，格式为： import somemodule
 # 从某个模块中导入某个函数,格式为： from somemodule import somefunction
@@ -11,8 +14,10 @@ import math
 
 
 # https://www.runoob.com/python3/python3-basic-syntax.html
+import random
 import sys
 import time
+import timeit
 
 
 def base_info():
@@ -1155,8 +1160,499 @@ def os_base_test():
     """puthon os 模块
     Python3 OS 文件/目录方法
     """
-    import os
+    import os, sys, stat
+    path = "./foo.txt"
+    print("access:", os.access(path, os.F_OK)) # os.access(path, mode) 检验权限模式
+    print("access:", os.access(path, os.R_OK))
+    print("access:", os.access(path, os.W_OK))
+    print("access:", os.access(path, os.X_OK))
+    # os.chdir(path) # os.chdir(path) 改变当前工作目录
+    flags = stat.SF_NOUNLINK # 为文件设置标记，使得它不能被重命名和删除
+    # os.chflags(path, flags) # os.chflags(path, flags) 设置路径的标记为数字标记。
+    stat = stat.S_IXGRP # 设置文件可以通过用户组执行
+    # os.chmod(path, stat) # os.chmod(path, mode) 更改权限
+    # os.chown(path, uid, gid) # os.chown(path, uid, gid) 更改文件所有者
+    # os.chroot(path) # os.chroot(path) 改变当前进程的根目录
+    # os.close(fd) # os.close(fd) 关闭文件描述符 fd
+    # os.closerange() # os.closerange(fd_low, fd_high) 关闭所有文件描述符，从 fd_low (包含) 到 fd_high (不包含), 错误会忽略
+    # os.dup(fd) # os.dup(fd) 复制文件描述符 fd
+    # os.dup2(fd, sys.stdout) # os.dup2(fd, fd2) 将一个文件描述符 fd 复制到另一个 fd2
+    # os.fchdir(fd) # os.fchdir(fd) 通过文件描述符改变当前工作目录
+    # os.fchmod(fd, mode) # os.fchmod(fd, mode) 改变一个文件的访问权限，该文件由参数fd指定，参数mode是Unix下的文件访问权限。
+    # os.fchown(fd, uid, gid) # so.fchown(fd, uid, gid) 修改一个文件的所有权，这个函数修改一个文件的用户ID和用户组ID，该文件由文件描述符fd指定。
+    # os.fdatasync(fd) # os.fdatasync(fd) 强制将文件写入磁盘，该文件由文件描述符fd指定，但是不强制更新文件的状态信息。
+    # os.fdopen(fd) # os.fdopen(fd[, mode[, bufsize]]) 通过文件描述符 fd 创建一个文件对象，并返回这个文件对象
+    # os.fpathconf(fd, name) # os.fpathconf(fd, name)返回一个打开的文件的系统配置信息。name为检索的系统配置的值，它也许是一个定义系统值的字符串，这些名字在很多标准中指定（POSIX.1, Unix 95, Unix 98, 和其它）。
+    # os.fstat(fd) # os.fstat(fd) 返回文件描述符fd的状态，像stat()。
+    # os.fstatvfs(fd) # os.fstatvfs(fd) 返回包含文件描述符fd的文件的文件系统的信息，Python 3.3 相等于 statvfs()。
+    # os.fsync(fd) # os.fsync(fd) 强制将文件描述符为fd的文件写入硬盘。
+    # os.ftruncate(fd, 1024) # os.ftruncate(fd, length) 裁剪文件描述符fd对应的文件, 所以它最大不能超过文件大小。
+    print("cwd:", os.getcwd()) # os.getcwd() 返回当前工作目录
+    print("cwdb:", os.getcwdb()) # os.getcwdb() 返回一个当前工作目录的Unicode对象
+    # os.isatty(fd) # os.isatty(fd) 如果文件描述符fd是打开的，同时与tty(-like)设备相连，则返回true, 否则False。
+    # os.lchflags() # os.lchflags(path, flags) 设置路径的标记为数字标记，类似 chflags()，但是没有软链接
+    # os.lchmod(path, mode) # os.lchmod(path, mode) 修改连接文件权限
+    # os.lchown(path, uid, gid) # os.lchown(path, uid, gid) 更改文件所有者，类似 chown，但是不追踪链接。
+    # os.link(src, dst) # os.link(src, dst) 创建硬链接，名为参数 dst，指向参数 src
+    print("listdir:", os.listdir("./")) # os.listdir(path) 返回path指定的文件夹包含的文件或文件夹的名字的列表
+    # os.lseek(fd, pos, how) # os.lseek(fd, pos, how) 设置文件描述符 fd当前位置为pos, how方式修改: SEEK_SET 或者 0 设置从文件开始的计算的pos; SEEK_CUR或者 1 则从当前位置计算; os.SEEK_END或者2则从文件尾部开始. 在unix，Windows中有效
+    os.lstat(path) # os.lstat(path) 像stat(),但是没有软链接
+    info = os.lstat(path)
+    # print("major:", os.major(info.st_dev)) # os.major(device) 从原始的设备号中提取设备major号码 (使用stat中的st_dev或者st_rdev field)。
+    # print("minor:", os.minor(info.st_dev)) # os.minor(device) 从原始的设备号中提取设备minor号码 (使用stat中的st_dev或者st_rdev field )。
+    # os.makedev(major, minor) # os.major(device) 从原始的设备号中提取设备major号码 (使用stat中的st_dev或者st_rdev field)。
+    # os.mkdir(path) # os.mkdir(path[, mode]) 以数字mode的mode创建一个名为path的文件夹.默认的 mode 是 0777 (八进制)。
+    # os.makedirs(path) # os.makedirs(path[, mode]) 递归文件夹创建函数。像mkdir(), 但创建的所有intermediate-level文件夹需要包含子文件夹。
+    # os.mkfifo(path) # os.mkfifo(path[, mode]) 创建命名管道，mode 为数字，默认为 0666 (八进制)
+    # os.mknod(path) # os.mknod(filename[, mode=0600, device]) 创建一个名为filename文件系统节点（文件，设备特别文件或者命名pipe）。
+    # os.open(path) # os.open(file, flags[, mode]) 打开一个文件，并且设置需要的打开选项，mode参数是可选的
+    # os.openpty() # os.openpty() 打开一个新的伪终端对。返回 pty 和 tty的文件描述符。
+    # os.pathconf(path) # os.pathconf(path, name) 返回相关文件的系统配置信息。
+    # os.pipe() # os.pipe() 创建一个管道. 返回一对文件描述符(r, w) 分别为读和写
+    # os.popen() # os.popen(command[, mode[, bufsize]]) 从一个 command 打开一个管道
+    # os.read() # os.read(fd, n)从文件描述符 fd 中读取最多 n 个字节，返回包含读取字节的字符串，文件描述符 fd对应文件已达到结尾, 返回一个空字符串。
+    # os.readlink(path) # os.readlink(path) 返回软链接所指向的文件
+    # os.remove(path) # os.remove(path) 删除路径为path的文件。如果path 是一个文件夹，将抛出OSError; 查看下面的rmdir()删除一个 directory。
+    # os.removedirs(name) # os.removedirs(path) 递归删除目录。
+    # os.rename(src, dst) # os.rename(src, dst) 重命名文件或目录，从 src 到 dst
+    # os.renames(old, new) # os.renames(old, new) 递归地对目录进行更名，也可以对文件进行更名。
+    # os.rmdir(path) # os.rmdir(path) 删除path指定的空目录，如果目录非空，则抛出一个OSError异常。
+    # os.stat(path) # os.stat(path) 获取path指定的路径的信息，功能等同于C API中的stat()系统调用。
+    # os.stat_float_times() # os.stat_float_times([newvalue]) 决定stat_result是否以float对象显示时间戳
+    # os.statvfs(path) # os.statvfs(path) 获取指定路径的文件系统统计信息
+    # os.symlink() # os.symlink(src, dst) 创建一个软链接
+    # os.tcgetpgrp(fd) # os.tcgetpgrp(fd) 返回与终端fd（一个由os.open()返回的打开的文件描述符）关联的进程组
+    # os.ttyname(fd) # os.ttyname(fd) 返回一个字符串，它表示与文件描述符fd 关联的终端设备。如果fd 没有与终端设备关联，则引发一个异常。
+    # os.unlink(path) # os.unlink(path) 删除文件路径
+    # os.utime(path) # os.utime(path, times) 返回指定的path文件的访问和修改的时间。
+    # os.walk() # os.walk(top[, topdown=True[, onerror=None[, followlinks=False]]]) 输出在文件夹中的文件名通过在树中游走，向上或者向下。
+    # os.write() # os.write(fd, str) 写入字符串到文件描述符 fd中.返回实际写入的字符串长度
+    # print("path:", os.path) # TODO:os.path 模块 https://www.runoob.com/python3/python3-os-path.html
+    print("parent:", os.pardir) # os.pardir() 获取当前目录的父目录，以字符串形式显示目录名。
+    os.replace() # os.replace() 重命名文件或目录。
+    os.startfile() # os.startfile() 用于在 Windows 上打开一个文件或文件夹。
 
+def exception_base_test():
+    """Python3 错误和异常
+    """
+    try:
+        a = 10
+        assert a > 50
+    except (OSError, TypeError, NameError): # 一个except子句可以同时处理多个异常，这些异常将被放在一个括号里成为一个元组
+        # 发生异常时执行的代码
+        print("发生异常时执行的代码块")
+        print("Exception")
+    except ValueError: # 一个 try 语句可能包含多个except子句，分别来处理不同的特定的异常。最多只有一个分支会被执行。
+                        #处理程序将只针对对应的 try 子句中的异常进行处理，而不是其他的 try 的处理程序中的异常。
+        pass
+    except:
+        # print("Unexpected error:", sys.exc_info())
+        print("Unexpected error:", sys.exc_info()[0])
+        # raise
+    else:
+        # 没有异常时执行的代码
+        # try/except 语句还有一个可选的 else 子句，如果使用这个子句，那么必须放在所有的 except 子句之后
+    #else 子句将在 try 子句没有发生任何异常的时候执行。
+        print("没有异常时执行的代码块")
+        pass
+    finally: # 无论异常是否发生都会执行的代码
+        print("无论异常是否发生都会执行的代码块")
+
+    # raise 唯一的一个参数指定了要被抛出的异常。
+    # 它必须是一个异常的实例或者是异常的类（也就是 Exception 的子类）。
+    class NewException(Exception):
+        """用户自定义异常
+        你可以通过创建一个新的异常类来拥有自己的异常。
+        异常类继承自 Exception 类，可以直接继承，或者间接继承"""
+        def __init__(self, value):
+            self.value = value
+
+        def __str__(self):
+            return repr(self.value)
+    try:
+        raise NewException("这是我自己创建的异常类")
+    except Exception as e:
+        print(e.value)
+
+def oob_base_test():
+    """Python3 面向对象
+    """
+
+    class Cat():
+        """类的方法与普通的函数只有一个特别的区别——它们必须有一个额外的第一个参数名称,
+        按照惯例它的名称是 self。
+        self 的名字并不是规定死的，也可以使用 this，但是最好还是按照约定使用 self。
+        """
+        __CLASS_NAME = "Cat" # 私有变量(类成员)
+        CLASS_TYPE = "Animal" # 公开变量(类成员)
+        __obj_cnt = 0 # 私有类成员, 保存实例对象的个数
+
+        def __init__(self, id=1, salary=2000):
+            self.__id = id # 两个下划线开头，声明该属性为私有，不能在类的外部被使用或直接访问。在类内部的方法中使用时 self.__private_attrs。
+            self.__salary = salary # 私有
+            self.__obj_cnt += 1 # 对象成员
+
+        def eat(self, a, b):
+            """公共方法:父类定义一个方法"""
+            print("{} a:{} b:{}".format(self.__class__, a, b))
+            return a + b
+
+        def __get_salary(self):
+            """私有方法"""
+            print("Salary:", self.__salary)
+            return self.__salary
+
+        def myself(self):
+            print(self)
+            print("id:{}\ntype:{}\nclass:{}\n".format(id(self), type(self), self.__class__))
+            print("Class Name:", self.__CLASS_NAME)
+            print("id:{} salary:{}".format(self.__id, self.__salary))
+
+        def __add__(self, other):
+            """   # 运算符重载:
+            # Python同样支持运算符重载，我们可以对类的专有方法进行重载，
+            """
+            return Cat(self.__id + other.__id)
+
+        def __str__(self):
+            """字符串方法"""
+            return "name:{} object at id:{}".format(self.__CLASS_NAME, id(self))
+
+        # 所以逻辑上类方法应当只被类调用
+        # 实例方法实例调用，
+        # 静态方法两者都能调用。
+        # 主要区别在于参数传递上的区别，实例方法悄悄传递的是self引用作为参数，
+        # 而类方法悄悄传递的是 cls 引用作为参数。
+        def object_method(self):
+            """实例方法:
+            实例方法可以调用实例属性/方法以及类属性/方法"""
+            print("{}".format(self.__salary))
+
+        @staticmethod
+        def static_method1():
+            """用 @staticmethod 装饰的不带 self 参数的方法叫做静态方法，
+            类的静态方法可以没有参数，
+            可以直接使用类名调用, 也可以通过对象调用。
+            静态方法无隐含参数，主要为了类实例也可以直接调用静态方法
+            静态方法不可以调用类属性/方法或者实例属性/方法（或者说最好不要调用）
+            应用场景:
+            a. 当一个方法即不需要访问实例成员/方法,又不需要访问类的成员/方法
+            但又最好放在类的内部时 e.g.;
+            """
+            print("静态方法")
+            # print(Cat.__CLASS_NAME) # 最好不要调用
+            # Cat.class_method()
+        @staticmethod
+        def formate_date(date_str):
+            """格式化当前时间的
+            方法又仅在该类内部用到"""
+            return datetime.datetime.strptime(date_str, '%Y-%m-%d').date()
+
+        @classmethod
+        def class_method(cls):
+            """类方法: 默认有个 cls 参数，可以被类和对象调用，需要加上 @classmethod 装饰器
+            类方法隐含的参数为类本身 cls
+            类方法可以调用类属性/方法, 不能调用实例属性/方法
+            应用场景:
+            a. 当一个接口仅需要访问类属性/方法时, e.g. get_obj_cnt """
+            print("类方法 class:{} name:".format(cls.__class__), cls.__name__)
+            print(cls.__CLASS_NAME) # cls 参数可以直接访问类变量/类方法的
+
+        @classmethod
+        def get_obj_cnt(cls):
+            """类方法:
+            获取当前类的实例对象个数"""
+            return cls.__obj_cnt
+
+
+    cat = Cat()
+    cat.myself()
+    # cat.__get_salary() # ERROR:外部不可以调用类的私有方法
+    d = Cat() + Cat() # 类的运算符重载
+    d.myself()
+    cat.static_method1() # 类的静态方法可以没有参数，可以直接使用类名调用
+    Cat.static_method1() # 也可以通过对象调用
+    cat.class_method() # 类方法通过对象调用
+    Cat.class_method() # 类方法直接通过类名调用
+    print("Obj cnt:", Cat.get_obj_cnt())
+    print("time:", Cat.formate_date("2024-12-05"))
+    # 通过这个例子可以看出, self 和 实例化后的对象是一个东西
+    # 从执行结果可以很明显的看出，self 代表的是类的实例，代表当前对象的地址，
+    # 而 self.class 则指向类。
+    # self 不是 python 关键字，我们把他换成 runoob 也是可以正常执行的:
+    # 在 Python中，self 是一个惯用的名称，用于表示类的实例（对象）自身。它是一个指向实例的引用，
+    # 使得类的方法能够访问和操作实例的属性。
+    # 当你定义一个类，并在类中定义方法时，第一个参数通常被命名为 self，尽管你可以使用其他名称，
+    # 但强烈建议使用 self，“以保持代码的一致性和可读性”。
+    print("id:{}\ntype:{}\nclass:{}\n".format(id(cat), type(cat), cat.__class__))
+
+    # 多继承：
+    # 需要注意圆括号中父类的顺序，若是父类中有相同的方法名，而在子类使用时未指定，
+    # python从左至右搜索 即方法在子类中未找到时，从左到右查找父类中是否包含方法。
+
+    # super() 函数是用于调用父类(超类)的一个方法。
+    # super()函数是用于调用父类(超类)的一个方法。
+    # super()是用来解决多重继承问题的，直接用类名调用父类方法在使用单继承的时候没问题，
+    # 但是如果使用多继承，会涉及到查找顺序（MRO）、重复调用（钻石继承）等种种问题。MRO
+    # 就是类的方法解析顺序表, 其实也就是继承父类方法时的顺序表。
+    # Python3.x 和 Python2.x 的一个区别是:
+    # Python 3 可以使用直接使用 super().xxx 代替 super(Class, self).xxx :
+    class WildCat(Cat):
+        def __init__(self):
+            # # super(FooChild,self) 首先找到 FooChild 的父类（就是类 FooParent），
+            # 然后把类 FooChild 的对象转换为类 FooParent 的对象
+            super().__init__()
+
+        def eat(self, a, b):
+            # 先调用父类的方法, 然后再调用子类自己的方法
+            # 它会查找所有的超类，以及超类的超类，直到找到所需的特性为止。
+            super(WildCat, self).eat(a, b)
+            print("{} a:{} b:{}".format(self.__class__, a, b))
+            return a * b
+    # wc = WildCat()
+    # wc.eat(1, 2) #
+    # print(Cat.CLASS_TYPE) # 外部可以直接访问公有成员
+
+    # 类的专有方法:
+    # __init__: 构造函数，在生成对象时调用
+    # __del__: 析构函数，释放对象时使用
+    # __repr__: 打印，转换
+    # __setitem__: 按照索引赋值
+    # __getitem__: 按照索引获取值
+    # __len__: 获得长度
+    # __cmp__: 比较运算
+    # __call__: 函数调用
+    # __add__: 加运算
+    # __sub__: 减运算
+    # __mul__: 乘运算
+    # __truediv__: 除运算
+    # __mod__: 求余运算
+    # __pow__: 乘方
+    # __radd__: 加运算
+    # __rsub__: 减运算
+    # __rmul__: 乘运算
+    # __rdiv__: 除运算
+    # __rmod__: 求余运算
+    # __rpow__: 乘方
+    # 复合重载运算符：
+    # __iadd__: 加运算
+    # __isub__: 减运算
+    # __imul__: 乘运算
+    # __idiv__: 除运算
+    # __imod__: 求余运算
+    # __ipow__: 乘方
+
+if True: # 判断语句不会创建新的作用域, 因此 msg 成为全局变量
+    msg = "abc" # 全局变量
+    # int = 1 # 全局变量
+
+
+def namespace_test():
+    import builtins # 导入 python3 内置作用域的功能
+    print(dir(builtins)) #内置作用域中的变量
+
+    global msg
+    print(msg)
+    # 若没有使用 global 或 nonlocal 关键字对局部变量进行声明，
+    # 在局部作用域中，可以访问全局命名空间中的变量，不可对其进行赋值。
+
+    msg2 = "xyz" # 非局部变量, 对于下面的函数体来说
+    # 变量的搜索顺序：
+    # 局部 -> 非局部 -> 全局 -> 内建作用域
+    # int = 2
+    def var_search_seq():
+        print("int:", int)
+    var_search_seq()
+
+    def var_scope_test1():
+        """局部变量只能在其被声明的函数内部访问，而全局变量可以在整个程序范围内访问。
+        调用函数时，所有在函数内声明的变量名称都将被加入到局部作用域中。"""
+        msg = "def" # 局部变量
+        print("local:", msg)
+    var_scope_test1()
+    print("global:", msg) # 全局变量
+
+    def var_scope_test2():
+        global msg # # 需要使用 global 关键字声明
+        msg = "ghi"
+    var_scope_test2()
+    print("global:", msg) # 全局变量
+
+    def var_scope_test3():
+        nonlocal msg2  # nonlocal关键字声明
+        # 关于多层嵌套函数中，用 nonlocal 关键字声明的变量只影响上一层的变量，再外一层的不受影响，
+        print("nonlocal:", msg2)
+    var_scope_test3()
+
+def python_stdlib_test():
+    """Python3 标准库概览
+    以上我们看到的只是 Python3 标准库中的一部分模块，
+    还有很多其他模块可以在官方文档中查看完整的标准库文档：
+    https://docs.python.org/zh-cn/3/library/index.html"""
+    import sys # sys 模块提供了与 Python 解释器和系统相关的功能，例如解释器的版本和路径，以及与 stdin、stdout 和 stderr 相关的信息。
+    import os # os 模块提供了许多与操作系统交互的函数，例如创建、移动和删除文件和目录，以及访问环境变量等。
+    import time # time 模块提供了处理时间的函数，例如获取当前时间、格式化日期和时间、计时等。
+    import datetime # datetime 模块提供了更高级的日期和时间处理函数，例如处理时区、计算时间差、计算日期差等
+    import random # random 模块提供了生成随机数的函数，例如生成随机整数、浮点数、序列等。
+    import math # math 模块提供了数学函数，例如三角函数、对数函数、指数函数、常数等。
+    import re # re 模块提供了正则表达式处理函数，可以用于文本搜索、替换、分割等。
+    import json # json 模块提供了 JSON 编码和解码函数，可以将 Python 对象转换为 JSON 格式，并从 JSON 格式中解析出 Python 对象。
+    import urllib # urllib 模块提供了访问网页和处理 URL 的功能，包括下载文件、发送 POST 请求、处理 cookies 等。
+    import shutil # 针对日常的文件和目录管理任务，:mod:shutil 模块提供了一个易于使用的高级接口:
+    import glob # glob 模块提供了一个函数用于从目录通配符搜索中生成文件列表
+    from urllib.request import urlopen # 理从 urls 接收的数据的 urllib.request
+    import smtplib #发送电子邮件的 smtplib
+    import zlib # 以下模块直接支持通用的数据打包和压缩格式：zlib，gzip，bz2，zipfile，以及 tarfile。
+    from timeit import Timer # timeit事件度量库
+    import pstats # pstats 模块提供了针对更大代码块的时间度量工具。
+    import doctest
+    import unittest
+
+    # import sys # 系统相关模块
+    # sys 模块提供了与 Python 解释器和系统相关的功能，例如解释器的版本和路径，
+    # 以及与 stdin、stdout 和 stderr 相关的信息。
+    print(sys.argv) # 是一个 list,包含所有的命令行参数.
+    print(repr(sys.stdout)) # 分别表示标准输入输出,错误输出的文件对象.
+    print(repr(sys.stdin))
+    print(repr(sys.stderr))
+    # print(sys.stdin.readline()) # 从标准输入读一行
+    sys.stdout.write("a\n")
+    # sys.exit(-1) # 退出程序(大多脚本的定向终止都使用 sys.exit())
+    print("available moudls", sys.modules) # 是一个dictionary，表示系统中所有可用的module
+    print(sys.platform) # 得到运行的操作系统环境
+    print(sys.path) # sys.path 是一个list,指明所有查找module，package的路径
+
+    # import os # 操作系统相关的调用和操作
+    # os 模块提供了许多与操作系统交互的函数，例如创建、移动和删除文件和目录，以及访问环境变量等。
+    print("environ", os.environ) # 一个 dictionary 包含环境变量的映射关系
+    print("environment PATH", os.environ["PATH"]) # 可以得到环境变量HOME的值
+    directory = "."
+    os.chdir(directory) # 改变当前目录 os.chdir('d:\\outlook') 注意windows下用到转义
+    print("current working directory", os.getcwd()) # 得到当前目录
+    # print("egid:{} gid:".format(os.getegid(), os.getgid())) # 得到有效组id/组 id
+    # print("euid:{} uid:{}".format(os.geteuid(), os.getuid())) # 得到用户/有效用户id
+    # print("groups:", os.getgroups()) # 得到用户组名称列表
+    print("login:", os.getlogin()) # 到用户登录名称
+    print("env path:",os.getenv("PATH")) # 得到环境变量
+    # os.putenv("") # 设置环境变量
+    # print("umask", os.umask()) # 设置umask(Set the current numeric umask and return the previous umask)
+    # os.system("dir") # 利用系统调用，运行cmd命令
+    print("dirs:", os.listdir())
+
+    # 内置模块(不用import就可以直接使用)常用内置函数：
+    # help(object) # 在线帮助, obj可是任何类型
+    print("callable:", callable(object)) # 查看一个obj是不是可以像函数一样调用
+    # print(repr(object)) # 得到obj的表示字符串，可以利用这个字符串eval重建该对象的一个拷贝
+
+    # shutil
+    # shutil.copy("foo.txt", 'archive.db')
+    # shutil.move('foo.txt', 'foo2.txt')
+
+    # glob
+    print(glob.glob('*.py'))
+
+    # re
+    # 如果只需要简单的功能，应该首先考虑字符串方法，因为它们非常简单，易于阅读和调试:
+    re.findall(r'\bf[a-z]*', 'which foot or hand fell fasttest')
+
+    print("supported functions:", dir(math)) # 打印模块里定义过得名字
+    # math 模块为浮点运算提供了对底层 C 函数库的访问:
+    print("PI:",math.pi)
+    print("sample:", random.sample(range(100), 10))
+
+    # 有几个模块用于访问互联网以及处理网络通信协议。
+    # 其中最简单的两个是用于处理从 urls 接收的数据的 urllib.request 以及
+    # 用于发送电子邮件的 smtplib:
+    # for line in urlopen("https://www.baidu.com"):
+    #     line = line.decode('utf-8') # # Decoding the binary data to text.
+    #     if 'EST' in line or 'EDT' in line: # look for Eastern Time
+    #         print(line)
+    #     print("url recv:", line)
+
+    # 需要本地有一个在运行的邮件服务器。
+    # server = smtplib.SMTP('localhost')
+    # server.sendmail('soothsayer@example.org', 'jcaesar@example.org',
+    #                 """To: jcaesar@example.org
+    #                 From: soothsayer@example.org
+    #
+    #                 Beware the Ides of March.
+    #                 """)
+
+    # datetime:
+    print(datetime.datetime.now())
+    print(type(datetime.datetime.today()))
+    now = datetime.datetime.today()
+    print(now.strftime("%Y-%m-%d %H:%M:%S")) # 格式化日期
+    birthday = datetime.date(1998, 2, 15) # 该模块还支持时区处理
+    # now = datetime.date()
+    print("now:", repr(now))
+    print("%d-%d-%d" % (now.year, now.month, now.day))
+    # now = datetime.date(datetime.date.year, month=datetime.date.month, day=datetime.date.day)
+    today = datetime.date(now.year, month=now.month, day=now.day)
+    diff = today - birthday
+    print("lived days:", diff.days, diff) # 返回天数
+    today = datetime.date.today() # 今天
+    timestamp = time.time() # 当前时间戳
+    print("today", today)
+    yesterday = today - datetime.timedelta(days=1) # 昨天
+    print("yesterday", yesterday)
+    last_month = today.month - 1 if today.month - 1 else 12
+    print("last_month:", last_month) # 上个月时间戳
+    print("timestamp:", timestamp)
+    print("date:", datetime.datetime.fromtimestamp(timestamp)) # 时间戳转datetime
+    print("timestamp:", time.mktime(today.timetuple())) # datetime转时间戳
+    today_str = today.strftime("%Y-%m-%d") # datetime转字符串
+    print("today str:", today_str)
+    today = datetime.datetime.strptime(today_str, "%Y-%m-%d") # 字符串转datetime
+    print("东八区:", today + datetime.timedelta(hours=8)) # 补时差
+
+    s = b'witch whish has which witches wrist watch 111111111111111111111111111111111111'
+    print("len:", len(s))
+    print("checksum:", zlib.crc32(s)) # CRC-32 checksum of data.
+    pressed = zlib.compress(s)
+    print("compressed size:", len(pressed))
+    decompressed = zlib.decompress(pressed)
+    print("decompress:", decompressed)
+    print("checksum:", zlib.crc32(decompressed))
+
+    # timeit(python 内置模块, 无需单独安装)
+    # timeit 模块用于测试一小段代码的执行时间, 可以用于测试性能问题
+    # TODO: 其他性能测试模块 pstats 和 cProfile
+    list_stmt = "[x for x in range(1000)]" # 测试代码
+    generator_stmt = "(x for x in range(1000))"
+    setup = "pass" # 没有额外的初始化代码
+    number = 10000 # 代码要重复执行的次数
+    list_execution_time = timeit.timeit(list_stmt, setup, number=number)
+    print('execution_time: %f seconds' % list_execution_time)
+    # repeat() 方法会返回一个列表，其中包含多次测量的结果，以便更好地评估代码性能。其基本语法为：
+    generator_execution_time = timeit.repeat(list_stmt, setup, repeat=3, number=number)
+    print('execution_time: {} seconds'.format(generator_execution_time))
+
+    # 测试模块
+    # doctest模块提供了一个工具，扫描模块并根据程序中内嵌的文档字符串执行测试。
+    # https://docs.python.org/zh-cn/3.12/library/doctest.html
+    # C++ doctest:
+    # https://blog.csdn.net/liao20081228/article/details/76984975
+    def average(value):
+        """
+        Computes the arithmetic mean of a list of numbers.
+        >>> print(average([x for x in range(10000)]))
+        40.0
+        """
+        return sum(value) / len(value)
+    # doctest.testmod() # # 自动验证嵌入测试
+    average([x for x in range(10000)])
+    # unittest
+    # unittest模块不像 doctest模块那么容易使用，不过它可以在一个独立的文件里提供一个更全面的测试集:
+    class TestStatisticalFunctions(unittest.TestCase):
+        """测试用例"""
+        def test_average(self):
+            self.assertEqual(average([20, 30, 70]), 40.0)
+            self.assertEqual(round(average([1, 5, 7]), 1), 4.3)
+            self.assertRaises(ZeroDivisionError, average, [])
+            self.assertRaises(TypeError, average, 20, 30, 70)
+    # TestStatisticalFunctions()
+    # unittest.main()
 
 if __name__ == '__main__':
     # base_info()
@@ -1179,10 +1675,10 @@ if __name__ == '__main__':
     # module_base_test()
     # package_base_test()
     # file_op_base_test()
-    os_base_test()
-
-
-
-
+    # os_base_test()
+    # exception_base_test()
+    # oob_base_test()
+    # namespace_test()
+    python_stdlib_test()
 else:
     print("我来自另一模块")

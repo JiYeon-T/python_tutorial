@@ -21,7 +21,7 @@ def pyqt_test1():
 
     window.show()
 
-    app.exec_() #死循环，等待, 除法按下结束才会关闭
+    app.exec_() #死循环，等待, 除非按下结束才会关闭
     print(" exit")
 
 def pyqt5_loop_test():

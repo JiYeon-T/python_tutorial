@@ -1,98 +1,87 @@
-#import multiprocessing
-import os, sys
-import threading as th
-import queue, time, random
-# 所谓条件变量，即这种机制是在满足了特定的条件后，线程才可以访问相关的数据。
-# 有: Condition 類實現
-# acquire(), release(), wait(), notify(), notifyall() 等方法
+"""
+一个简单的生产消费者模型，通过条件变量的控制产品数量的增减，调用一次生产者产品就是+1，调用一次消费者产品就会-1.
+"""
+ 
+"""
+使用 Condition 类来完成，由于它也可以像锁机制那样用，所以它也有 acquire 方法和 release 方法，而且它还有
+wait， notify， notifyAll 方法。
+"""
+ 
+import threading
+import queue,time,random
+ 
+class Goods(object):
+    """产品类"""
+    def __init__(self):
+        self.count = 0
 
-# 商品類
-class Goods():
-	def __init__(self):
-		self.count = 0
+    def __add__(self, num = 1):
+        """定义魔法方法, 重载运算符 +
+        :return 这个魔法方法必须要返回自己, self"""
+        self.count += num
+        return self
 
-	def add(self, num=1):
-		self.count += num
+    def __sub__(self, num = 0):
+        """定义魔法方法, 重载运算符 -
+        :return 这个魔法方法必须要返回自己, self"""
+        if self.count>=0:
+            self.count -= num
+        return self
 
-	def sub(self, num=1):
-		self.count -= num
+    def empty(self):
+        return self.count <= 0
+ 
+class Producer(threading.Thread):
+    """生产者类"""
+    def __init__(self, condition, goods, sleeptime = 1):#sleeptime=1
+        threading.Thread.__init__(self)
+        self.cond = condition
+        self.goods = goods
+        self.sleeptime = sleeptime
 
-	def empty(self):
-		return self.count <= 0
+    def run(self):
+        cond = self.cond
+        goods = self.goods
+        while True:
+            cond.acquire()#锁住资源
+            goods = goods + 1
+            print("产品数量:", goods.count, "生产者线程")
+            cond.notifyAll() #唤醒所有等待的线程--》其实就是唤醒消费者进程
+            cond.release() #解锁资源
+            time.sleep(self.sleeptime)
+ 
+class Consumer(threading.Thread):#消费者类
+    def __init__(self, condition, goods, sleeptime = 2):#sleeptime=2
+        threading.Thread.__init__(self)
+        self.cond = condition
+        self.goods = goods
+        self.sleeptime = sleeptime
 
-# 使用生產者 - 消費者模式
-# 生產這 類
-class Producer(th.Thread):
-	def __init__(self, condition, goods, sleeptime=1):
-		th.Thread.__init__(self)
-		self.cond = condition	# 通知（條件）
-		self.goods = goods		# 商品
-		self.sleeptime = sleeptime
+    def run(self):
+        cond = self.cond
+        goods = self.goods
+        while True:
+            time.sleep(self.sleeptime)
+            cond.acquire()#锁住资源
+            while goods.empty():#如无产品则让线程等待
+                cond.wait()
+            goods -= 1
+            print("产品数量:",goods.count,"消费者线程")
+            cond.release()#解锁资源
 
-	def run(self):
-		# 這裏爲什麼要吧數據拷貝出來呢 ？？？
-		cond = self.cond	# 拷貝數據
-		goods = self.goods
-		while True:
-			# cond 不是共享的資源，爲什麼要鎖住呢？？？？
-			# 應該是： self.cond.acquire()
-			############################################
-			cond.acquire()	# 鎖住資源
-			goods.add()		# self.goods.add() 不應該是這樣嗎
-			print("產品數量:", goods.count, "生產者線程")
-			cond.notifyAll()		# 喚醒所有等待的線程（消費者線程）
-			############################################
-			time.sleep(self.sleeptime)
-
-# 消費者 類
-class Consumer(th.Thread):
-	def __init__(self, condition, goods, sleeptime=2):	# 
-		th.Thread.__init__(self)	# call parent's constructor
-		self.cond = condition
-		self.goods = goods
-		self.sleeptime = sleeptime
-
-	def run(self):
-		# 爲什麼要拷貝出來呢
-		cond = self.cond
-		goods = self.goods
-		while True:
-			time.sleep(self.sleeptime)
-			cond.acquire()		# 鎖住資源
-			# 等待產品的產生，沒有就等待
-			while goods.empty():
-				cond.wait()			# 線程阻塞在這裏
-			# 有產品出現， 這裏是要執行的操作
-			############################################
-			goods.sub()
-			print("產品數量:", goods.count, "消費者線程")
-			############################################
-			cond.release()		# 釋放資源
-
-good = Goods()
-# 創建一個通知，用於在消費者 和 通知這之間 流通
-condition = th.Condition()	# 通知
-
-# 創建生產者對象
-pro = Producer(condition, good)
-pro.start()
-
-# 創建消費者對象
-con = Consumer(condition, good)
-con.start()
+g = Goods()
+c = threading.Condition()
 
 if __name__ == '__main__':
-	pass
+    pro = Producer(c, g)
+    pro.start()
 
+    con = Consumer(c, g, sleeptime=0.5)
+    con.start()
 
-
-
-
-
-
-
-
-
-
-
-	
+    # print(type(g))
+    # if isinstance(g, Goods):
+    #     print("True")
+    # else:
+    #     print("False")
+    # print(type(g), repr(g.count))

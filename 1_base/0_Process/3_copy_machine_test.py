@@ -1,7 +1,7 @@
 import os
 import time
 import multiprocessing as mp
-import _thread	# 縣城操作庫
+import _thread # 线程操作庫
 import sys
 # task:多進程，高並發的拷貝
 
