@@ -1,0 +1,12 @@
+Fri 15 Apr 2022 15:04:51 INFO test2.py 8 8076 test2 info log
+Fri 15 Apr 2022 15:04:51 WARNING test2.py 9 8076 test2 warning log
+Fri 15 Apr 2022 15:04:51 ERROR test2.py 10 8076 test2 error log
+Fri 15 Apr 2022 15:04:51 CRITICAL test2.py 11 8076 test2 critical log
+Fri 15 Apr 2022 15:05:21 INFO test2.py 9 9228 test2 info log
+Fri 15 Apr 2022 15:05:21 WARNING test2.py 10 9228 test2 warning log
+Fri 15 Apr 2022 15:05:21 ERROR test2.py 11 9228 test2 error log
+Fri 15 Apr 2022 15:05:21 CRITICAL test2.py 12 9228 test2 critical log
+Fri 15 Apr 2022 15:05:52 INFO test2.py 9 11700 test2 info log
+Fri 15 Apr 2022 15:05:52 WARNING test2.py 10 11700 test2 warning log
+Fri 15 Apr 2022 15:05:52 ERROR test2.py 11 11700 test2 error log
+Fri 15 Apr 2022 15:05:52 CRITICAL test2.py 12 11700 test2 critical log
