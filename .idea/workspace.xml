@@ -20,7 +20,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.2_lock_test">
+  <component name="RunManager" selected="Python.poco_test">
     <configuration name="0_class" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="python_tutorial" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -128,11 +128,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.poco_test" />
         <item itemvalue="Python.2_lock_test" />
         <item itemvalue="Python.0_class" />
         <item itemvalue="Python.2_thread_test" />
         <item itemvalue="Python.1_GIL" />
-        <item itemvalue="Python.poco_test" />
       </list>
     </recent_temporary>
   </component>

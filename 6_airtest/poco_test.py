@@ -14,7 +14,8 @@ def poco_api_test():
     dev = Android(serialno='SWF6HMQ44XGQHYTS')
     dev.start_app(package="win.lcfactory.bluetooth")
     sleep(3)
-    poco = AndroidUiautomationPoco(use_airtest_input=True,
+    poco = AndroidUiautomationPoco(device=dev,
+                                   use_airtest_input=True,
                                    screenshot_each_action=False) # Android porject
     poco.device.wake()
 
