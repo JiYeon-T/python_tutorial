@@ -8,7 +8,8 @@ import threading as th
 #     pass
 # finally:
 #     lock.release()
-# 方法2:实现了 __enter__() 和 __exit__() 就可以使用 with
+
+# 方法2:实现了 __enter__() 和 __exit__() 就可以使用 with 关键字
 # with lock:
 #     pass
 import time

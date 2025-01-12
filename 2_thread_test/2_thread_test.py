@@ -16,7 +16,7 @@ def transfer():
     for ix in range(2000000):
         account.increase(1)
 
-th1 = th.Thread(target=transfer)    # 多线程共享变量会出问题
+th1 = th.Thread(target=transfer) # 多线程共享变量存在竞争问题, 不可以直接使用
 th2 = th.Thread(target=transfer)
 th1.start()
 th2.start()

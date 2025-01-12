@@ -3,7 +3,7 @@ import time
 
 
 class Client(th.Thread):
-    g_balance = 1000
+    g_balance = 0 # 类变量
     g_balance_lock = th.Lock()
     def __init__(self):
         super().__init__()
@@ -13,13 +13,13 @@ class Client(th.Thread):
         pass
 
     def run(self):
-        while True:
+        for i in range(2000000):
             self.g_balance_lock.acquire()
-            self.g_balance += 1
-            print(f"{th.current_thread().ident}:{self.g_balance}")
+            Client.g_balance += 1
+            # print(f"pid:{th.current_thread().ident}:{self.g_balance}")
             self.g_balance_lock.release()
-            time.sleep(2)
-
+        else:
+            print(Client.g_balance)
 
 if __name__ == '__main__':
     a = Client()
@@ -30,3 +30,5 @@ if __name__ == '__main__':
     b.start()
     a.join()
     b.join()
+    time.sleep(5)
+    print(a.g_balance)

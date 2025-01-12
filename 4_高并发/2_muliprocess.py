@@ -7,3 +7,7 @@ import multiprocessing as mp
 # 可以实现信号与槽在多个线程中的相互传递数据。
 # 用法很简单，创建一个进程类，不同触发时刻分别调用即可。
 
+# TODO: python 多进程实现以及应用
+# python multiprocessing:
+# https://docs.python.org/zh-cn/3/library/multiprocessing.html
+
