@@ -3,14 +3,12 @@ import math
 import os
 import time
 import datetime
+
 # 导入模块
 # 将整个模块(somemodule)导入，格式为： import somemodule
 # 从某个模块中导入某个函数,格式为： from somemodule import somefunction
 # 从某个模块中导入多个函数,格式为： from somemodule import firstfunc, secondfunc, thirdfunc
 # 将某个模块中的全部函数导入，格式为： from somemodule import *
-
-
-
 
 
 # https://www.runoob.com/python3/python3-basic-syntax.html
@@ -28,15 +26,14 @@ def base_info():
     item1 = 1
     item2 = 2
     item3 = 3
-    sum = item1 + \
-          item2 + \
+    sum = item1 + 2 + 3 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10 + 11 + 12 + \
+          item2 + 2 + 3 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10 + 11 + 12 + \
           item3
-
-
+    print(f"sum = {sum}")
 
     # Python 中的字符串有两种索引方式，从左往右以 0 开始，从右往左以 -1 开始。
-    # name = "Lebron James"
-    # print("first:{} last:{}".format(name[0], name[-1]))
+    name = "Lebron James"
+    print("first:{} last:{}".format(name[0], name[-1]))
 
 def str_op():
     """字符串操作测试"""
@@ -54,7 +51,7 @@ def str_op():
     print("This is a new line\nline 2")
     print(r"This is a new line\nline 2") # 反斜杠可以用来转义，使用 r (raw)可以让反斜杠不发生转义
 
-    print("\110")#特殊字符:\yyy 八进制数，y 代表 0~7 的字符，例如：\012 代表换行。
+    print("\110") #特殊字符:\yyy 八进制数，y 代表 0~7 的字符，例如：\012 代表换行。
     print("\x0A") #\x 16进制表示
 
     print("hello python".capitalize()) #将字符串的第一个字符转换为大写
@@ -252,7 +249,39 @@ def list_base_test():
     print(b)
 
     #列表推导式 [表达式 for 变量 in 列表] 或者 [表达式 for 变量 in 列表 if 条件]
-    print(["ELEM:" + str(x) for x in e])
+    def list_tuidao():
+        print(["ELEM:" + str(x) for x in e])
+        print(["result:"+str(i) for i in range(100) if i % 3 == 0 and i % 10 == 0], end="\n\n")
+    list_tuidao()
+
+    def index_val_test():
+        # 在序列中遍历时，索引位置和对应值可以使用 enumerate() 函数同时得到：
+        for i, v in enumerate([1, 2, 3]):
+            print("i:{} v:{}".format(i, v))
+    # index_val_test()
+
+    # 同时遍历两个或更多的序列，可以使用 zip() 组合：
+    def traverse_more_seq():
+        for p, q in zip([1, 2, 3], [4, 5, 6, 7, 8, 9]):
+            print(p, q)
+        print("\n\n")
+    # traverse_more_seq() # 也仅遍历前 3 个元素, 因为 seq1 只有三个元素
+
+    # 要反向遍历一个序列，首先指定这个序列，然后调用 reversed() 函数
+    def reverse_transverse():
+        for i in reversed(range(1, 10, 2)):
+            print(i, end=",")
+        print("\n\n")
+    # reverse_transverse()
+
+    # 按顺序遍历可以使用 sorted(), 返回一个已排序的序列，并不修改原值
+    def sorted_traverse():
+        print(f"before:{a}")
+        a[0] = 100
+        for i in sorted(a):
+            print(i, end=",")
+        print("\n\n")
+    sorted_traverse()
 
 def tuple_base_test():
     """元组测试
@@ -470,49 +499,64 @@ def bytes_base_test():
 
 def var_type_change():
     """Python数据类型转换"""
-    # print(int()) # int(x[, base]) # 将x转换为一个整数
-    # print(int(3))
-    # print(int(3.6))
-    # print(int('12', base=16)) # 如果是带参数base的话，12要以字符串的形式进行输入，12 为 16进制
-    # print(int('0x0A', base=16)) # 如果 base
-    # print('10', 8)
+    def var_test():
+        # print(int()) # int(x[, base]) # 将x转换为一个整数
+        # print(int(3))
+        # print(int(3.6))
+        # print(int('12', base=16)) # 如果是带参数base的话，12要以字符串的形式进行输入，12 为 16进制
+        # print(int('0x0A', base=16)) # 如果 base
+        # print('10', 8)
 
-    print(float(1)) #float(x) 将x转换到一个浮点数
-    print(float(-123))
+        print(float(1)) #float(x) 将x转换到一个浮点数
+        print(float(-123))
 
-    print(1 + 2j) # complex(real [,imag]) 创建一个复数
-    print(complex("1+2j")) # 注意：这个地方在"+"号两边不能有空格，也就是不能写成"1 + 2j"，应该是"1+2j"，否则会报错
+        print(1 + 2j) # complex(real [,imag]) 创建一个复数
+        print(complex("1+2j")) # 注意：这个地方在"+"号两边不能有空格，也就是不能写成"1 + 2j"，应该是"1+2j"，否则会报错
 
-    print(str(set([1, 2, 3])))# str(x) 将对象 x 转换为字符串
+        print(str(set([1, 2, 3])))# str(x) 将对象 x 转换为字符串
+    # var_test()
 
-    z = {"1":"11111111111"}
-    print(repr(z)) # TODO:repr(x) 将对象 x 转换为表达式字符串
-    print(repr.__doc__)
-    # 关于 str() 和 repr() 的区别
-    # str()和repr()输出的都是 str 类型
-    # 但是 str() 更注重可读性，repr() 更注重数据本身的信息:
-    #  str() 的输出追求可读性，输出格式要便于理解，适合用于输出内容到用户终端。
-    #  repr() 的输出追求明确性，除了对象内容，还需要展示出对象的数据类型信息，适合开发和调试阶段使用。
-    now = time.time()
-    print(str(now))
-    print(repr(now))
+    def repr_test():
+        """"""
+        from datetime import datetime
+        z = {"1":"11111111111"}
+        print(repr(z)) # TODO:repr(x) 将对象 x 转换为表达式字符串
+        print(repr.__doc__)
+        # 关于 str() 和 repr() 的区别
+        # str()和repr()输出的都是 str 类型
+        # 但是 str() 更注重可读性，repr() 更注重数据本身的信息:
+        #  str() 的输出追求可读性，输出格式要便于理解，适合用于输出内容到用户终端。
+        #  repr() 的输出追求明确性，除了对象内容，还需要展示出对象的数据类型信息，适合开发和调试阶段使用。
+        now = time.time()
+        print(str(now))
+        print(repr(now))
+        present = datetime.now()
+        print(f"str:{str(present)}")
+        print(f"repr:{repr(present)}", end="\n\n")
+    repr_test()
 
-    x = 5
-    print(eval("1 + 3 * x"))# TODO:eval(str) 用来计算在字符串中的有效Python表达式,并返回一个对象
-    # 注意： eval() 函数执行的代码具有潜在的安全风险。
-    # 如果使用不受信任的字符串作为表达式，则可能导致代码注入漏洞，因此，应谨慎使用 eval() 函数，并确保仅执行可信任的字符串表达式。
+    def eval_test():
+        # 注意： eval() 函数执行的代码具有潜在的安全风险。
+        # 如果使用不受信任的字符串作为表达式，则可能导致代码注入漏洞，
+        # 因此，应谨慎使用 eval() 函数，并确保仅执行可信任的字符串表达式。
+        x = 5
+        print(eval("1 + 3 * x"))# TODO:eval(str) 用来计算在字符串中的有效Python表达式,并返回一个对象
+    # eval_test()
 
     # tuple() # 起始就是这些数据类型的构造函数
     # list()
     # set()
     # dict()
 
-    h = frozenset([1, 2, 3, 4, 5]) # frozenset() 返回一个冻结的集合，冻结后集合不能再添加或删除任何元素。
+    # frozenset() 返回一个冻结的集合，冻结后集合不能再添加或删除任何元素。
+    h = frozenset([1, 2, 3, 4, 5])
 
-    print(chr(65)) # chr(x) 将一个整数转换为一个字符
-    print(ord('a')) # ord(x) 将一个字符转换为它的整数值
-    print(hex(ord('a'))) # ord(x) 将一个字符转换为它的整数值
-    print(oct(ord('a'))) # oct(x) 将一个整数转换为一个八进制字符串
+    def character_display_test():
+        print(f"char:{chr(32)}") # chr(x) 将一个整数转换为一个字符
+        print(f"ord:{ord('a')}") # ord(x) 将一个字符转换为它的整数值
+        print(f"""hex:{hex(ord('a'))}""") # ord(x) 将一个字符转换为它的整数值
+        print(f"""oct:{(ord('a'))}""", end="\n\n") # oct(x) 将一个整数转换为一个八进制字符串
+    character_display_test()
 
 def operator_base_test():
     """运算符测试"""
@@ -688,31 +732,48 @@ def condition_control_test():
         print("[{}]={}".format(i, j), sep=",", end=",")
     print("")
 
+def python_comprehension():
+    """"""
     # Python 推导式:Python 支持各种数据结构的推导式：
     # 列表(list)推导式
+    # [表达式 for 变量 in 列表]
+    # [out_exp_res for out_exp in input_list] 或者 :
+    # [表达式 for 变量 in 列表 if 条件]
+    # [out_exp_res for out_exp in input_list if condition]
     names = ["ABCD", "E", "Alice", "Bob", "Angel"]
     new_names = [name.upper() for name in names if len(name) > 3]
-    print(new_names)
+    print(new_names, sep=",", end="\n\n")
+
     # 计算 30 以内可以被 3 整除的整数
     b = [i for i in range(30) if i % 3 == 0]
-    print(b)
+    print(b, end="\n\n")
+
     # 字典(dict)推导式
-    c = {key:len(key) for key in names}
-    print(c)
+    # { key_expr: value_expr for value in collection } 或:
+    # { key_expr: value_expr for value in collection if condition }
+    c = {key:len(key) for key in names if len(key) >= 3}
+    print(f"{type(c)}") # <class 'dict'>
+    print(c, end="\n\n")
     # 平方字典
-    d = {i:i**2 for i in range(100) if i % 3 == 0}
-    print(d)
+    d = {i:i**2 for i in range(5) if i % 3 == 0}
+    print(d, end="\n\n")
 
     # 集合(set)推导式
+    # { expression for item in Sequence } 或:
+    # { expression for item in Sequence if conditional }
     e = {i**2 for i in (1, 2, 3)}
-    print(e)
-    f = {char for char in 'abcdefghijklmnopq' if char not in 'aeiou'} # 集合无序的
-    print(f)
+    print(f"type:{type(e)}")  # type:<class 'set'>
+    print(e, end="\n\n")
+    # if
+    f = {char for char in 'abcdefghijklmnopq' if char not in 'aeiou'}  # 集合无序的
+    print(f, end="\n\n")
 
     # 元组(tuple)推导式
-    g = (x+1 for x in range(10) if x % 3 == 0) # 返回的是生成器对象
-    print(tuple(a)) # 使用 tuple() 函数，可以直接将生成器对象转换成元组
-
+    # (expression for item in Sequence ) 或：
+    # (expression for item in Sequence if conditional )
+    g = (x**2 for x in range(10) if x % 3 == 0)  # 元组推导式返回的是生成器对象
+    print(type(g), g, sep=", ") # <generator object python_comprehension.<locals>.<genexpr> at 0x000001E79FC98120>
+    print(tuple(g), end="\n\n") # 使用 tuple() 函数，可以直接将生成器对象转换成元组
 
 def iterator_base_test():
     """Python3 迭代器与生成器
@@ -728,41 +789,54 @@ def iterator_base_test():
     it = iter(a) # 创建迭代器对象
     print(next(it)) # 输出迭代器的下一个元素
 
-    # for x in it: # 通过迭代器进行遍历
+    # for x in it: # 迭代器可以通过 for 进行遍历
     #     print(x, end="  ")
     while True:
         try:
-            print(next(it))
+            print(next(it), end=",")
         except StopIteration: # StopIteration 异常用于标识迭代的完成，防止出现无限循环的情况，在 __next__() 方法中我们可以设置在完成指定循环次数后触发 StopIteration 异常来结束迭代。
-            print("iter end")
+            print("iter end", end="\n\n")
             # sys.exit()
             break
 
     class Number(object):
-        """实现一个迭代器数字类"""
+        """实现一个迭代器数字类，实现 __iter__ 和 __next__ 方法即可"""
+        def __init__(self, max=10):
+            self.max = max
+            print("iter init")
 
         def __iter__(self):
+            """
+            当显示调用 iter() 方法或者使用 for 循环遍历的时候会调用 __iter__ 方法
+            :return 返回迭代器对象
+            """
             self.a = 1
+            print("iter started")
             return self
 
         def __next__(self):
-            if self.a <= 20:
+            if self.a <= self.max:
+                print("iter iterated")
                 x = self.a
                 self.a += 1
                 return x
-            else:
+            else: # 通过触发该异常来表示迭代结束
+                print("iter stopped")
                 raise StopIteration
-    num = Number()
-    it2 = iter(num)
-    # print("Number:{}".format(next(it2)))
-    # print("Number:{}".format(next(it2)))
-    # print("Number:{}".format(next(it2)))
-    for i in it2:
-        print("Number:{}".format(i), end=",")
-    print("")
+
+    def self_iter_test():
+        """自己写的迭代器测试"""
+        num = Number(max=10)
+        # it2 = iter(num)
+        # for i in it2:
+        for i in num:
+            print("{}".format(i), end=",")
+
+    self_iter_test()
 
     # 生成器:在 Python 中，使用了 yield 的函数被称为生成器（generator）。
-    # yield 是一个关键字，用于定义生成器函数，生成器函数是一种特殊的函数，可以在迭代过程中逐步产生值，而不是一次性返回所有结果。
+    # yield 是一个关键字，用于定义生成器函数，生成器函数是一种特殊的函数，可以在迭代过程中逐步产生值，
+    # 而不是一次性返回所有结果。
     # 跟普通函数不同的是，生成器是一个返回迭代器的函数，只能用于迭代操作，更简单点理解生成器就是一个迭代器。
     # 当在生成器函数中使用 yield 语句时，函数的执行将会暂停，并将 yield 后面的表达式作为当前迭代的值返回。
     # 然后，每次调用生成器的 next() 方法或使用 for 循环进行迭代时，函数会从上次暂停的地方继续执行，直到再次遇到 yield 语句。这样，生成器函数可以逐步产生值，而不需要一次性计算并返回所有结果。
@@ -771,9 +845,11 @@ def iterator_base_test():
     # 下面是一个简单的示例，展示了生成器函数的使用：
     # 如教程所说，迭代器和生成器算是 Python 一大特色，其核心是基于迭代器协议来的。
     # 而平时我们经常使用的 for in 循环体，本质就是迭代器协议的一大应用。
-    # 同时 Python 内置的集合类型（字符、列表、元组、字典）都已经实现了迭代器协议，所以才能使用 for in 语句进行迭代遍历。for in 循环体在遇到 StopIteration 异常时，便终止迭代和遍历。
+    # 同时 Python 内置的集合类型（字符、列表、元组、字典）都已经实现了迭代器协议，
+    # 所以才能使用 for in 语句进行迭代遍历。for in 循环体在遇到 StopIteration 异常时，便终止迭代和遍历。
     # 再说下可迭代、迭代器、生成器三个概念的联系和区别。
-    # 1、可迭代概念范围最大，生成器和迭代器肯定都可迭代，但可迭代不一定都是迭代器和生成器，比如上面说到的内置集合类数据类型。可以认为，在 Python 中，只要有集合特性的，都可迭代。
+    # 1、可迭代概念范围最大，生成器和迭代器肯定都可迭代，但可迭代不一定都是迭代器和生成器，
+    # 比如上面说到的内置集合类数据类型。可以认为，在 Python 中，只要有集合特性的，都可迭代。
     # 2、迭代器，迭代器特点是，均可以使用 for in 和 next 逐一遍历。
     # 3、生成器，生成器一定是迭代器，也一定可迭代。
     # 至于 Python 中为何要引入迭代器和生成器，除了节省内存空间外，也可以显著提升代码运行速度。
@@ -784,24 +860,160 @@ def iterator_base_test():
     # 在斐波那契数列生成器函数中，每次执行到 yield a 时，都会生成当前数列的第一个数字 a 并返回给
     # 调用方。
     def countdown(n):
-        """countdown 函数是一个生成器函数。它使用 yield 语句逐步产生从 n 到 1 的倒数数字。
+        """countdown 函数是一个生成器函数。
+        它使用 yield 语句逐步产生从 n 到 1 的倒数数字。
         在每次调用 yield 语句时，函数会返回当前的倒数值，并在下一次调用时从上次暂停的地方继续执行。
-        通过创建生成器对象并使用 next() 函数或 for 循环迭代生成器，我们可以逐步获取生成器函数产生的值。在这个例子中，我们首先使用 next() 函数获取前三个倒数值，然后通过 for 循环获取剩下的两个倒数值。
+        通过创建生成器对象并使用 next() 函数或 for 循环迭代生成器，我们可以逐步获取生成器函数产生的值。
+        在这个例子中，我们首先使用 next() 函数获取前三个倒数值，然后通过 for 循环获取剩下的两个倒数值。
         生成器函数的优势是它们可以按需生成值，避免一次性生成大量数据并占用大量内存。
         此外，生成器还可以与其他迭代工具（如for循环）无缝配合使用，提供简洁和高效的迭代方式。
         """
         while n > 0:
-            # 打个比方的话，yield有点像断点。
-            # 加了yield的函数，每次执行到有yield的时候，会返回yield后面的值 并且函数会暂停，
-            # 直到下次调用或迭代终止；
-            # yield后面可以加多个数值（可以是任意类型），但返回的值是元组类型的。
-            yield n
+            # yield有点像断点。加了yield的函数，每次执行到有yield的时候，会返回yield后面的值 并且函数会暂停，
+            # 直到下次调用或迭代终止, yield后面可以加多个数值（可以是任意类型），但返回的值是元组类型的。
+            yield n # 函数直行到这里返回 n
             n -= 1
+
     generator = countdown(5) # 创建生成器对象
-    print(next(generator)) # 生成器/迭代器
-    print(next(generator))
-    for value in generator:
-        print(value)
+    # print(next(generator)) # 使用 next() 方法迭代 生成器/迭代器
+    # print(next(generator), end="'\n'and more:'\n'")
+    # for value in generator: # 继续迭代剩余元素
+    #     print(value)
+
+    def fibonacci(n):
+        """
+        通过生成器函数实现计算斐波那契数列
+        本质上还是迭代的方式计算，效率比递归高很多, 算法时间复杂度:O(n)
+        """
+        a, b, counter = 0, 1, 0
+        while True:
+            if counter > n:
+                return
+            print(f"[{counter}] = {a}", end=",")
+            yield a
+            a, b = b, a + b
+            counter += 1
+
+    def calculate_fibnonacci(num):
+        f = fibonacci(num)  # 生成器函数
+        while True:
+            try:
+                print(f"{next(f)}")
+            except StopIteration:
+                sys.exit()
+
+    # calculate_fibnonacci(2)
+
+    # 迭代器和生成器具体应用场景，就凡是需要提升运行效率或节约内存资源，且遍历的数据是集合形式的，都可以考虑。
+    # 另外一个小众的使用场景，是变相实现协程的效果，即在同一个线程内，实现不同任务交替执行
+    def task1():
+        print('task1 开始执行')
+        #other code
+        yield # 直行到这里后暂停并返回，等待下次执行
+
+    def task2():
+        print('task2 开始执行')
+        #other code
+        yield
+
+    def coroutine_test(n):
+        """简单的协程测试"""
+        g1 = task1()
+        g2 = task2()
+        for i in range(n):
+            next(g1)
+            next(g2)
+
+    # coroutine_test(3)
+
+def with_test():
+    """
+    https://www.runoob.com/python3/python3-with-keyword.html
+    在 Python 编程中，资源管理是一个重要但容易被忽视的环节。
+    with 关键字为我们提供了一种优雅的方式来处理文件操作、数据库连接等需要明确释放资源的场景。
+    with 是 Python 中的一个关键字，用于上下文管理协议（Context Management Protocol）。
+    它简化了资源管理代码，特别是那些需要明确释放或清理的资源（如文件、网络连接、数据库连接等）。
+    """
+    def file_open_test():
+        """最基基础的文件打开操作，有代码冗长,容易造成资源泄露等问题"""
+        file = open('examble.txt', 'r')
+        try:
+            content = file.read()
+        finally:
+            file.close()
+
+    def file_open_with():
+        """with 语句通过上下文管理协议（Context Management Protocol）解决了这些问题：
+        """
+        with open('example.txt', 'r') as file:
+            content = file.read()
+
+    # with 语句的工作原理 ———— 上下文管理协议
+    # with 语句背后是 Python 的上下文管理协议，该协议要求对象实现两个方法：
+    # __enter__()：进入上下文时调用，返回值赋给 as 后的变量
+    # __exit__()：退出上下文时调用，处理清理工作
+    # __exit__() 方法接收三个参数：
+    # exc_type：异常类型
+    # exc_val：异常值
+    # exc_tb：异常追踪信息
+    # 如果 __exit__() 返回 True，则表示异常已被处理，不会继续传播；返回 False 或 None，异常会继续向外传播。
+
+    def file_open_with_test2():
+        """可以同时打开多个文件
+        文件操作结束后自动关闭"""
+        with open('in.txt', 'r') as in_file, open('out.txt', 'w+') as out_file:
+            content = in_file.read()
+            out_file.write(content.upper())
+
+    def db_open_test():
+        """可是使用 with 实现数据库的连接操作, 结束后连接自动关闭"""
+        import sqlite3
+        with sqlite3.connect('database.db') as conn:
+            cursor = conn.cursor()
+            cursor.execute('SELECT * from users')
+            result = cursor.fetchall()
+
+    def lock_with_test():
+        import threading
+        lock = threading.Lock()
+        with lock:
+            # 临界区代码
+            print('Thread safety execute')
+
+    class TimerUsage():
+        """
+        可以通过实现 __enter__ 和 __exit__ 方法创建自定义的上下文管理器
+        """
+        import time
+
+        def __enter__(self):
+            self.start = time.time()
+
+        def __exit__(self, exc_type, exc_val, exc_tb):
+            self.end = time.time()
+            print(f'use:{self.end - self.start} sec')
+            return False # 异常向外传播
+
+    def timer_test():
+        counter = TimerUsage()
+        with counter:
+            time.sleep(2)
+    # timer_test()
+
+    # 使用 contextlib 模块
+    # Python 的 contextlib 模块提供了更简单的方式来创建上下文管理器：
+    from contextlib import contextmanager
+    @contextmanager # 装饰器
+    def tag(text):
+        print(f'{text} start')
+        yield
+        print(f'{text} end')
+
+    def contextmanager_test():
+        with tag("context"):
+            print("测试")
+
+    contextmanager_test()
 
 a = ["This is a global variable"]
 
@@ -809,6 +1021,8 @@ def function_base_test():
     """函数
     参数传递：
     在 python 中，类型属于对象，对象有不同类型的区分，变量是没有类型的：
+    函数传参:
+    python 中一切都是对象，严格意义我们不能说值传递还是引用传递，我们应该说传不可变对象和传可变对象。
     """
     a = [1, 2, 3] # [1,2,3] 是 List 类型
     a = "123" # “123” 是 str 类型
@@ -825,70 +1039,72 @@ def function_base_test():
     # 不可变类型：类似 C++ 的值传递，如整数、字符串、元组。如 fun(a)，传递的只是 a 的值，没有影响 a 对象本身。如果在 fun(a) 内部修改 a 的值，则是新生成一个 a 的对象。
     # 可变类型：类似 C++ 的引用传递，如 列表，字典。如 fun(la)，则是将 la 真正的传过去，修改后 fun 外部的 la 也会受影响
     def immutable_obj_test(a):
-        """在 python 中，strings, tuples, 和 numbers 是不可更改的对象，
+        """在 python 中，strings, tuples, 和 numbers 是不可更改的对象（不可变对象），
         可以看见在调用函数前后，形参和实参指向的是同一个对象（对象 id 相同），
         在函数内部修改形参后，形参指向的是不同的 id。"""
-        print("before a:{} id:{}".format(a, id(a)))
-        a = 10
+        print("before a:{} id:{}".format(a, id(a)))  # 指向的是同一个对象
+        a = 10  # # 一个新对象
         print("after a:{} id:{}".format(a, id(a)))
         return a
-    h = 5
-    immutable_obj_test(h)
-    print("h:%d" % (h))
+    # h = 5
+    # immutable_obj_test(h)
+    # print("h:%d" % (h))
+
     def mutable_obj_test(l):
-        """而 list,dict 等则是可以修改的对象
+        """而 list,dict 等则是可以修改的对象(可变对象)
         传入函数的和在末尾添加新内容的对象用的是同一个引用。"""
         print("before l:{} id:{}".format(a, id(a)))
-        l.append("New Item")
-        print("after l:{} id:{}".format(a, id(a)))
+        l.append("New Item")  # 修改原对象中的成员后, 仍然指向原对象
+        print("after l:{} id:{}".format(a, id(a)), end="\n\n")
         return
-    i = [1, 2, 3]
-    mutable_obj_test(i) # 可变对象在函数里修改了参数，那么在调用这个函数的函数里，原始的参数也被改变了。
-    print(i)
+    # i = [1, 2, 3]
+    # mutable_obj_test(i) # 可变对象在函数里修改了参数，那么在调用这个函数的函数里，原始的参数也被改变了。
+    # print(i)
 
     # 以下是调用函数时可使用的正式参数类型：
-    # 必需参数
+    # 1.必需参数
     def fun2(a):
         print(a)
-    fun2(1)
-    # 关键字参数(使用关键字参数允许函数调用时参数的顺序与声明时不一致，因为 Python 解释器能够用参数名匹配参数值。)
+    # fun2(1)
+
+    # 2.关键字参数(使用关键字参数允许函数调用时参数的顺序与声明时不一致，因为 Python 解释器能够用参数名匹配参数值。)
     def fun3(name, age, grade):
-        print("before name:{} age:{} grage:{}".format(name, age, grade))
+        print("before name:{} age:{} grage:{}".format(name, age, grade), end="\n\n")
         name = None
         age = 18
         grade = 100
-        print("afger name:{} age:{} grage:{}".format(name, age, grade))
-    fun3(grade=200, name="ABC", age=19)
+        print("afger name:{} age:{} grage:{}".format(name, age, grade), end="\n\n")
+    # fun3(grade=200, name="ABC", age=19)
 
-    # 默认参数(调用函数时，如果没有传递参数，则会使用默认参数。)
+    # 3.默认参数(调用函数时，如果没有传递参数，则会使用默认参数。)
     def fun4(name="KimJongEn", age="1980", people="30million"):
         print("before name:{} age:{} people:{}".format(name, age, people))
         name += ",South Korean"
         age += str(18)
         people += str(100)
-        print("after name:{} age:{} people:{}".format(name, age, people))
-    fun4()
+        print("after name:{} age:{} people:{}".format(name, age, people), end="\n\n")
+    # fun4()
 
-    # 不定长参数
+    # 4.不定长参数
     def fun5(name, *args):
         """一个 * 不定长参数默认是元组类型"""
         print(name)
-        print("args:{} type:{} id:{}".format(args, type(args), id(args)))
-    fun5("Jack Ma", 1, 2, 3, 4, 5)
+        print("args:{} type:{} id:{}".format(args, type(args), id(args)), end="\n\n")
+    # fun5("Jack Ma", 1, 2, 3, 4, 5)
 
     def fun6(name, **kwargs):
         """加了两个星号 ** 的参数会以字典的形式导入。"""
-        print(name)
-        print("kwargs:{} type:{} id:{}".format(kwargs, type(kwargs), id(kwargs)))
-    fun6("不知妻美刘强东", param1={1:"JD", 2:"Rape", 3:"江苏徐州", 4:"中国人民大学"}, param2="abc")
-    fun6("一般家庭马化腾", paramxyz={1:"copy-super man"})
+        print("name:", name)
+        print("kwargs:{} type:{} id:{}".format(kwargs, type(kwargs), id(kwargs)), end="\n\n")
+    # fun6("不知妻美刘强东", param1={1:"JD", 2:"Rape", 3:"江苏徐州", 4:"中国人民大学"}, param2="abc")
+    # fun6("一般家庭马化腾", paramxyz={1:"copy-super man"})
 
     def fun7(a, b, *, c):
         """声明函数时，参数中星号 * 可以单独出现，例如:
         如果单独出现星号 *，调用函数时则星号 * 后的参数必须用关键字传入："""
         return a + b + c
     # print(fun7(1, 2, 3)) # ERROR
-    print(fun7(1, 2, c=3))
+    # print(fun7(1, 2, c=3))
 
     #匿名函数
     # Python 使用 lambda 来创建匿名函数。
@@ -899,23 +1115,29 @@ def function_base_test():
     # 虽然 lambda 函数看起来只能写一行，却不等同于 C 或 C++ 的内联函数，内联函数的目的是调用小函数时不占用栈内存从而减少函数调用的开销，提高代码的执行速度。
     # lambda 函数的语法只包含一个语句，如下：
     # lambda [arg1 [,arg2,.....argn]]:expression
-    x = lambda a : a + 10
-    print(x(5))
+    def lambda_test():
+        x = lambda a : a + 10
+        print(x(5))
 
-    sum = lambda arg1,arg2 : arg1 + arg2
-    print(sum(10, 20))
+        sum = lambda arg1,arg2 : arg1 + arg2
+        print(sum(10, 20))
+
+        # lambda 也可以使用默认参数以及关键字参数
+        square = lambda x=1, y=2 : x**2 + y** 3
+        print(square(x=3, y=4) , end="\n\n")
+    # lambda_test()
 
     def fun8(n):
-        """我们可以将匿名函数封装在一个函数内，这样可以使用同样的代码来创建多个匿名函数。
+        """可以将匿名函数封装在一个函数内，这样可以使用同样的代码来创建多个匿名函数。
         以下实例将匿名函数封装在 myfunc 函数中，通过传入不同的参数来创建不同的匿名函数：
         :param
         :return 返回一个 lambda 表达式
         """
         return lambda z : z * n
-    double = fun8(2)
-    triple = fun8(3)
-    print("double:", double(2))
-    print("triple:", triple(2))
+    # double = fun8(2)
+    # triple = fun8(3)
+    # print("double:", double(2))
+    # print("triple:", triple(2))
 
     # Python3.8 新增了一个函数形参语法 / 用来指明函数形参必须使用指定位置参数，
     # 不能使用关键字参数的形式。
@@ -925,219 +1147,129 @@ def function_base_test():
         而 e 和 f 要求为关键字形参:"""
         print(a, b, c, d, e, f)
     fun9(1, 2, c=30, d=40, e=50, f=60)
-    print(fun9.__doc__)
 
     def fun10():
+        """这是一个全局变量测试函数"""
         global a # 全局变量
         # a = 2 # 局部变量
         print(a)
-    fun10()
+    # fun10()
 
     # lambda 函数通常与内置函数如 map()、filter() 和 reduce() 一起使用，以便在集合上执行操作。
-    numbers = [1, 2, 3, 4, 5]
-    square = list(map(lambda  x : x**2, numbers))
-    print(square)
-    even_numbers = list(filter(lambda x : x % 2 == 0, numbers))
-    print(even_numbers)
+    def lambda_test2():
+        numbers = [1, 2, 3, 4, 5]
+        square = list(map(lambda  x : x**2, numbers))
+        print(f"square:{square} type:{type(square)}")
 
-    from functools import reduce
-    product = reduce(lambda x, y : x * y, numbers) # 使用 reduce() 和 lambda 表达式演示如何计算一个序列的累积乘积：
+        even_numbers = list(filter(lambda x : x % 2 == 0, numbers)) # 找到 list 的偶数, filter(fun, array)
+        print(f"even:{even_numbers}")
 
-def decorator_base_test():
+        from functools import reduce
+        # 使用 reduce() 和 lambda 表达式演示如何计算一个序列的累积乘积：
+        # python 内置函数:reduce 函数查看函数定义,
+        # reduce 函数累加 计算 numbers 的和
+        product = reduce(lambda x, y : x * y, numbers)
+        print(f"product:{product}")
+
+    # lambda_test2()
+
+    def fun_doc_test():
+        # __doc__ 打印函数的说明文档
+        print(fun10.__doc__, end="\n\n")
+    # fun_doc_test()
+
+def standard_input_and_output_test():
     """
-    Python 装饰器
-    装饰器（decorators）是 Python 中的一种高级功能，它允许你动态地修改函数或类的行为。
-    装饰器是一种函数，它接受一个函数作为参数，并返回一个新的函数或修改原来的函数。
-    装饰器的语法使用 @decorator_name 来应用在函数或方法上。
-    Python 还提供了一些内置的装饰器，比如 @staticmethod 和 @classmethod，用于定义静态方法和类方法。
-    装饰器的应用场景：
-    日志记录: 装饰器可用于记录函数的调用信息、参数和返回值。
-    性能分析: 可以使用装饰器来测量函数的执行时间。
-    权限控制: 装饰器可用于限制对某些函数的访问权限。
-    缓存: 装饰器可用于实现函数结果的缓存，以提高性能。
-    语法
-    def decorator_function(original_function):
-        def wrapper(*args, **kwargs):
-            # 这里是在调用原始函数前添加的新功能
-            before_call_code()
-
-            result = original_function(*args, **kwargs)
-
-            # 这里是在调用原始函数后添加的新功能
-            after_call_code()
-
-            return result
-        return wrapper
-
-    # 使用装饰器
-    @decorator_function
-    def target_function(arg1, arg2):
-        pass  # 原始函数的实现
-    # 装饰器也可以带参数:
-    # 类装饰器
+    https://www.runoob.com/python3/python3-inputoutput.html
+    str()： 函数返回一个用户易读的表达形式。
+    repr()： 产生一个解释器易读的表达形式。
     """
-    def time_logger(origin_fun):
-        """装饰器
-        decorator 是一个装饰器函数，它接受一个函数 func 作为参数，并返回一个内部函数 wrapper，
-        在 wrapper 函数内部，你可以执行一些额外的操作，然后调用原始函数 func，并返回其结果。
-        :decorator_function 是装饰器，它接收一个函数 original_function 作为参数。
-        :wrapper 是内部函数，它是实际会被调用的新函数，它包裹了原始函数的调用，并在其前后增加了额外的行为。
-        当我们使用 @decorator_function 前缀在 target_function 定义前，
-        Python会自动将 target_function 作为参数传递给 decorator_function，
-        然后将返回的 wrapper 函数替换掉原来的 target_function。
-        """
-        def wrapper(*args, **kwargs):
-            start = time.time()
-            result = origin_fun(*args, **kwargs)
-            end = time.time()
-            print("time usage:{}".format(end - start))
-            return result
-        return wrapper
+    l = [1, 2.0, 1/3, 4, 5]
+    # print(f"{str(l).rjust(10)}")
+    # print(f"{repr(l)}")
 
-    @time_logger
-    def print_hello(n):
-        for i in range(n):
-            print("hello %d" % i)
-    print(print_hello(3))
+    # 字符串对象的 rjust() 方法, 它可以将字符串靠右, 并在左边填充空格
+    # 类似的方法, 如 ljust() 和 center()。 这些方法并不会写任何东西, 它们仅仅返回新的字符串。
+    s = "1"
+    print(s.rjust(10))
+    print(s.rjust(10, '-'))
+    print(s.center(10, '-'))
+    print(s.ljust(10, '-'))
+    # 另一个方法 zfill(), 它会在数字的左边填充 0
+    print(s.zfill(10))
 
-    def repeat(n):
-        """带参数的装饰器 repeat """
-        def decrator(func):
-            def wrapper(*args, **kwargs):
-                for _ in range(n):
-                    result = func(*args, **kwargs)
-                return result
-            return wrapper
-        return decrator
+    # format() 方法格式化输出字符串
+    # 在 : 后传入一个整数, 可以保证该域至少有这么多的宽度。
+    print("{0:10} => {1:10d}".format("Hello", 125))
+    # 如果你有一个很长的格式化字符串, 而你不想将它们分开, 那么在格式化时通过变量名而非位置会是很好的事情。
+    # 最简单的就是传入一个字典, 然后使用方括号 [] 来访问键值 :
+    table = {'Google': 1, 'Runoob': 2, 'Taobao': 3}
+    print('Runoob:{0[Runoob]:d} Google:{0[Google]:d} Taobao:{0[Taobao]:d}'.format(table))
+    # 也可以这样写: 通过在 table 变量前使用 ** 来实现相同的功能
+    print('Runoob:{Runoob:d}'.format(**table))
 
-    @repeat(5)
-    def greet(name):
-        print(f"Hello {name}")
-    greet("Bob")
+    import math
+    # 旧式字符串格式化
+    # % 操作符也可以实现字符串格式化。
+    # 它将左边的参数作为类似 sprintf() 式的格式化字符串, 而将右边的代入, 然后返回格式化后的字符串. 例如:
+    #  大多数的 Python 代码仍然使用 % 操作符。但是因为这种旧式的格式化最终会从该语言中移除, 应该更多的使用 str.format().
+    print("PI = %5.3f" % math.pi)  # 小数点后 3 位
 
-    class DecratorClass(object):
-        """类装饰器"""
-        def __init__(self, func):
-            self.func = func
-
-        def __call__(self, *args, **kwargs):
-            # 在调用原始函数之前/之后执行的代码
-            print("Before")
-            result = self.func(*args, **kwargs)
-            # 在调用原始函数之后执行的代码
-            print("After")
-            return result
-
-    @DecratorClass
-    def my_function():
-        print("Decrator class test")
-    my_function()
-
-def data_structure_test():
-    """Python中列表是可变的，这是它区别于字符串和元组的最重要的特点，
-    一句话概括即：列表可以修改，而字符串和元组不能。
-    """
-    import collections
-    class Stack(object):
-        """通过列表实现栈的功能"""
-        def __init__(self):
-            self.stack = []
-
-        def push(self, item):
-            self.stack.append(item)
-
-        def pop(self):
-            if not self.is_empty():
-                return self.stack.pop()
-            else:
-                raise IndexError("pop from empty stack")
-
-        def peek(self):
-            if not self.is_empty():
-                return self.stack[-1]
-            else:
-                raise IndexError("pop from empty stack")
-
-        def is_empty(self):
-            return len(self.stack) == 0
-
-        def size(self):
-            return len(self.stack)
-
-    class Queue(collections.deque):
-        """在 Python 中，列表（list）可以用作队列（queue），但由于列表的特点(TODO:链表???)，
-        直接使用列表来实现队列并不是最优的选择。
-        队列是一种先进先出（FIFO, First-In-First-Out）的数据结构，意味着最早添加的元素最先被移除。
-        使用列表时，如果频繁地在列表的开头插入或删除元素，性能会受到影响，因为这些操作的时间复杂度是 O(n)。
-        为了解决这个问题，Python 提供了 collections.deque，它是双端队列，可
-        以在两端高效地添加和删除元素
-        """
-        pass
-    # 在序列中遍历时，索引位置和对应值可以使用 enumerate() 函数同时得到：
-    for i, v in enumerate([1, 2, 3]):
-        print("i:{} v:{}".format(i, v))
-    # 同时遍历两个或更多的序列，可以使用 zip() 组合：
-    for p, q in zip([1, 2, 3], [4, 5, 6]):
-        print(p, q)
-
-    # 要反向遍历一个序列，首先指定这个序列，然后调用 reversed() 函数：
-    for i in reversed(range(1, 10, 2)):
-        print(i, end=",")
-    print("")
-
-def module_base_test():
-    """TODO:python 模块"""
-    import sys # python 标准库
-    print(sys.path)
-    # 一个模块被另一个程序第一次引入时，其主程序将运行。
-    # 如果我们想在模块被引入时，模块中的某一程序块不执行，
-    # 我们可以用__name__属性来使该程序块仅在该模块自身运行时执行。
-    #  每个模块都有一个__name__属性，当其值是'__main__'时，表明该模块自身在运行，否则是被引入。
-    # 说明：__name__ 与 __main__ 底下是双下划线
-
-    # 内置的函数 dir() 可以找到模块内定义的所有名称。以一个字符串列表的形式返回:
-    print(dir(sys))
-    # print(sys.ps1) # 变量 sys.ps1 和 sys.ps2 定义了主提示符和副提示符所对应的字符串:
-    # print(sys.ps2)
-
-    # 目录只有包含一个叫做 __init__.py 的文件才会被认作是一个包，
-    # 主要是为了避免一些滥俗的名字（比如叫做 string）不小心的影响搜索路径中的有效模块。
-    # __path__ # 这是一个目录列表，里面每一个包含的目录都有为这个包服务的__init__.py，你得在其他__init__.py被执行前定义哦
-    # __all__ # 包中的所有的模块名需要写在里面
-
-def package_base_test():
-    """TODO:包测试"""
-    pass
+    def key_input_test():
+        str = input("请输入:")
+        print(str)
+    key_input_test()
 
 def file_op_base_test():
-    """文件操作"""
+    """文件操作
+    https://www.runoob.com/python3/python3-file-methods.html
+    """
     import os
     import os.path
-    f = open("foo.txt", "w") # 在对文件进行处理过程都需要使用到这个函数，如果该文件无法被打开，会抛出 OSError。
-    f.write("This is a file test")
-    f.close() # 使用 open() 方法一定要保证关闭文件对象，即调用 close() 方法。
+    def write_test():
+        f = open("foo.txt", "w") # 在对文件进行处理过程都需要使用到这个函数，如果该文件无法被打开，会抛出 OSError。
+        f.write("This is a file test")
+        f.close() # 使用 open() 方法一定要保证关闭文件对象，即调用 close() 方法。
+    write_test()
+
+    # 其他文件操作 api 测试:
     f = open("foo.txt", "r")
     line = f.readline()
-    f.seek(0) # offset 表示相对于 whence 参数的偏移量，from_what 的值, 如果是 0 表示开头, 如果是 1 表示当前位置, 2 表示文件的结尾，
+    # offset 表示相对于 whence 参数的偏移量，from_what 的值,
+    # 如果是 0 表示开头,
+    # 如果是 1 表示当前位置, 2 表示文件的结尾，
+    f.seek(0)
     print("lines:{}".format(f.readlines()))
     print("read:", line)
+    # f.tell() 用于返回文件当前的读/写位置（即文件指针的位置）。
+    # 文件指针表示从文件开头开始的字节数偏移量。f.tell() 返回一个整数，表示文件指针的当前位置。
     print("position:", f.tell())
     # 文件系统 API
     f.flush() # file.flush() 刷新文件内部缓冲，直接把内部缓冲区的数据立刻写入文件, 而不是被动的等待输出缓冲区写入。
-    print("fileno:", f.fileno()) # file.fileno() 返回一个整型的文件描述符(file descriptor FD 整型), 可以用在如os模块的read方法等一些底层操作上。
+    # file.fileno() 返回一个整型的文件描述符(file descriptor FD 整型),
+    # 可以用在如os模块的read方法等一些底层操作上。
+    print("fileno:", f.fileno())
     print("isatty:", f.isatty()) # file.isatty()如果文件连接到一个终端设备返回 True，否则返回 False。
-    # f.truncate() # file.truncate([size]) 从文件的首行首字符开始截断，截断文件为 size 个字符，无 size 表示从当前位置截断；截断之后后面的所有字符被删除，其中 windows 系统下的换行代表2个字符大小。
+    # f.truncate()
+    # file.truncate([size]) 从文件的首行首字符开始截断，截断文件为 size 个字符，无 size 表示从当前位置截断；
+    # 截断之后后面的所有字符被删除，其中 windows 系统下的换行代表2个字符大小。
     f.close() # file.close() 关闭文件。关闭后文件不能再进行读写操作。
-    # 当处理一个文件对象时, 使用 with 关键字是非常好的方式。在结束后, 它会帮你正确的关闭文件。
-    # 而且写起来也比 try - finally 语句块要简短:
-    with open("foo.txt", 'r') as f:
-        str = f.readline()
-        print(str)
-    print("closed:", f.closed)
+
+    def with_file_test():
+        # 当处理一个文件对象时, 使用 with 关键字是非常好的方式。在结束后, 它会帮你正确的关闭文件。
+        # 而且写起来也比 try - finally 语句块要简短:
+        with open("foo.txt", 'r') as f:
+            str = f.readline()
+            print(f"read:{str}")
+    with_file_test()
+
+    print(f"closed:{f.closed}\n\n")
 
     l = []
     def getPythonFile(path, l):
-        """检索指定目录下的 python 文件
+        """
+        遍历目录
+        检索指定目录下的 python 文件
         :param path
         :param l
         """
@@ -1151,14 +1283,16 @@ def file_op_base_test():
                     getPythonFile(path_temp, l)
                 elif path_temp[path_temp.rfind(".")+1:].lower() == 'py':
                     l.append(path_temp)
-        except PermissionError:
-            pass
-    getPythonFile(".", l)
+        except PermissionError as e:
+            print(repr(e))
+    getPythonFile("0_Process", l)
     print("L:", l)
 
 def os_base_test():
     """puthon os 模块
-    Python3 OS 文件/目录方法
+    os 模块是跨平台的
+    Python3 OS 文件/目录操作方法
+    https://www.runoob.com/python3/python3-os-file-methods.html
     """
     import os, sys, stat
     path = "./foo.txt"
@@ -1166,6 +1300,7 @@ def os_base_test():
     print("access:", os.access(path, os.R_OK))
     print("access:", os.access(path, os.W_OK))
     print("access:", os.access(path, os.X_OK))
+    fd = open(path, 'r')
     # os.chdir(path) # os.chdir(path) 改变当前工作目录
     flags = stat.SF_NOUNLINK # 为文件设置标记，使得它不能被重命名和删除
     # os.chflags(path, flags) # os.chflags(path, flags) 设置路径的标记为数字标记。
@@ -1184,6 +1319,7 @@ def os_base_test():
     # os.fdopen(fd) # os.fdopen(fd[, mode[, bufsize]]) 通过文件描述符 fd 创建一个文件对象，并返回这个文件对象
     # os.fpathconf(fd, name) # os.fpathconf(fd, name)返回一个打开的文件的系统配置信息。name为检索的系统配置的值，它也许是一个定义系统值的字符串，这些名字在很多标准中指定（POSIX.1, Unix 95, Unix 98, 和其它）。
     # os.fstat(fd) # os.fstat(fd) 返回文件描述符fd的状态，像stat()。
+    # print(f"fstat:{repr(os.fstat(fd.fileno()))}")
     # os.fstatvfs(fd) # os.fstatvfs(fd) 返回包含文件描述符fd的文件的文件系统的信息，Python 3.3 相等于 statvfs()。
     # os.fsync(fd) # os.fsync(fd) 强制将文件描述符为fd的文件写入硬盘。
     # os.ftruncate(fd, 1024) # os.ftruncate(fd, length) 裁剪文件描述符fd对应的文件, 所以它最大不能超过文件大小。
@@ -1194,10 +1330,10 @@ def os_base_test():
     # os.lchmod(path, mode) # os.lchmod(path, mode) 修改连接文件权限
     # os.lchown(path, uid, gid) # os.lchown(path, uid, gid) 更改文件所有者，类似 chown，但是不追踪链接。
     # os.link(src, dst) # os.link(src, dst) 创建硬链接，名为参数 dst，指向参数 src
-    print("listdir:", os.listdir("./")) # os.listdir(path) 返回path指定的文件夹包含的文件或文件夹的名字的列表
+    print("listdir:", os.listdir("0_Process/")) # os.listdir(path) 返回path指定的文件夹包含的文件或文件夹的名字的列表
     # os.lseek(fd, pos, how) # os.lseek(fd, pos, how) 设置文件描述符 fd当前位置为pos, how方式修改: SEEK_SET 或者 0 设置从文件开始的计算的pos; SEEK_CUR或者 1 则从当前位置计算; os.SEEK_END或者2则从文件尾部开始. 在unix，Windows中有效
-    os.lstat(path) # os.lstat(path) 像stat(),但是没有软链接
-    info = os.lstat(path)
+    # os.lstat(path) # os.lstat(path) 像stat(),但是没有软链接
+    # info = os.lstat(path)
     # print("major:", os.major(info.st_dev)) # os.major(device) 从原始的设备号中提取设备major号码 (使用stat中的st_dev或者st_rdev field)。
     # print("minor:", os.minor(info.st_dev)) # os.minor(device) 从原始的设备号中提取设备minor号码 (使用stat中的st_dev或者st_rdev field )。
     # os.makedev(major, minor) # os.major(device) 从原始的设备号中提取设备major号码 (使用stat中的st_dev或者st_rdev field)。
@@ -1227,220 +1363,59 @@ def os_base_test():
     # os.utime(path) # os.utime(path, times) 返回指定的path文件的访问和修改的时间。
     # os.walk() # os.walk(top[, topdown=True[, onerror=None[, followlinks=False]]]) 输出在文件夹中的文件名通过在树中游走，向上或者向下。
     # os.write() # os.write(fd, str) 写入字符串到文件描述符 fd中.返回实际写入的字符串长度
-    # print("path:", os.path) # TODO:os.path 模块 https://www.runoob.com/python3/python3-os-path.html
-    print("parent:", os.pardir) # os.pardir() 获取当前目录的父目录，以字符串形式显示目录名。
-    os.replace() # os.replace() 重命名文件或目录。
-    os.startfile() # os.startfile() 用于在 Windows 上打开一个文件或文件夹。
+    # print("path:", os.path)
+    # print("parent:", os.pardir) # os.pardir() 获取当前目录的父目录，以字符串形式显示目录名。
+    # os.replace(src_name, dest_name) # os.replace() 重命名文件或目录。
+    # os.startfile() # os.startfile() 用于在 Windows 上打开一个文件或文件夹。
+    print(f"PATH:{os.getenv('PATH')}", sep=", ") # 获取环境变量
+    print(f"LS:{os.system('ls -l')}") # 执行 shell 命令
 
-def exception_base_test():
-    """Python3 错误和异常
-    """
-    try:
-        a = 10
-        assert a > 50
-    except (OSError, TypeError, NameError): # 一个except子句可以同时处理多个异常，这些异常将被放在一个括号里成为一个元组
-        # 发生异常时执行的代码
-        print("发生异常时执行的代码块")
-        print("Exception")
-    except ValueError: # 一个 try 语句可能包含多个except子句，分别来处理不同的特定的异常。最多只有一个分支会被执行。
-                        #处理程序将只针对对应的 try 子句中的异常进行处理，而不是其他的 try 的处理程序中的异常。
-        pass
-    except:
-        # print("Unexpected error:", sys.exc_info())
-        print("Unexpected error:", sys.exc_info()[0])
-        # raise
-    else:
-        # 没有异常时执行的代码
-        # try/except 语句还有一个可选的 else 子句，如果使用这个子句，那么必须放在所有的 except 子句之后
-    #else 子句将在 try 子句没有发生任何异常的时候执行。
-        print("没有异常时执行的代码块")
-        pass
-    finally: # 无论异常是否发生都会执行的代码
-        print("无论异常是否发生都会执行的代码块")
-
-    # raise 唯一的一个参数指定了要被抛出的异常。
-    # 它必须是一个异常的实例或者是异常的类（也就是 Exception 的子类）。
-    class NewException(Exception):
-        """用户自定义异常
-        你可以通过创建一个新的异常类来拥有自己的异常。
-        异常类继承自 Exception 类，可以直接继承，或者间接继承"""
-        def __init__(self, value):
-            self.value = value
-
-        def __str__(self):
-            return repr(self.value)
-    try:
-        raise NewException("这是我自己创建的异常类")
-    except Exception as e:
-        print(e.value)
-
-def oob_base_test():
-    """Python3 面向对象
-    """
-
-    class Cat():
-        """类的方法与普通的函数只有一个特别的区别——它们必须有一个额外的第一个参数名称,
-        按照惯例它的名称是 self。
-        self 的名字并不是规定死的，也可以使用 this，但是最好还是按照约定使用 self。
+    def os_path_test():
+        """os.path 模块:
+        os.path 模块是 Python 标准库中 os 模块的一部分，专门用于操作和处理文件路径。
+        os.path 提供了一组强大的工具来对文件和目录路径进行各种操作，例如获取文件名、
+        判断路径是否存在、路径拼接、路径规范化等。
+        os.path 模块在跨平台操作系统中表现良好，使得同一段代码能够在不同操作系统
+        （如 Windows、Linux、macOS）上运行时处理路径相关问题。
+        https://www.runoob.com/python3/python3-os-path.html
         """
-        __CLASS_NAME = "Cat" # 私有变量(类成员)
-        CLASS_TYPE = "Animal" # 公开变量(类成员)
-        __obj_cnt = 0 # 私有类成员, 保存实例对象的个数
+        print("\n\n\n")
+        print(__file__) # 绝对路径
+        # 路径操作
+        print(os.path.abspath("."))# os.path.abspath(path)	将相对路径转换为绝对路径。
+        print(os.path.basename(__file__)) # os.path.basename(path)	获取路径的最后一部分，即文件名。
+        print(os.path.dirname(__file__)) # os.path.dirname(path)	获取路径中的目录部分。
+        print(os.path.split(__file__)) # os.path.split(path)	将路径分割为目录和文件名的元组。
+        print(os.path.splitext(__file__)) # os.path.splitext(path)	将路径分割为文件名和扩展名的元组。
+        # 路径信息获取
+        print(os.path.exists(__file__)) # os.path.exists(path)	判断路径是否存在。
+        print(os.path.isfile(__file__)) # os.path.isfile(path)	判断路径是否为文件。
+        print(os.path.isdir(__file__)) # os.path.isdir(path)	判断路径是否为目录。
+        print(os.path.getsize(__file__)) # os.path.getsize(path)	获取文件的大小，以字节为单位。
+        print(os.path.getatime(__file__)) # os.path.getatime(path)	获取文件的最后访问时间。
+        print(os.path.getmtime(__file__)) # os.path.getmtime(path)	获取文件的最后修改时间。
+        print(os.path.getctime(__file__)) # os.path.getctime(path)	获取文件的创建时间（在某些操作系统上表示最后状态更改时间）。
+        # 路径规范化
+        print(os.path.normpath(__file__)) # os.path.normpath(path)	规范化路径，消除冗余的分隔符和相对路径标记。
+        print(os.path.realpath(__file__)) # os.path.realpath(path)	获取文件的真实路径，解析符号链接。
+        print(os.path.relpath(__file__, start="../../")) # os.path.relpath(path, start=os.curdir)	计算相对路径，从 start 到 path。
+        print(os.path.relpath(__file__, start=os.path.curdir))
+        # 路径比较
+        print(os.path.commonpath([__file__, "D:\Files\GitFile\python_tutorial\\1_base"])) # os.path.commonpath(paths)	返回路径序列中的共同路径。
+        print(os.path.commonprefix([__file__, "D:\Files\GitFile\python_tutorial\\1_base"])) # os.path.commonprefix(list)	返回路径序列中的最长公共前缀。
+        print(os.path.samefile("0_base_test.py", "0_base_test.py")) # os.path.samefile(path1, path2)	判断两个路径是否指向同一个文件。
+        # print(os.path.sameopenfile(fp1, fp2)) # os.path.sameopenfile(fp1, fp2)	判断两个打开的文件对象是否指向同一个文件。
+        # os.path.samestat(stat1, stat2)	判断两个文件是否拥有相同的 stat 状态。
+        # 平台依赖功能
+        print(os.path.splitdrive(__file__)) # os.path.splitdrive(path)	在 Windows 上，返回路径的驱动器/设备部分和路径部分的元组。
+        # print(os.path.splitunc(__file__)) # os.path.splitunc(path)	分割路径中的共享设备和路径部分（Windows 特有）。
 
-        def __init__(self, id=1, salary=2000):
-            self.__id = id # 两个下划线开头，声明该属性为私有，不能在类的外部被使用或直接访问。在类内部的方法中使用时 self.__private_attrs。
-            self.__salary = salary # 私有
-            self.__obj_cnt += 1 # 对象成员
-
-        def eat(self, a, b):
-            """公共方法:父类定义一个方法"""
-            print("{} a:{} b:{}".format(self.__class__, a, b))
-            return a + b
-
-        def __get_salary(self):
-            """私有方法"""
-            print("Salary:", self.__salary)
-            return self.__salary
-
-        def myself(self):
-            print(self)
-            print("id:{}\ntype:{}\nclass:{}\n".format(id(self), type(self), self.__class__))
-            print("Class Name:", self.__CLASS_NAME)
-            print("id:{} salary:{}".format(self.__id, self.__salary))
-
-        def __add__(self, other):
-            """   # 运算符重载:
-            # Python同样支持运算符重载，我们可以对类的专有方法进行重载，
-            """
-            return Cat(self.__id + other.__id)
-
-        def __str__(self):
-            """字符串方法"""
-            return "name:{} object at id:{}".format(self.__CLASS_NAME, id(self))
-
-        # 所以逻辑上类方法应当只被类调用
-        # 实例方法实例调用，
-        # 静态方法两者都能调用。
-        # 主要区别在于参数传递上的区别，实例方法悄悄传递的是self引用作为参数，
-        # 而类方法悄悄传递的是 cls 引用作为参数。
-        def object_method(self):
-            """实例方法:
-            实例方法可以调用实例属性/方法以及类属性/方法"""
-            print("{}".format(self.__salary))
-
-        @staticmethod
-        def static_method1():
-            """用 @staticmethod 装饰的不带 self 参数的方法叫做静态方法，
-            类的静态方法可以没有参数，
-            可以直接使用类名调用, 也可以通过对象调用。
-            静态方法无隐含参数，主要为了类实例也可以直接调用静态方法
-            静态方法不可以调用类属性/方法或者实例属性/方法（或者说最好不要调用）
-            应用场景:
-            a. 当一个方法即不需要访问实例成员/方法,又不需要访问类的成员/方法
-            但又最好放在类的内部时 e.g.;
-            """
-            print("静态方法")
-            # print(Cat.__CLASS_NAME) # 最好不要调用
-            # Cat.class_method()
-        @staticmethod
-        def formate_date(date_str):
-            """格式化当前时间的
-            方法又仅在该类内部用到"""
-            return datetime.datetime.strptime(date_str, '%Y-%m-%d').date()
-
-        @classmethod
-        def class_method(cls):
-            """类方法: 默认有个 cls 参数，可以被类和对象调用，需要加上 @classmethod 装饰器
-            类方法隐含的参数为类本身 cls
-            类方法可以调用类属性/方法, 不能调用实例属性/方法
-            应用场景:
-            a. 当一个接口仅需要访问类属性/方法时, e.g. get_obj_cnt """
-            print("类方法 class:{} name:".format(cls.__class__), cls.__name__)
-            print(cls.__CLASS_NAME) # cls 参数可以直接访问类变量/类方法的
-
-        @classmethod
-        def get_obj_cnt(cls):
-            """类方法:
-            获取当前类的实例对象个数"""
-            return cls.__obj_cnt
-
-
-    cat = Cat()
-    cat.myself()
-    # cat.__get_salary() # ERROR:外部不可以调用类的私有方法
-    d = Cat() + Cat() # 类的运算符重载
-    d.myself()
-    cat.static_method1() # 类的静态方法可以没有参数，可以直接使用类名调用
-    Cat.static_method1() # 也可以通过对象调用
-    cat.class_method() # 类方法通过对象调用
-    Cat.class_method() # 类方法直接通过类名调用
-    print("Obj cnt:", Cat.get_obj_cnt())
-    print("time:", Cat.formate_date("2024-12-05"))
-    # 通过这个例子可以看出, self 和 实例化后的对象是一个东西
-    # 从执行结果可以很明显的看出，self 代表的是类的实例，代表当前对象的地址，
-    # 而 self.class 则指向类。
-    # self 不是 python 关键字，我们把他换成 runoob 也是可以正常执行的:
-    # 在 Python中，self 是一个惯用的名称，用于表示类的实例（对象）自身。它是一个指向实例的引用，
-    # 使得类的方法能够访问和操作实例的属性。
-    # 当你定义一个类，并在类中定义方法时，第一个参数通常被命名为 self，尽管你可以使用其他名称，
-    # 但强烈建议使用 self，“以保持代码的一致性和可读性”。
-    print("id:{}\ntype:{}\nclass:{}\n".format(id(cat), type(cat), cat.__class__))
-
-    # 多继承：
-    # 需要注意圆括号中父类的顺序，若是父类中有相同的方法名，而在子类使用时未指定，
-    # python从左至右搜索 即方法在子类中未找到时，从左到右查找父类中是否包含方法。
-
-    # super() 函数是用于调用父类(超类)的一个方法。
-    # super()函数是用于调用父类(超类)的一个方法。
-    # super()是用来解决多重继承问题的，直接用类名调用父类方法在使用单继承的时候没问题，
-    # 但是如果使用多继承，会涉及到查找顺序（MRO）、重复调用（钻石继承）等种种问题。MRO
-    # 就是类的方法解析顺序表, 其实也就是继承父类方法时的顺序表。
-    # Python3.x 和 Python2.x 的一个区别是:
-    # Python 3 可以使用直接使用 super().xxx 代替 super(Class, self).xxx :
-    class WildCat(Cat):
-        def __init__(self):
-            # # super(FooChild,self) 首先找到 FooChild 的父类（就是类 FooParent），
-            # 然后把类 FooChild 的对象转换为类 FooParent 的对象
-            super().__init__()
-
-        def eat(self, a, b):
-            # 先调用父类的方法, 然后再调用子类自己的方法
-            # 它会查找所有的超类，以及超类的超类，直到找到所需的特性为止。
-            super(WildCat, self).eat(a, b)
-            print("{} a:{} b:{}".format(self.__class__, a, b))
-            return a * b
-    # wc = WildCat()
-    # wc.eat(1, 2) #
-    # print(Cat.CLASS_TYPE) # 外部可以直接访问公有成员
-
-    # 类的专有方法:
-    # __init__: 构造函数，在生成对象时调用
-    # __del__: 析构函数，释放对象时使用
-    # __repr__: 打印，转换
-    # __setitem__: 按照索引赋值
-    # __getitem__: 按照索引获取值
-    # __len__: 获得长度
-    # __cmp__: 比较运算
-    # __call__: 函数调用
-    # __add__: 加运算
-    # __sub__: 减运算
-    # __mul__: 乘运算
-    # __truediv__: 除运算
-    # __mod__: 求余运算
-    # __pow__: 乘方
-    # __radd__: 加运算
-    # __rsub__: 减运算
-    # __rmul__: 乘运算
-    # __rdiv__: 除运算
-    # __rmod__: 求余运算
-    # __rpow__: 乘方
-    # 复合重载运算符：
-    # __iadd__: 加运算
-    # __isub__: 减运算
-    # __imul__: 乘运算
-    # __idiv__: 除运算
-    # __imod__: 求余运算
-    # __ipow__: 乘方
+        print(__file__) # 当前文件名
+        print(os.path.abspath(__file__)) # 当前文件名的绝对路径
+        print(os.path.dirname(os.path.abspath(__file__))) # 返回当前文件所在文件夹的路径
+        new_path = os.path.join('D:', "root", "test", "test.py")
+        print(os.path.normpath(new_path))
+    os_path_test()
 
 if True: # 判断语句不会创建新的作用域, 因此 msg 成为全局变量
     msg = "abc" # 全局变量
@@ -1451,17 +1426,18 @@ def namespace_test():
     import builtins # 导入 python3 内置作用域的功能
     print(dir(builtins)) #内置作用域中的变量
 
-    global msg
-    print(msg)
     # 若没有使用 global 或 nonlocal 关键字对局部变量进行声明，
-    # 在局部作用域中，可以访问全局命名空间中的变量，不可对其进行赋值。
+    # 在局部作用域中，可以访问全局命名空间中的变量，不可对其进行赋值。例如：
+    global msg
+    print(f"msg = {msg}")
+    msg = "def" # 不声明 global msg 编译:UnboundLocalError: local variable 'msg' referenced before assignment
 
     msg2 = "xyz" # 非局部变量, 对于下面的函数体来说
     # 变量的搜索顺序：
-    # 局部 -> 非局部 -> 全局 -> 内建作用域
+    # 局部 -> 非局部 -> 全局 -> 内建作用域(builtin)
     # int = 2
     def var_search_seq():
-        print("int:", int)
+        print("int:", int) # 内建作用域中搜索到 `int`
     var_search_seq()
 
     def var_scope_test1():
@@ -1484,11 +1460,26 @@ def namespace_test():
         print("nonlocal:", msg2)
     var_scope_test3()
 
+
 def python_stdlib_test():
     """Python3 标准库概览
     以上我们看到的只是 Python3 标准库中的一部分模块，
     还有很多其他模块可以在官方文档中查看完整的标准库文档：
-    https://docs.python.org/zh-cn/3/library/index.html"""
+    https://docs.python.org/zh-cn/3/library/index.html
+    标准模块
+    Python 本身带着一些标准的模块库，在 Python 库参考文档中将会介绍到（就是后面的"库参考文档"）。
+    模块名	功能描述
+    math	数学运算（如平方根、三角函数等）
+    os	操作系统相关功能（如文件、目录操作）
+    sys	系统相关的参数和函数
+    random	生成随机数
+    datetime	处理日期和时间
+    json	处理 JSON 数据
+    re	正则表达式操作
+    collections	提供额外的数据结构（如 defaultdict、deque）
+    itertools	提供迭代器工具
+    functools	高阶函数工具（如 reduce、lru_cache）
+    """
     import sys # sys 模块提供了与 Python 解释器和系统相关的功能，例如解释器的版本和路径，以及与 stdin、stdout 和 stderr 相关的信息。
     import os # os 模块提供了许多与操作系统交互的函数，例如创建、移动和删除文件和目录，以及访问环境变量等。
     import time # time 模块提供了处理时间的函数，例如获取当前时间、格式化日期和时间、计时等。
@@ -1668,17 +1659,17 @@ if __name__ == '__main__':
     # operator_base_test()
     # math_base_test()
     # condition_control_test()
+    # python_comprehension()
     # iterator_base_test()
+    # with_test()
     # function_base_test()
-    # decorator_base_test()
     # data_structure_test()
-    # module_base_test()
-    # package_base_test()
+    # standard_input_and_output_test()
     # file_op_base_test()
     # os_base_test()
-    # exception_base_test()
+    exception_base_test()
     # oob_base_test()
     # namespace_test()
-    python_stdlib_test()
+    # python_stdlib_test()
 else:
     print("我来自另一模块")

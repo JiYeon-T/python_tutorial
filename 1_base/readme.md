@@ -117,7 +117,7 @@ main.py
 
 ```python
 import logging
-import myprojectmodule # 运行 my)project_module.py 中的代码, 将生成 'package.log' 文件
+import myprojectmodule # 运行 my)project_module.py 中的代码, 将生成 'stream_package.log' 文件
 logging.basicConfig(filename='mian.log') # 无效
 ```
 

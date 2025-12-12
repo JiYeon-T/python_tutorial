@@ -1,7 +1,12 @@
 ##test1_openurl
-import urllib.request as  r		##urllib是一個包（package）
-response = openurl('http://www.aliali.online')
-##解碼
-html = response.read()
-html = html.decode('utf-8')		#utf-8支持中文
-print(html)
+import urllib.request as  r		##urllib是一個包（stream_package）
+
+def basic_url_test():
+    response = openurl('https://www.baidu.com')
+    ##解碼
+    html = response.read()
+    html = html.decode('utf-8')		#utf-8支持中文
+    print(html)
+
+if __name__ == '__main__':
+    basic_url_test()

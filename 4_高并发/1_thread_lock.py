@@ -2,6 +2,7 @@ import sys
 import threading as th
 from PyQt5.QtWidgets import QApplication, QPushButton, QWidget
 import time
+
 # 1.线程锁的使用：防止多次进入同一个线程
 # 这种方式还是不行, 只是表面上防止进入了, 实际上已经开启了很多线程, 只是其它线程暂时都还在阻塞等待锁被释放罢了
 
@@ -47,4 +48,4 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)  # 整个 UI 界面的控件，信号管理等
     win = Window()
     win.show()
-    sys.exit(app.exec_())  # 死循环，等待, 除法按下结束才会关闭
+    sys.exit(app.exec_()) # 死循环，等待, 除非按下结束才会关闭

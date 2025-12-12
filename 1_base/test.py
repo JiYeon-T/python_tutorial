@@ -1,7 +1,7 @@
-###########################################
 #import time as t
 from time import localtime
-##
+
+
 class Timer:
 	##
 	def __str__(self):
@@ -25,7 +25,8 @@ class Timer:
 		self.last_time = []		# = {}
 		for i in range(6):
 			self.last_time.append( self.stop_time[i] - self.start_time[i] )
-		print('all time is :' + str (self.last_time)) 
+		print('all time is :' + str (self.last_time))
+
 ########## get the attribute
 class C:
 	def __getattribute__(self, name):

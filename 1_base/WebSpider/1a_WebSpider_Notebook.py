@@ -14,6 +14,7 @@ except URLError as e:
 	print('Error reason:', e.reason)
 else:
 	print('Everything is OK.')
+
 ###########################################################################
 ##key2:通過判斷錯誤的原因擁有的屬性來判斷是客戶端的問題還是服務器端的問題：
 ##(1)有reason，client的問題
