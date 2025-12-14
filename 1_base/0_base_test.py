@@ -1285,7 +1285,7 @@ def file_op_base_test():
                     l.append(path_temp)
         except PermissionError as e:
             print(repr(e))
-    getPythonFile("0_Process", l)
+    getPythonFile("../2_advanced/process", l)
     print("L:", l)
 
 def os_base_test():
@@ -1330,7 +1330,7 @@ def os_base_test():
     # os.lchmod(path, mode) # os.lchmod(path, mode) 修改连接文件权限
     # os.lchown(path, uid, gid) # os.lchown(path, uid, gid) 更改文件所有者，类似 chown，但是不追踪链接。
     # os.link(src, dst) # os.link(src, dst) 创建硬链接，名为参数 dst，指向参数 src
-    print("listdir:", os.listdir("0_Process/")) # os.listdir(path) 返回path指定的文件夹包含的文件或文件夹的名字的列表
+    print("listdir:", os.listdir("../2_advanced/process/")) # os.listdir(path) 返回path指定的文件夹包含的文件或文件夹的名字的列表
     # os.lseek(fd, pos, how) # os.lseek(fd, pos, how) 设置文件描述符 fd当前位置为pos, how方式修改: SEEK_SET 或者 0 设置从文件开始的计算的pos; SEEK_CUR或者 1 则从当前位置计算; os.SEEK_END或者2则从文件尾部开始. 在unix，Windows中有效
     # os.lstat(path) # os.lstat(path) 像stat(),但是没有软链接
     # info = os.lstat(path)

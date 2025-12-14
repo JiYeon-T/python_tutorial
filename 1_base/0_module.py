@@ -68,8 +68,8 @@ def package_base_test():
     记住，使用 from Package import specific_submodule 这种方法永远不会有错。
     事实上，这也是推荐的方法。除非是你要导入的子模块有可能和其他包的子模块重名。
     """
-    from stream_package.audio import codec, decode, encode
-    from stream_package.video import mp4, wav
+    from package_test.audio import codec, decode, encode
+    from package_test.video import mp4, wav
     def test1():
         c = encode.Encoder()
     test1()

@@ -25,6 +25,6 @@ class C:
 		del self.x
 	x = MyProperty(getX, setX, delX)
 
-eg: #accomplish a temperature test with 'descriptor'
+# eg:  # accomplish a temperature test with 'descriptor'
 class Temperature:
 	clus = Clusius()
