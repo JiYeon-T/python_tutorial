@@ -51,9 +51,9 @@ def module_base_test():
     # 内置的函数 dir() 可以找到模块内定义的所有名称。以一个字符串列表的形式返回:
     def module_test2():
         # from test_module import moudle_import_test
-        import test_module
+        import module_test
         # moudle_import_test()
-        print(dir(test_module))
+        print(dir(module_test))
     module_test2()
 
 def package_base_test():

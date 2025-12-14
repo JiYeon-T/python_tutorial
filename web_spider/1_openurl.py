@@ -1,5 +1,5 @@
 ##test1_openurl
-import urllib.request as  r		##urllib是一個包（package_test）
+import urllib.request # urllib是一個包（package_test）
 
 def basic_url_test():
     response = openurl('https://www.baidu.com')

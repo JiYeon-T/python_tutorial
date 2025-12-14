@@ -104,6 +104,18 @@ def str_op():
     print("PI:{!r}".format(math.pi))
     print("PI:{0:.3f}".format(math.pi))
 
+
+def str_test2():
+    str1 = "1B7E8251-2877-41C3-B46E-CF057C562023"
+    str2 = "bafdfkdljf     1B7E8251-2877-41C3-B46E-CF057C562023; selected, bacdafa"
+    print(f"str1:{str1} str2:{str2}")
+    print(f"UPPER:{str1.upper()}")
+    if str1 in str2:
+        print("Yes")
+    else:
+        print("No")
+
+
 def enter_test():
     """"""
     import sys
@@ -282,6 +294,51 @@ def list_base_test():
             print(i, end=",")
         print("\n\n")
     sorted_traverse()
+
+    def list_op_test1():
+        l = [1, 2, 3, 4, 5]  # pyhton 中列表默认传递的就是引用, 如果想使用值传递, 则要切分
+
+        def modify_list_elem(l):
+            l[0] = 10
+            print(l)
+
+        # modify_list_elem(l[:])
+        # print(l)
+    # list_op_test1()
+
+    def list_op_test2():
+        l = [1, 2, 3, 4, 5]
+        print(l)
+        l.remove(1)
+        print(l)
+        l.append(1)
+        print(l)
+        # l.insert(0, 1)  # 列表的插入
+        l.insert(0, 1)  # 列表的插入
+        l.insert(0, 1)  # 列表的插入
+        l.insert(0, 1)  # 列表的插入
+        l.insert(-1, 100)
+        print(l)
+        for ix in l:
+            if ix == 2:
+                l.remove(2)
+        # l.remove(5)
+        print(l)
+
+        del l[0]  # 删除
+        print(l)
+        s = list(set(l))  # set, unique
+        print(s)
+
+        print(type(s))
+        item = 999
+        s.append(item)  # 插入元素
+        print(s)
+        item = s.pop()  # 从列表中弹出一个元素
+        print(s)
+        print(item)
+    # list_op_test2()
+
 
 def tuple_base_test():
     """元组测试
@@ -1460,194 +1517,167 @@ def namespace_test():
         print("nonlocal:", msg2)
     var_scope_test3()
 
-
-def python_stdlib_test():
-    """Python3 标准库概览
-    以上我们看到的只是 Python3 标准库中的一部分模块，
-    还有很多其他模块可以在官方文档中查看完整的标准库文档：
-    https://docs.python.org/zh-cn/3/library/index.html
-    标准模块
-    Python 本身带着一些标准的模块库，在 Python 库参考文档中将会介绍到（就是后面的"库参考文档"）。
-    模块名	功能描述
-    math	数学运算（如平方根、三角函数等）
-    os	操作系统相关功能（如文件、目录操作）
-    sys	系统相关的参数和函数
-    random	生成随机数
-    datetime	处理日期和时间
-    json	处理 JSON 数据
-    re	正则表达式操作
-    collections	提供额外的数据结构（如 defaultdict、deque）
-    itertools	提供迭代器工具
-    functools	高阶函数工具（如 reduce、lru_cache）
+def virtual_enviroment_example():
     """
-    import sys # sys 模块提供了与 Python 解释器和系统相关的功能，例如解释器的版本和路径，以及与 stdin、stdout 和 stderr 相关的信息。
-    import os # os 模块提供了许多与操作系统交互的函数，例如创建、移动和删除文件和目录，以及访问环境变量等。
-    import time # time 模块提供了处理时间的函数，例如获取当前时间、格式化日期和时间、计时等。
-    import datetime # datetime 模块提供了更高级的日期和时间处理函数，例如处理时区、计算时间差、计算日期差等
-    import random # random 模块提供了生成随机数的函数，例如生成随机整数、浮点数、序列等。
-    import math # math 模块提供了数学函数，例如三角函数、对数函数、指数函数、常数等。
-    import re # re 模块提供了正则表达式处理函数，可以用于文本搜索、替换、分割等。
-    import json # json 模块提供了 JSON 编码和解码函数，可以将 Python 对象转换为 JSON 格式，并从 JSON 格式中解析出 Python 对象。
-    import urllib # urllib 模块提供了访问网页和处理 URL 的功能，包括下载文件、发送 POST 请求、处理 cookies 等。
-    import shutil # 针对日常的文件和目录管理任务，:mod:shutil 模块提供了一个易于使用的高级接口:
-    import glob # glob 模块提供了一个函数用于从目录通配符搜索中生成文件列表
-    from urllib.request import urlopen # 理从 urls 接收的数据的 urllib.request
-    import smtplib #发送电子邮件的 smtplib
-    import zlib # 以下模块直接支持通用的数据打包和压缩格式：zlib，gzip，bz2，zipfile，以及 tarfile。
-    from timeit import Timer # timeit事件度量库
-    import pstats # pstats 模块提供了针对更大代码块的时间度量工具。
-    import doctest
-    import unittest
+    https://www.runoob.com/python3/python-venv.html
+    不同的项目可能需要不同的 python 环境, 第三方库等等
+    TODO: 不同的环境进行测试
+    """
+    pass
 
-    # import sys # 系统相关模块
-    # sys 模块提供了与 Python 解释器和系统相关的功能，例如解释器的版本和路径，
-    # 以及与 stdin、stdout 和 stderr 相关的信息。
-    print(sys.argv) # 是一个 list,包含所有的命令行参数.
-    print(repr(sys.stdout)) # 分别表示标准输入输出,错误输出的文件对象.
-    print(repr(sys.stdin))
-    print(repr(sys.stderr))
-    # print(sys.stdin.readline()) # 从标准输入读一行
-    sys.stdout.write("a\n")
-    # sys.exit(-1) # 退出程序(大多脚本的定向终止都使用 sys.exit())
-    print("available moudls", sys.modules) # 是一个dictionary，表示系统中所有可用的module
-    print(sys.platform) # 得到运行的操作系统环境
-    print(sys.path) # sys.path 是一个list,指明所有查找module，package的路径
+def type_hints_test():
+    """
+    https://www.runoob.com/python3/python-type-hints.html
+    类型注解就是在代码中注明数据类型的语法，它的核心目的是：
+    提高代码可读性：让他人（以及未来的你）一眼就能看懂代码的意图
+    便于静态检查：在运行代码前，通过工具发现潜在的类型错误
+    增强IDE支持：让代码编辑器提供更准确的自动补全和提示
 
-    # import os # 操作系统相关的调用和操作
-    # os 模块提供了许多与操作系统交互的函数，例如创建、移动和删除文件和目录，以及访问环境变量等。
-    print("environ", os.environ) # 一个 dictionary 包含环境变量的映射关系
-    print("environment PATH", os.environ["PATH"]) # 可以得到环境变量HOME的值
-    directory = "."
-    os.chdir(directory) # 改变当前目录 os.chdir('d:\\outlook') 注意windows下用到转义
-    print("current working directory", os.getcwd()) # 得到当前目录
-    # print("egid:{} gid:".format(os.getegid(), os.getgid())) # 得到有效组id/组 id
-    # print("euid:{} uid:{}".format(os.geteuid(), os.getuid())) # 得到用户/有效用户id
-    # print("groups:", os.getgroups()) # 得到用户组名称列表
-    print("login:", os.getlogin()) # 到用户登录名称
-    print("env path:",os.getenv("PATH")) # 得到环境变量
-    # os.putenv("") # 设置环境变量
-    # print("umask", os.umask()) # 设置umask(Set the current numeric umask and return the previous umask)
-    # os.system("dir") # 利用系统调用，运行cmd命令
-    print("dirs:", os.listdir())
+    最佳实践指南
+    1. 渐进式采用
+    从新代码开始使用类型注解
+    逐步为重要的旧代码添加注解
+    不需要一次性为所有代码添加类型
+    2. 保持一致性
+    在项目中保持统一的注解风格
+    团队协商决定注解的详细程度
+    3. 避免过度注解
 
-    # 内置模块(不用import就可以直接使用)常用内置函数：
-    # help(object) # 在线帮助, obj可是任何类型
-    print("callable:", callable(object)) # 查看一个obj是不是可以像函数一样调用
-    # print(repr(object)) # 得到obj的表示字符串，可以利用这个字符串eval重建该对象的一个拷贝
+    Q&A:
+    Q:类型注解会影响性能吗？
+    A:不会。类型注解在运行时会被忽略，只用于静态分析和开发工具。
+    Q:必须使用类型注解吗？
+    A:不强制。Python 仍然是动态类型语言，类型注解是可选的。但强烈推荐使用，特别是大型项目。
+    Q:如果注解错了会怎么样？
+    A:类型检查器会报错，但程序仍然可以运行。注解只是"提示"而不是"强制"。
+    """
 
-    # shutil
-    # shutil.copy("foo.txt", 'archive.db')
-    # shutil.move('foo.txt', 'foo2.txt')
+    def greet(name: str) -> str:
+        """有类型注解(这里是函数注解)
+        在函数参数后加 : 类型"""
+        return f"Hello,{name}"
 
-    # glob
-    print(glob.glob('*.py'))
+    def var_type_hints_example1():
+        # 有类型注解的代码
+        name: str = "Alice"  # 注解为字符串 (str)
+        age: int = 30  # 注解为整数 (int)
+        is_student: bool = False  # 注解为布尔值 (bool)
+        scores: list = [95, 88, 91]  # 注解为列表 (list)
+        print(f"type:{type(name)} {name}")
+    # var_type_hints_example1()
 
-    # re
-    # 如果只需要简单的功能，应该首先考虑字符串方法，因为它们非常简单，易于阅读和调试:
-    re.findall(r'\bf[a-z]*', 'which foot or hand fell fasttest')
+    def say_hello(name: str, times: int = 1) -> str:
+        """默认实参
+        向某人问好指定次数"""
+        ret_str =  "".join([f"Hello, {name}!\r\n"] * times)
+        print(ret_str)
+        return ret_str
+    # say_hello("Libai", times=3)
 
-    print("supported functions:", dir(math)) # 打印模块里定义过得名字
-    # math 模块为浮点运算提供了对底层 C 函数库的访问:
-    print("PI:",math.pi)
-    print("sample:", random.sample(range(100), 10))
-
-    # 有几个模块用于访问互联网以及处理网络通信协议。
-    # 其中最简单的两个是用于处理从 urls 接收的数据的 urllib.request 以及
-    # 用于发送电子邮件的 smtplib:
-    # for line in urlopen("https://www.baidu.com"):
-    #     line = line.decode('utf-8') # # Decoding the binary data to text.
-    #     if 'EST' in line or 'EDT' in line: # look for Eastern Time
-    #         print(line)
-    #     print("url recv:", line)
-
-    # 需要本地有一个在运行的邮件服务器。
-    # server = smtplib.SMTP('localhost')
-    # server.sendmail('soothsayer@example.org', 'jcaesar@example.org',
-    #                 """To: jcaesar@example.org
-    #                 From: soothsayer@example.org
-    #
-    #                 Beware the Ides of March.
-    #                 """)
-
-    # datetime:
-    print(datetime.datetime.now())
-    print(type(datetime.datetime.today()))
-    now = datetime.datetime.today()
-    print(now.strftime("%Y-%m-%d %H:%M:%S")) # 格式化日期
-    birthday = datetime.date(1998, 2, 15) # 该模块还支持时区处理
-    # now = datetime.date()
-    print("now:", repr(now))
-    print("%d-%d-%d" % (now.year, now.month, now.day))
-    # now = datetime.date(datetime.date.year, month=datetime.date.month, day=datetime.date.day)
-    today = datetime.date(now.year, month=now.month, day=now.day)
-    diff = today - birthday
-    print("lived days:", diff.days, diff) # 返回天数
-    today = datetime.date.today() # 今天
-    timestamp = time.time() # 当前时间戳
-    print("today", today)
-    yesterday = today - datetime.timedelta(days=1) # 昨天
-    print("yesterday", yesterday)
-    last_month = today.month - 1 if today.month - 1 else 12
-    print("last_month:", last_month) # 上个月时间戳
-    print("timestamp:", timestamp)
-    print("date:", datetime.datetime.fromtimestamp(timestamp)) # 时间戳转datetime
-    print("timestamp:", time.mktime(today.timetuple())) # datetime转时间戳
-    today_str = today.strftime("%Y-%m-%d") # datetime转字符串
-    print("today str:", today_str)
-    today = datetime.datetime.strptime(today_str, "%Y-%m-%d") # 字符串转datetime
-    print("东八区:", today + datetime.timedelta(hours=8)) # 补时差
-
-    s = b'witch whish has which witches wrist watch 111111111111111111111111111111111111'
-    print("len:", len(s))
-    print("checksum:", zlib.crc32(s)) # CRC-32 checksum of data.
-    pressed = zlib.compress(s)
-    print("compressed size:", len(pressed))
-    decompressed = zlib.decompress(pressed)
-    print("decompress:", decompressed)
-    print("checksum:", zlib.crc32(decompressed))
-
-    # timeit(python 内置模块, 无需单独安装)
-    # timeit 模块用于测试一小段代码的执行时间, 可以用于测试性能问题
-    # TODO: 其他性能测试模块 pstats 和 cProfile
-    list_stmt = "[x for x in range(1000)]" # 测试代码
-    generator_stmt = "(x for x in range(1000))"
-    setup = "pass" # 没有额外的初始化代码
-    number = 10000 # 代码要重复执行的次数
-    list_execution_time = timeit.timeit(list_stmt, setup, number=number)
-    print('execution_time: %f seconds' % list_execution_time)
-    # repeat() 方法会返回一个列表，其中包含多次测量的结果，以便更好地评估代码性能。其基本语法为：
-    generator_execution_time = timeit.repeat(list_stmt, setup, repeat=3, number=number)
-    print('execution_time: {} seconds'.format(generator_execution_time))
-
-    # 测试模块
-    # doctest模块提供了一个工具，扫描模块并根据程序中内嵌的文档字符串执行测试。
-    # https://docs.python.org/zh-cn/3.12/library/doctest.html
-    # C++ doctest:
-    # https://blog.csdn.net/liao20081228/article/details/76984975
-    def average(value):
+    def complex_type_hints_example():
         """
-        Computes the arithmetic mean of a list of numbers.
-        >>> print(average([x for x in range(10000)]))
-        40.0
+        复杂类型注解
+        基本的 str, int, list 很好用，但如果我们想表达"一个由整数组成的列表"该怎么办？
+        这时就需要 Python 的 typing 模块提供更强大的工具。
+        列表、字典等容器类型
         """
-        return sum(value) / len(value)
-    # doctest.testmod() # # 自动验证嵌入测试
-    average([x for x in range(10000)])
-    # unittest
-    # unittest模块不像 doctest模块那么容易使用，不过它可以在一个独立的文件里提供一个更全面的测试集:
-    class TestStatisticalFunctions(unittest.TestCase):
-        """测试用例"""
-        def test_average(self):
-            self.assertEqual(average([20, 30, 70]), 40.0)
-            self.assertEqual(round(average([1, 5, 7]), 1), 4.3)
-            self.assertRaises(ZeroDivisionError, average, [])
-            self.assertRaises(TypeError, average, 20, 30, 70)
-    # TestStatisticalFunctions()
-    # unittest.main()
+        from typing import List, Dict, Tuple, Set
+
+        # List[int] 表示这是一个只包含整数的列表
+        numbers: List[int] = [1, 2, 3, 4, 5]
+        # Dict[str, int] 表示这是一个键为字符串、值为整数的字典
+        student_scores: Dict[str, int] = {"Alice": 95, "Bob": 88}
+        # Tuple[int, str, bool] 表示这是一个包含整数、字符串、布尔值的元组
+        person_info: Tuple[int, str, bool] = (25, "Alice", True)
+        # Set[str] 表示这是一个只包含字符串的集合
+        unique_names: Set[str] = {"Alice", "Bob", "Charlie"}
+
+    def optional_type_hints():
+        """
+        当值可能是某种类型或者是 None 时使用：
+        """
+        from typing import Optional
+
+        def find_student(name: str) -> Optional[str]:
+            """根据名字查找学生，可能找到也可能返回None"""
+            students = {"Alice": "A001", "Bob": "B002"}
+            return students.get(name)  # 可能返回字符串或None,  等价于 Union[str, None]
+
+    def union_type_hints():
+        """
+        当值可能是多种类型之一时使用：
+        """
+        from typing import Union
+        from typing import List, Dict, Tuple, Set
+
+        def process_input(data: Union[str, int, List[int]]):
+            if isinstance(data, int):
+                print(f"整数:{data}")
+            elif isinstance(data, str):
+                print(f"字符串:{data}")
+            elif isinstance(data, list):
+                print(f"列表:{data}")
+            else:
+                raise TypeError(f"unknown type:{type(data)}")
+
+        process_input(1)
+        process_input("1")
+        process_input([1,])
+        process_input((1, ))
+    # union_type_hints()
+
+    def type_check():
+        """对输入的变量进行类型检查的工具 mypy
+        Mypy 是最流行的 Python 类型检查器。首先安装它：
+        pip install mypy
+        """
+
+        def add_numbers(a: int, b: int) -> int:
+            return a + b
+
+        add_numbers("1", "2")  # 这里类型错误, 使用 MyPy 进行检查， 运行: MyPy 0_base_test.py
+
+    def type_hints_example2():
+        """使用类型注解的程序"""
+
+        from typing import List, Dict, Union, Optional
+
+        def process_students(students: List[Dict[str, Union[str, int]]]) -> Optional[float]:
+            """
+            处理学生数据，计算平均分数
+
+            参数:
+                students: 学生列表，每个学生是包含'name'和'score'的字典
+
+            返回:
+                平均分数（浮点数），如果没有学生则返回None
+            """
+            if not students:
+                return None
+
+            total = 0
+            for student in students:
+                total += student['score']
+
+            return total / len(students)
+
+        # 测试数据
+        students_data = [
+            {"name": "Alice", "score": 95},
+            {"name": "Bob", "score": 88},
+            {"name": "Charlie", "score": 92}
+        ]
+
+        average = process_students(students_data)
+        print(f"平均分: {average}")
+
+    type_hints_example2()
+
 
 if __name__ == '__main__':
     # base_info()
     # str_op()
+    # str_test2()
     # enter_test()
     # var_type_test()
     # list_base_test()
@@ -1667,9 +1697,8 @@ if __name__ == '__main__':
     # standard_input_and_output_test()
     # file_op_base_test()
     # os_base_test()
-    exception_base_test()
     # oob_base_test()
     # namespace_test()
-    # python_stdlib_test()
+    type_hints_test()
 else:
     print("我来自另一模块")

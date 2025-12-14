@@ -3,7 +3,7 @@ import time
 from threading import Condition
 
 #from queue import  Queue
-#th.Condition    # Condition 类实现了 __enter__, __exit__ 就可以使用魔法方法 with 打开
+#th.Condition # Condition 类实现了 __enter__, __exit__ 就可以使用魔法方法 with 打开
 # (3)condition
 #Condition 具有通知的功能, cond.wait() 等待某一个通知;
 # notify() 通知某一个线程

@@ -8,8 +8,10 @@ python 笔记
 
 
 # TODO:
-https://www.runoob.com/python3/python3-namespace-scope.html
 https://docs.python.org/3.9/library/stdtypes.html#bytes
+https://www.runoob.com/python3/python3-stdlib.html
+# 2. 继续整理代码, 2_thread_test 文件夹移动到 2_advanced/thread 目录下去;
 
-branch:
-pyqt5_tutorial is obsolete
+
+# git repository branch list:
+pyqt5_tutorial is obsolete. DO NOT USE ANYMORE.REMOVE GITHUB BRANCH.

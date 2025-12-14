@@ -39,10 +39,11 @@ def test():
     condition = th.Condition()
     cs1 = th.Thread(target=consumer, name="consumer1", args=(condition, ))
     cs2 = th.Thread(target=consumer, name="consumer2", args=(condition, ))
-    pd = th.Thread(target=producer, name="producer", args=(condition, ))
     cs1.start()
     cs2.start()
+
     time.sleep(2)
+    pd = th.Thread(target=producer, name="producer", args=(condition, ))
     pd.start()
 
 if __name__ == '__main__':

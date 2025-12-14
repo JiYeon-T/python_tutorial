@@ -1,5 +1,6 @@
-
+import time
 # https://www.runoob.com/python3/python-decorators.html
+
 
 def decorator_base_test():
     """
@@ -66,6 +67,7 @@ def decorator_base_test():
         """带参数的装饰器 repeat """
         def decrator(original_fun):
             def wrapper(*args, **kwargs):
+                result = None
                 for _ in range(n):
                     print(f"This is {_ + 1} time:", end=":")
                     result = original_fun(*args, **kwargs)
@@ -125,7 +127,11 @@ def decorator_base_test():
     # @staticmethod: 将方法定义为静态方法，不需要实例化类即可调用。
     # @classmethod: 将方法定义为类方法，第一个参数是类本身（通常命名为 cls）。
     # @property: 将方法转换为属性，使其可以像属性一样访问。
-    class MyClass():
+    class MyClass:
+
+        def __init__(self, name=None):
+            self.__name = name
+
         @staticmethod
         def static_method():
             print("This is a static method")
@@ -152,11 +158,128 @@ def decorator_base_test():
 
         c = MyClass()
         c.name = 'Alice'
-        print(f"name:{c.name}") # 可以向属性一样调用类的方法
+        print(f"name:{c.name}")  # 可以向属性一样调用类的方法
     # decorator_test4()
 
     # 多个装饰器的堆叠，当有多个装饰器时可以堆叠使用
     # TODO:
 
+
+def property_test():
+    """
+    @property 测试
+    属性访问器的作用是为了数据安全,
+    定义后，属性的访问方式由 obj.setx() -> obj.x = val
+    obj.getx() -> obj.x
+    obj.delx() -> del obj.x
+    roperty是标准库提供的一个类，一个property实例映射一个普通类属性，
+    我们可以在创建property时指定其对应属性的各种访问器，以下是官方例子的一个改版
+    """
+    class PropertyTest:
+
+        # def __init__(self, x=None):
+        #     self.__x = x
+
+        def getx(self):
+            """获取器"""
+            print(f"invoke getter method")
+            return self.__x
+
+        def setx(self, val):
+            """设置器"""
+            print(f"invoke setter method")
+            if val < 0:
+                raise ValueError(f"必须大于0 {val}")
+            self.__x = val
+
+        def delx(self):
+            """删除器"""
+            print(f"invoke delete method")
+            del self.__x
+
+        # 创建 property 实例:
+        x = property(fget=getx, fset=setx, fdel=delx, doc='I am x property')
+
+    c = PropertyTest()
+    c.x = 12
+    print(f'x = {c.x}')
+    del c.x
+
+def decorator_property_test():
+    """
+    @property 装饰器
+    """
+
+    class PropertyTest(object):
+
+        @property
+        def x(self):
+            return self.__x
+
+        @x.setter
+        def x(self, val):
+            print("invoke setter method")
+            self.__x = val
+
+        @x.getter
+        def x(self):
+            print("invoke getter method")
+            return self.__x
+
+        @x.deleter
+        def x(self):
+            print("invoke delete method")
+            del self.__x
+
+    c = PropertyTest()
+    c.x = 123
+    print(f'x = {c.x}')
+    del c.x
+
+
+def property_test2():
+    """ 使用自己实现的 property """
+
+    class MyProperty(object):
+        """自己实现一个 property 类??"""
+        def __init__(self, fget=None, fset=None, fdel=None):
+            self.fget = fget
+            self.fset = fset
+            self.fdel = fdel
+
+        def __get__(self, instance, owner):
+            return self.fget(instance)
+
+        def __set__(self, instance, value):
+            self.fset(instance, value)
+
+        def __delete__(self, instance):
+            self.fdel(instance)
+
+    class C(object):
+
+        def getx(self):
+            print(f"invoke getter method")
+            return self.x
+
+        def setx(self, value):
+            print(f"invoke setter method")
+            self.x = value
+
+        def delx(self):
+            print(f"invoke delete method")
+            del self.x
+
+        x = MyProperty(fget=getx, fset=setx, fdel=delx)
+
+    # TODO: 这个测试用例一直失败, 循环打印 setter
+    c = C()
+    c.x = 1
+    print(f"x={c.x}")
+    del c.x
+
 if __name__ == '__main__':
-    decorator_base_test()
+    # decorator_base_test()
+    # property_test()
+    # property_test2()  # TODO:
+    decorator_property_test()

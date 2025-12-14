@@ -7,22 +7,26 @@ class Timer:
 		self.start_time = [0]		#list type
 		self.stop_time = [0]
 		self.last_time = [0]
-	def __str__(self):			#chong xie __repr__
+
+	def __str__(self):  # 重写 __repr__
 		return self.print_str
 	__repr__ = __str__
-	##add object: t1 + t2
-	def __add__(self, other):		#chong xie __add__  
-		temp = 'All time is :'		#string, local varible temp 
-		add_result = []			#list, save time sum
+
+	# add object: t1 + t2
+	def __add__(self, other):  # 重写 __add__
+		temp = 'All time is :'  # string, local varible temp
+		add_result = []	 # list, save time sum
 		for i in range(6):
 			add_result.append(self.last_time[i] + other.last_time[i])
 			temp += (str(add_result[i]) + self.unit[i])
-		print(temp) 
-	##timer start
+		print(temp)
+
+	# timer start
 	def start(self):
 		self.start_time = t.localtime()
 		print('Timer started.')
-	##timer stop
+
+	# timer stop
 	def stop(self): 
 		if not self.start_time:
 			print('Please start ,Then stop.')
@@ -30,7 +34,8 @@ class Timer:
 			self.stop_time = t.localtime()
 			self._calc()	
 			print('Timer stopped.')
-	##inner function
+
+	# inner function
 	def _calc(self):
 		self.last_time = []	
 		self.print_str = 'Timer value is :'
@@ -40,5 +45,4 @@ class Timer:
 		self.start_time = [0]
 		self.stop_time = [0]
 
-			
 	#show style: 'xx year' + 'xx month' + ... + 'xx second'	

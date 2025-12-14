@@ -63,7 +63,47 @@ def thread_running_sequence_test():
 		sub_thread = t.Thread(target=task, args=(i,))
 		sub_thread.start()
 
+
+#########################################################################
+# 2._thread 模块
+# _thread 提供了低级别的、原始的线程以及一个简单的锁。
+# _thread 还提供了一个 ThreadLocal 类用于管理线程相关的数据，名为 thread._local，threading中引用了这个类。
+# 由于 _thread 提供的线程功能不多，无法在主线程结束后继续运行，不提供条件变量等等原因，一般不使用 _thread 模块，
+
+# _thread 对于进程何时退出没有任何控制。当主线程结束时，所有其他线程也都强制结束。不会发出警告或者进行适当的清理。
+# 因而 python 多线程一般使用较为高级的 threading 模块，它提供了完整的线程控制机制以及信号量机制。
+# TODO:但是这些 event, condition, semaphore 都具体是怎么控制的呢?
+
+
+def _thread_test():
+	"""_thread 模块测试"""
+
+	import _thread
+	import time
+
+	def thread_entry():
+		""" 线程入口函数 """
+		for ix in range(1000):
+			print(ix)
+			time.sleep(1)
+		print("线程结束")
+		_thread.exit()  # 结束当前线程
+
+	# 创建线程
+	th1 = _thread.start_new_thread(thread_entry, (), {})  # 传入元组与字典这两个参数
+	print(f"thread id:{_thread.get_ident()}")  # 不是线程 ID, 只是一个魔法数字
+	_thread.interrupt_main() # 子线程中结束主线程， raise a KeyBoardInterrupt to interrupt main thread
+	lock = _thread.allocate_lock()
+	print("lock state:", lock.locked())
+	count = 0  # 通过锁控制对全局变量的访问
+	if lock.acquire():
+		count += 1
+		lock.release()
+	# _thread 模块提供的线程都将在主线程结束后同时结束
+
+
 if __name__ == '__main__':
 	# thread_basic_example1()
 	# daemon_thread_test()
-	thread_running_sequence_test()
+	# thread_running_sequence_test()
+	_thread_test()
