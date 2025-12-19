@@ -3,41 +3,35 @@ import logging
 import time
 
 # 对所有线程同步以及通信的方法进行简单练习
-DATE_FORMAT = "%m/%d/%Y %H:%M:%S %p"
-LOG_FORMAT = "%(asctime)s %(threadName)s|%(thread)d : %(message)s"
-logging.basicConfig(level=logging.DEBUG,
-                    format=LOG_FORMAT,
-                    datefmt=DATE_FORMAT)
 alist = None
 cond = threading.Condition()
 
 def doSet():
-    """ trhea entry function """
+    """ thread entry function """
     global alist
-    logging.debug("thread start")
+    print("thread start")
     if cond.acquire():
-        logging.debug("got lock1")
+        print("got lock1")
         while alist is None:
             cond.wait()
-            logging.debug("got lock2")
-            logging.debug("set running...")
+            print("got lock2")
+            print("set running...")
         for i in range(len(alist))[::-1]:
             alist[i] = 1 # 修改共享数据
         cond.release()
-    logging.debug("thread end")
+    print("thread end")
 
 def doPrint():
-    """ trhea entry function """
+    """ thread entry function """
     global alist
-    logging.debug("thread start")
+    print("thread start")
     if cond.acquire():
-        logging.debug("got lock1")
+        print("got lock1")
         while alist is None:
             cond.wait()
-            logging.debug("got lock2")
-            logging.debug("print running...")
-        for i in alist:
-            logging.info(i) # 打印共享数据
+            print("got lock2")
+            print("print running...")
+        # 访问/打印共享数据
         cond.release()
     logging.debug("thread end")
 

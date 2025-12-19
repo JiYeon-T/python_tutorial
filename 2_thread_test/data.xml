@@ -1,0 +1,6 @@
+<root version="1.0">
+	<child>Hello,world</child>
+	<child2 name="Libai" />
+	<child3 age="128" />
+	<child4 school="Peiking University" />
+</root>

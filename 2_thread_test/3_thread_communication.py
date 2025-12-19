@@ -12,8 +12,8 @@ from queue import  Queue
 def get_detail_html(queue):
     print("get_detail_html started.")
     while True:
-        #put_nowait() 和 get_nowait() 是不阻塞的
-        html = queue.get()      # 阻塞等待
+        # put_nowait() 和 get_nowait() 是不阻塞的
+        html = queue.get()  # 阻塞等待
 
         print(html)
         time.sleep(2)
@@ -27,7 +27,7 @@ def get_detail_list(queue):
     time.sleep(2)
     for ix in range(10):
         queue.put("第{}条数据".format(ix))      # 如果队列满，也阻塞等待
-        time.sleep(1)
+        # time.sleep(1)
     print("get_detail_list ended.")
 
 

@@ -6,6 +6,7 @@ python 笔记
 # https://www.runoob.com/python3/python3-examples.html
 # https://www.runoob.com/python3/python3-area-of-a-circle.html
 
+[comment]: <> (https://pythonspot.com/beginner/#google_vignette)
 
 # TODO:
 https://docs.python.org/3.9/library/stdtypes.html#bytes

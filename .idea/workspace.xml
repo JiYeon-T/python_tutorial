@@ -26,19 +26,24 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/algorithm" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Files\GitFile\python_tutorial\algorithm" />
+      <recent name="D:\Files\GitFile\python_tutorial\2_thread_test" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Files\GitFile\python_tutorial\2_stdlib" />
-      <recent name="D:\Files\GitFile\python_tutorial\3_thirdparty" />
-      <recent name="D:\Files\GitFile\python_tutorial\2_advanced\thread" />
-      <recent name="D:\Files\GitFile\python_tutorial" />
-      <recent name="D:\Files\GitFile\python_tutorial\2_advanced\process" />
+      <recent name="D:\Files\GitFile\python_tutorial\4_thirdparty" />
+      <recent name="D:\Files\GitFile\python_tutorial\4_thirdparty\protobuf" />
+      <recent name="D:\Files\GitFile\python_tutorial\4_thirdparty\serial" />
+      <recent name="D:\Files\GitFile\python_tutorial\1_base" />
+      <recent name="D:\Files\GitFile\python_tutorial\4_thirdparty\pyqt_test" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.0_base_test">
-    <configuration name="0_base_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.0_pyqt_example">
+    <configuration name="0_pyqt_example" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="python_tutorial" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -46,11 +51,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/1_base" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/4_thirdparty/pyqt" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/1_base/0_base_test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/4_thirdparty/pyqt/0_pyqt_example.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -59,7 +64,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="decorator_test (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="0_pyqt_start" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="python_tutorial" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -67,11 +72,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/1_base" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/4_thirdparty/pyqt" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/1_base/decorator_test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/4_thirdparty/pyqt/0_pyqt_start.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -80,7 +85,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="decorator_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="qsignal_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="python_tutorial" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -88,11 +93,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/1_base" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/4_thirdparty/pyqt" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="D:\Files\GitFile\python_tutorial\1_base\decorator_test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/4_thirdparty/pyqt/qsignal_test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -101,55 +106,41 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="namespace_example" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="Python tests for qlayout_test.StackedLayoutWindowTest" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="python_tutorial" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/1_base" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/4_thirdparty/pyqt" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/1_base/namespace_example.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;qlayout_test.StackedLayoutWindowTest&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="thread_queue" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="Python tests in qlayout_test.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="python_tutorial" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/2_advanced/thread" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/4_thirdparty/pyqt" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="D:\Files\GitFile\python_tutorial\2_advanced\thread\thread_queue.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/4_thirdparty/pyqt/qlayout_test.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.0_base_test" />
-        <item itemvalue="Python.namespace_example" />
-        <item itemvalue="Python.decorator_test (1)" />
-        <item itemvalue="Python.9_thread_queue" />
-        <item itemvalue="Python.decorator_test" />
+        <item itemvalue="Python.0_pyqt_example" />
+        <item itemvalue="Python.0_pyqt_start" />
+        <item itemvalue="Python tests.Python tests for qlayout_test.StackedLayoutWindowTest" />
+        <item itemvalue="Python tests.Python tests in qlayout_test.py" />
+        <item itemvalue="Python.qsignal_test" />
       </list>
     </recent_temporary>
   </component>

@@ -1235,6 +1235,33 @@ def function_base_test():
         print(fun10.__doc__, end="\n\n")
     # fun_doc_test()
 
+def kwargs_example():
+    # kwargs 是 python 函数中关键字参数的缩写，它是一个字典，
+    # 用于存储在函数调用时传递的额外关键字参数。
+    # 在函数定义中，使用 *kwargs 来表示 kwargs 参数。
+    # 在调用函数时，使用格式 func_name(**kwargs) 来传递额外关键字参数。
+
+    def fun(name, **kwargs):
+        """字典类型形参测试"""
+        print(name)
+        # 访问字典
+        for k, v in kwargs.items():
+            print(f"k:{k, type(k)} v:{v, type(v)}")
+
+    def fun2(shape, **kwargs):
+        """访问字典"""
+        area = 0
+        if shape == "square":
+            area = kwargs["width"] ** 2
+        elif shape == 'rectangle':
+            area = kwargs['width'] * kwargs['height']
+        print(f"area:{area}")
+        return area
+
+    fun('Lee', score=110)  # k:('score', <class 'str'>) v:(456, <class 'int'>)
+    fun2('square', width=4)  # area:16
+    fun2('rectangle', width=3, height=30)  # area:90
+
 def standard_input_and_output_test():
     """
     https://www.runoob.com/python3/python3-inputoutput.html
@@ -1674,6 +1701,15 @@ def type_hints_test():
     type_hints_example2()
 
 
+def assert_test():
+    """断言"""
+    def foo(param):
+        """assert 的使用"""
+        assert param, "Should not be None"
+    # foo(None)  # AssertionError: Should not be None
+    foo(1)
+
+
 if __name__ == '__main__':
     # base_info()
     # str_op()
@@ -1695,10 +1731,12 @@ if __name__ == '__main__':
     # function_base_test()
     # data_structure_test()
     # standard_input_and_output_test()
+    # kwargs_example()
     # file_op_base_test()
     # os_base_test()
     # oob_base_test()
     # namespace_test()
-    type_hints_test()
+    # type_hints_test()
+    assert_test()
 else:
     print("我来自另一模块")
