@@ -1,11 +1,12 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QPlainTextEdit, QMessageBox, QTextBrowser
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QPlainTextEdit
+from PyQt5.QtWidgets import  QMessageBox, QTextBrowser
 from PySide2.QtGui import QIcon
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtCore import QFile
 import sys
 import time
 import threading as th
-from PySide2.QtCore import Signal, QObject
+from PySide2.QtCore import Signal, QObject, QThread
 # 多线程操作(可以使用 python 的线程库，也可以使用 pyqt 封装的线程库)
 # qt 主循环的线程
 # 后台服务程序线程

@@ -3,17 +3,82 @@ import time
 import queue
 import threading
 
-from PySide2.QtCore import QObject, Signal
+from PySide2.QtCore import QObject, Signal, Slot
 from PySide2.QtUiTools import QUiLoader
-from PySide2.QtWidgets import QApplication, QTextEdit, QWidget, QPushButton
+from PySide2.QtWidgets import QApplication, QTextEdit, QWidget, QPushButton, QDialog
+from PySide2.QtWidgets import QVBoxLayout
+
+
+
+
+################################ 信号和槽函数 ############################################
+# from PySide2.QtCore import Slot #pyqtSlot
+## Pyside2 与 pyqt5 的区别(解决代码移植问题):
+# pyside2 没有 Pyqtslot
+# 在PySide2中，确实没有与PyQt5中pyqtSlot装饰器直接对应的装饰器。
+# 在PySide2中，信号和插槽机制使用了自己的装饰器名称即 Slot装饰器
+
+# PySide2和PyQt5在信号和插槽的实现上有所不同。PyQt5使用pyqtSlot装饰器来定义槽函数，
+# 而PySide2则使用Slot装饰器来实现相同的功能。这意味着，如果你从PyQt5迁移到PySide2，
+# 你可能需要将pyqtSlot装饰器替换为 Slot装饰器
+# 例如，在PyQt5中，你可能会这样定义一个槽函数：
+
+# @pyqtSlot()
+# def handleCalc():
+#     QMessageBox.about(window, '关于', '点击按钮1次')
+
+# 而在PySide2中，你应该这样定义：
+# @Slot()
+# def handleCalc():
+#     QMessageBox.about(window, '关于', '点击按钮1次')
+
+# 请注意，虽然装饰器名称不同，但两者在功能上是等价的，都用于将槽函数与信号连接起来。
+# 此外，PySide2和PyQt5在信号和插槽机制上还有其他一些细微的差异，比如参数传递和返回值处理等。
+# 在使用时，建议查阅相应的文档以确保正确实现]^。
+
+def pyqt_signal_example():
+    """PyQT 信号以及槽函数的使用"""
+    class Dialog(QDialog):
+        """QDialog 继承自 QWidget"""
+        def __init__(self):
+            super(Dialog, self).__init__()
+            self.title = "Button - Signal - Slot test"
+            self.left = 100
+            self.top = 100
+            self.width = 640
+            self.height = 480
+
+            button = QPushButton("Click")
+            # button.setGeometry(self.left, self.top, self.width, self.height)
+            button.clicked.connect(self.slot_method)
+
+            mainLayout = QVBoxLayout() # layout
+            mainLayout.addWidget(button)
+            # mainLayout.setGeometry(QRect(self.left, self.top, self.width, self.height))
+
+            self.setLayout(mainLayout)
+            self.setWindowTitle(self.title)
+
+        @Slot()
+        def slot_method(self):
+            print("slot method called")
+
+    app = QApplication(sys.argv)
+    dialog = Dialog()
+    sys.exit(dialog.exec_())
 
 
 def signal_basic_test():
     """"""
 
     class MyWindow(QWidget):
-        # 声明自定义信号的时候，必须在类中定义，而不能在函数中定义
-        my_signal = pyqtSignal(str)  # 类属性, 参数为变量的类型
+        """
+        1.PyQt 内置控件有可以直接使用的信号, 比如 button 的 clicked..
+        2.除了接收Qt自带的信号之外，我们也可以自行定义信号，在合适的时机，自行 发射信号
+        自定义信号需要使用pyqtSignal来声明信号，并且需要在类中的函数之外声明(需要全局变量/类变量)
+        """
+        # 声明自定义信号的时候，必须在类中定义(作为类变量)，而不能在函数中定义
+        my_signal = Signal(str)  # 类属性, 参数为变量的类型
 
         def __init__(self):
             super().__init__()
@@ -265,7 +330,8 @@ def slot_long_time_test():
 
 
 if __name__ == '__main__':
-    signal_basic_test()
+    pyqt_signal_example()
+    # signal_basic_test()
     # pyqt_signal_test1()
     # many_signal_test()
     # slot_long_time_test()

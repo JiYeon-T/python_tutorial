@@ -5,6 +5,7 @@ from PySide2.QtCore import QFile
 from PySide2.QtGui import QIcon
 import requests
 
+
 def http_client_test():
     """写一个 HTTP 调试助手"""
     class HttpClient():
@@ -38,9 +39,10 @@ def http_client_test():
     app = QApplication([])  # 整个 UI 界面的控件，信号管理等
     s = HttpClient()
     s.ui.window.show()
-    app.exec_() #死循环，等待, 除法按下结束才会关闭
+    app.exec_()  #死循环，等待, 除法按下结束才会关闭
 
-if __name__ =='__main__':
+
+if __name__ == '__main__':
     http_client_test()
 
 

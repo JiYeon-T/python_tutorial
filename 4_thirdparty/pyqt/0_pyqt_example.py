@@ -54,32 +54,75 @@ def pyqt_basic_test1():
     app.exec_()  #死循环，等待, 除非按下结束才会关闭
     print(" exit")
 
-################################ 信号和槽函数 ############################################
-# from PySide2.QtCore import Slot #pyqtSlot
-## Pyside2 与 pyqt5 的区别(解决代码移植问题):
-# pyside2 没有 Pyqtslot
-# 在PySide2中，确实没有与PyQt5中pyqtSlot装饰器直接对应的装饰器。
-# 在PySide2中，信号和插槽机制使用了自己的装饰器名称即 Slot装饰器
 
-# PySide2和PyQt5在信号和插槽的实现上有所不同。PyQt5使用pyqtSlot装饰器来定义槽函数，
-# 而PySide2则使用Slot装饰器来实现相同的功能。这意味着，如果你从PyQt5迁移到PySide2，
-# 你可能需要将pyqtSlot装饰器替换为 Slot装饰器
-# 例如，在PyQt5中，你可能会这样定义一个槽函数：
+def calculate_salary_test():
+    """计算工资水平
+    ################### step2 将这个窗口有关的成员都封装起来 ############################
+    # 这样写代码的模块性好, 方便维护
+    # 可扩展性好，写其它窗口时候:class Query()....
+    # 尽量不要引入全局变量
+    """
+    class SalaryCalculator:
+        """类"""
+        def handle_calc(self):
+            """槽函数"""
+            # print('统计按钮被按下')
+            info = self.textEdit.toPlainText()  # 获取框中输入的信息
+            # 统计薪资 2w 以上的人
+            salary_info = self.get_salary_larger_than_2w(info)
 
-# @pyqtSlot()
-# def handleCalc():
-#     QMessageBox.about(window, '关于', '点击按钮1次')
+            # 弹出通知对话框
+            # QMessageBox.about(parent, caption, text)
+            # 当前作用域 -> 上一级作用域 -> 当前文件夹 -> builtin python 库
+            QMessageBox.about(self.window,
+                              "统计结果",
+                              f'''薪资大于2w:\n{salary_info[0]}
+                                \n薪资小于2w:\n{salary_info[1]}''')
 
-# 而在PySide2中，你应该这样定义：
-# @Slot()
-# def handleCalc():
-#     QMessageBox.about(window, '关于', '点击按钮1次')
+        def get_salary_larger_than_2w(self, info):
+            """
+            :fun: 统计薪资 2w 以上的人
+            :param info: info, <class 'str'>
+            :return: <class 'tuple'> (salary_above_20k, salary_below_20k)
+            """
+            salary_above_20k = ''
+            salary_below_20k = ''
+            for line in info.splitlines():
+                if not line.strip():
+                    continue
+                parts = line.split(' ')  # 输入用空格分开,eg:张三 2000 35
+                # 去掉列表中的空字符串, 数据处理
+                parts = [p for p in parts if p]
+                name, salary, age = parts
+                if int(salary) >= 20000:
+                    salary_above_20k += name + '\n'  # 统计结果一行一行的显示
+                else:
+                    salary_below_20k += name + '\n'
+            return salary_above_20k, salary_below_20k
 
-# 请注意，虽然装饰器名称不同，但两者在功能上是等价的，都用于将槽函数与信号连接起来。
-# 此外，PySide2和PyQt5在信号和插槽机制上还有其他一些细微的差异，比如参数传递和返回值处理等。
-# 在使用时，建议查阅相应的文档以确保正确实现]^。
+        def init_ui(self):
+            self.window = QMainWindow()  # 主窗口
+            self.window.resize(500, 400)
+            self.window.move(500, 300)  # 相对于父控件的位置，由于主窗口没有父控件，变成了相对屏幕左上角的位置
+            self.window.setWindowTitle("薪资统计")
+
+            self.textEdit = QPlainTextEdit(self.window)  # window 是textEdit 的父控件
+            self.textEdit.setPlaceholderText("请输入信息")  # 占位信息
+            self.textEdit.move(10, 25)  # 相对于 标题栏的下面的左上角的位置
+            self.textEdit.resize(300, 350)
+
+            button = QPushButton('统计', self.window)  # 父控件 window
+            button.move(380, 80)
+            button.clicked.connect(self.handle_calc)  # 设置槽函数
+
+    app = QApplication([])  # 整个 UI 界面的控件，信号管理等
+    calculator = SalaryCalculator()
+    calculator.init_ui()
+    calculator.window.show()
+    app.exec_()  #死循环，等待, 除法按下结束才会关闭
 
 def pyqt_window_test():
+
     class App(QWidget):
         """"""
         def __init__(self):
@@ -93,34 +136,14 @@ def pyqt_window_test():
 
         def initUI(self):
             self.setWindowTitle(self.title) # The window title is set using setWindowTitle(title)
-            self.setGeometry(self.left, self.top, self.width, self.height) # We set the window size using the setGeometry(left,top,width,height) method.
+            # We set the window size using the setGeometry(left,top,width,height) method.
+            self.setGeometry(self.left, self.top, self.width, self.height)
             self.show() # Finally show() is called to display the window.
 
     app = QApplication(sys.argv)
     ex = App()
     sys.exit(app.exec_())
 
-def pyqt_mainwindow_test():
-    class App(QMainWindow):
-        """QMainWindow 继承 QWidget"""
-        def __init__(self):
-            super().__init__()
-            self.title = "pyqt_mainwindow_test"
-            self.left = 100
-            self.top = 100
-            self.width = 640
-            self.height = 480
-            self.initUI() # init
-
-        def initUI(self):
-            self.setWindowTitle(self.title) # The window title is set using setWindowTitle(title)
-            self.setGeometry(self.left, self.top, self.width, self.height) # We set the window size using the setGeometry(left,top,width,height) method.
-            self.statusBar().showMessage("Message in status bar")
-            self.show() # Finally show() is called to display the window.
-
-    app = QApplication(sys.argv)
-    ex = App()
-    sys.exit(app.exec_())
 
 def pyqt_pushbutton_test():
     class App(QWidget):
@@ -154,34 +177,6 @@ def pyqt_pushbutton_test():
     ex = App()
     sys.exit(app.exec_())
 
-def pyqt_signal_test():
-    class Dialog(QDialog):
-        """QDialog 继承自 QWidget"""
-        def __init__(self):
-            super(Dialog, self).__init__()
-            self.title = "Button - Signal - Slot test"
-            self.left = 100
-            self.top = 100
-            self.width = 640
-            self.height = 480
-
-            button = QPushButton("Click")
-            # button.setGeometry(self.left, self.top, self.width, self.height)
-            button.clicked.connect(self.slot_method)
-
-            mainLayout = QVBoxLayout() # layout
-            mainLayout.addWidget(button)
-            # mainLayout.setGeometry(QRect(self.left, self.top, self.width, self.height))
-
-            self.setLayout(mainLayout)
-            self.setWindowTitle(self.title)
-        # @Slot()
-        def slot_method(self):
-            print("slot method called")
-
-    app = QApplication(sys.argv)
-    dialog = Dialog()
-    sys.exit(dialog.exec_())
 
 def pyqt_messagebox_test():
     class App(QWidget):
@@ -265,40 +260,6 @@ def pyqt_lineedit_test():
     ex = App()
     sys.exit(app.exec_())
 
-def pyqt_menu_test():
-    class App(QMainWindow):
-        """QMainWindow 继承 QWidget"""
-        def __init__(self):
-            super().__init__()
-            self.title = "pyqt_menu_test"
-            self.left = 100
-            self.top = 100
-            self.width = 640
-            self.height = 480
-            self.initUI() # init
-
-        def initUI(self):
-            self.setWindowTitle(self.title) # The window title is set using setWindowTitle(title)
-            self.setGeometry(self.left, self.top, self.width, self.height) # We set the window size using the setGeometry(left,top,width,height) method.
-
-            mainMenu = self.menuBar()
-            fileMenu = mainMenu.addMenu('文件')
-            editMenu = mainMenu.addMenu('编辑')
-            viewMenu = mainMenu.addMenu('视图')
-            searchMenu = mainMenu.addMenu('搜索')
-            toolsMenu = mainMenu.addMenu('工具')
-            helpMenu = mainMenu.addMenu('帮助')
-
-            exitButton = QAction(QIcon('exit24.png'), 'Exit', self) # TODO:QAction???? QObject 类型
-            exitButton.setShortcut('Ctrl+Q') # 快捷键
-            exitButton.setStatusTip('退出程序')
-            fileMenu.addAction(exitButton)
-
-            self.show()
-
-    app = QApplication(sys.argv)
-    ex = App()
-    sys.exit(app.exec_())
 
 def pyqt_table_test():
     class App(QWidget):
@@ -314,8 +275,8 @@ def pyqt_table_test():
             self.initUI()
 
         def initUI(self):
-            self.setWindowTitle(self.title) # The window title is set using setWindowTitle(title)
-            self.setGeometry(self.left, self.top, self.width, self.height) # We set the window size using the setGeometry(left,top,width,height) method.
+            self.setWindowTitle(self.title)  # The window title is set using setWindowTitle(title)
+            self.setGeometry(self.left, self.top, self.width, self.height)  # We set the window size using the setGeometry(left,top,width,height) method.
 
             self.__crateTable()
 
@@ -352,125 +313,6 @@ def pyqt_table_test():
                 print("clicked item:({0},{1}) {2}".format(currentTableItem.row(), \
                                                           currentTableItem.column(), \
                                                           currentTableItem.text()))
-
-    app = QApplication(sys.argv)
-    ex = App()
-    sys.exit(app.exec_())
-
-def pyqt_horizontal_layout_test():
-    class App(QDialog):
-        """QMainWindow 继承 QWidget"""
-        def __init__(self):
-            super().__init__()
-            self.title = "pyqt_menu_test"
-            self.left = 10
-            self.top = 10
-            self.width = 320
-            self.height = 100
-            self.initUI() # init
-
-        def initUI(self):
-            self.setWindowTitle(self.title) # The window title is set using setWindowTitle(title)
-            self.setGeometry(self.left, self.top, self.width, self.height) # We set the window size using the setGeometry(left,top,width,height) method.
-
-            self.createHorizontalLayout()
-
-            # If you’re intrigued by layouts,
-            # PyQt5 also offers the flexibility to create vertical layouts using a qvboxlayout.
-            # QVBoxLayout Default:Vertical layout
-            windowLayout = QVBoxLayout()
-            windowLayout.addWidget(self.horizontalGroupBox)
-
-            windowLayout.addWidget(QPushButton("垂直布局第2个元素", self))
-            windowLayout.addWidget(QPushButton("垂直布局第3个元素", self))
-            windowLayout.addWidget(QPushButton("垂直布局第4个元素", self))
-            windowLayout.addWidget(QPushButton("垂直布局第5个元素", self))
-            self.setLayout(windowLayout)
-
-            self.show()
-
-        def createHorizontalLayout(self):
-            # Box Creation: A box with a title and a horizontal layout is established with:
-            # QGroupBox - Default horizontal layout
-            self.horizontalGroupBox = QGroupBox("What's your favorite color?")
-            layout = QHBoxLayout()
-
-            buttonBlue = QPushButton('Blue', self)
-            buttonBlue.clicked.connect(self.on_click)
-            layout.addWidget(buttonBlue)
-
-            buttonRed = QPushButton('Red', self)
-            buttonRed.clicked.connect(self.on_click)
-            layout.addWidget(buttonRed)
-
-            buttonGreen = QPushButton('Green', self)
-            buttonGreen.clicked.connect(self.on_click)
-            layout.addWidget(buttonGreen)
-
-            buttonBlack = QPushButton('水平布局的第4个item', self)
-            buttonBlack.clicked.connect(self.on_click)
-            layout.addWidget(buttonBlack)
-
-            buttonPink = QPushButton('水平布局的第5个item long long long', self)
-            buttonPink.clicked.connect(self.on_click)
-            layout.addWidget(buttonPink)
-
-            self.horizontalGroupBox.setLayout(layout)
-
-        @Slot()
-        def on_click(self):
-            print("Clicked")
-
-    app = QApplication(sys.argv)
-    ex = App()
-    sys.exit(app.exec_())
-
-def pyqt_grid_layout_test():
-    class App(QDialog):
-        """PyQt5 supports a grid layout, which is named QGridLayout.
-        Widgets can be added to a grid in both the horizontal and vertical direction.
-        An example of a grid layout with widgets is shown below:"""
-        def __init__(self):
-            super().__init__()
-            self.title = "pyqt_grid_layout_test"
-            self.left = 10
-            self.top = 10
-            self.width = 320
-            self.height = 100
-            self.initUI() # init
-
-        def initUI(self):
-            self.setWindowTitle(self.title) # The window title is set using setWindowTitle(title)
-            self.setGeometry(self.left, self.top, self.width, self.height) # We set the window size using the setGeometry(left,top,width,height) method.
-
-            self.createGridLayout()
-
-            windowLayout = QVBoxLayout()
-            windowLayout.addWidget(self.horizontalGroupBox)
-            windowLayout.addWidget(QPushButton('='))
-            self.setLayout(windowLayout)
-
-            self.show()
-
-        def createGridLayout(self):
-            self.horizontalGroupBox = QGroupBox('栅格布局的计算器') # 默认水平布局
-
-            # In the method createGridLayout() we create the grid with a title and set the size.
-            layout = QGridLayout()
-            # layout.setColumnStretch(1, 2) # ???
-            # layout.setColumnStretch(2, 2)
-
-            layout.addWidget(QPushButton('1'), 0, 0) # add widgets to the layout
-            layout.addWidget(QPushButton('2'), 0, 1)
-            layout.addWidget(QPushButton('3'), 0, 2)
-            layout.addWidget(QPushButton('4'), 1, 0)
-            layout.addWidget(QPushButton('5'), 1, 1)
-            layout.addWidget(QPushButton('6'), 1, 2)
-            layout.addWidget(QPushButton('7'), 2, 0)
-            layout.addWidget(QPushButton('8'), 2, 1)
-            layout.addWidget(QPushButton('0'), 2, 2)
-
-            self.horizontalGroupBox.setLayout(layout)
 
     app = QApplication(sys.argv)
     ex = App()
@@ -879,6 +721,7 @@ def pyqt_pyqt_fontdailog_test():
     ex = App()
     sys.exit(app.exec_())
 
+
 def pyqt_matplotlib_test():
     class App(QWidget):
         """Matplotlib offers powerful visualizations that can be seamlessly integrated into a
@@ -970,6 +813,7 @@ def pyqt_browser_test():
     ex = App()
     sys.exit(app.exec_())
 
+
 def pyqt_treeview_test():
     """QTreeView 还需要深入理解"""
     class App(QWidget):
@@ -1037,6 +881,7 @@ def pyqt_treeview_test():
     ex = App()
     sys.exit(app.exec_())
 
+
 def pyqt_directory_view_test():
     class App(QWidget):
         """PyQt can show a directory structure using a QTreeView.
@@ -1079,7 +924,7 @@ def pyqt_directory_view_test():
             self.openColorDialog()
 
         def createFileSystemModel(self):
-            """船舰文件夹 Model"""
+            """创建文件夹 Model"""
             model = QFileSystemModel()
             # The path is specified using the models setRootPath() method,
             # where the parameter is the full path to the directory By default its the root.
@@ -1282,8 +1127,8 @@ def pyqt_scroll_area_test():
     sys.exit(app.exec_())
 
 def get_layout_children():
-    """获取 layout 中的所有控件"""
-    """An instance of the QBoxLayout in PyQt5 provides a versatile method to manage widget
+    """获取 layout 中的所有控件
+    An instance of the QBoxLayout in PyQt5 provides a versatile method to manage widget
     layouts. It allocates space into distinct boxes, with each box entirely filled by a
     specific widget. The orientation - vertical or horizontal - is determined by the type
     of class used to create the object."""
@@ -1339,7 +1184,8 @@ def get_layout_children():
     sys.exit(app.exec_())
 
 if __name__ == '__main__':
-    pyqt_basic_test1()
+    # pyqt_basic_test1()
+    # calculate_salary_test()
     # pyqt_signal_test1()
     # pyqt_window_test()
     # pyqt_mainwindow_test()
@@ -1362,7 +1208,7 @@ if __name__ == '__main__':
     # pyqt_matplotlib_test()
     # pyqt_browser_test()
     # pyqt_treeview_test()
-    # pyqt_directory_view_test()
+    pyqt_directory_view_test()
     # pyqt_qformlayout_test()
     # pyqt_boxlayout_test()
     # pyqt_qWizardPage_test()
