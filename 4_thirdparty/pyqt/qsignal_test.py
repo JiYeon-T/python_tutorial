@@ -3,6 +3,7 @@ import time
 import queue
 import threading
 
+# NOTE:这里用的 PySide2, 其他文件夹用的 PyQT， 服了。。。
 from PySide2.QtCore import QObject, Signal, Slot
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtWidgets import QApplication, QTextEdit, QWidget, QPushButton, QDialog
@@ -37,7 +38,8 @@ from PySide2.QtWidgets import QVBoxLayout
 # 在使用时，建议查阅相应的文档以确保正确实现]^。
 
 def pyqt_signal_example():
-    """PyQT 信号以及槽函数的使用"""
+    """PyQT 信号以及槽函数的使用
+    其他线程可以通过释放信号的方式向 UI 主线程发送消息"""
     class Dialog(QDialog):
         """QDialog 继承自 QWidget"""
         def __init__(self):

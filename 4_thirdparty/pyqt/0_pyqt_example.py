@@ -145,122 +145,6 @@ def pyqt_window_test():
     sys.exit(app.exec_())
 
 
-def pyqt_pushbutton_test():
-    class App(QWidget):
-        """QMainWindow 继承 QWidget"""
-        def __init__(self):
-            super().__init__()
-            self.title = "pyqt_pushbutton_test"
-            self.left = 100
-            self.top = 100
-            self.width = 640
-            self.height = 480
-            self.initUI() # init
-
-        def initUI(self):
-            self.setWindowTitle(self.title) # The window title is set using setWindowTitle(title)
-            self.setGeometry(self.left, self.top, self.width, self.height) # We set the window size using the setGeometry(left,top,width,height) method.
-            button = QPushButton("PySide2 Button", self)
-            button.setToolTip("This is button Tip:Click to print log")
-            button.move(100, 70)
-            # If an event takes place, each PyQt5 widget can emit a signal.
-            # A signal does not execute any action, that is done by a slot.
-            # PyQt supports many type of signals, not just clicks.
-            button.clicked.connect(self.on_clock) # 连接槽函数
-            self.show() # Finally show() is called to display the window.
-
-        @Slot()
-        def on_clock(self):
-            print("Pyside2 button clicked")
-
-    app = QApplication(sys.argv)
-    ex = App()
-    sys.exit(app.exec_())
-
-
-def pyqt_messagebox_test():
-    class App(QWidget):
-        """QMainWindow 继承 QWidget"""
-        def __init__(self):
-            super().__init__()
-            self.title = "pyqt_messagebox_test"
-            self.left = 100
-            self.top = 100
-            self.width = 640
-            self.height = 480
-            self.initUI() # 构造函数中显示 UI
-
-        def initUI(self):
-            self.setWindowTitle(self.title)
-            self.setGeometry(self.left, self.top, self.width, self.height)
-            self.show()
-            print("Enter?")
-            # This function will block()
-            buttonReply = QMessageBox.question(self, "PyQt Message", "Dou You like pyqt?", \
-                                               QMessageBox.Yes | QMessageBox.No | QMessageBox.Open, QMessageBox.No)
-            # 可选的更多的按钮
-            # QMessageBox.Cancel	QMessageBox.Ok	QMessageBox.Help
-            # QMessageBox.Open	QMessageBox.Save	QMessageBox.SaveAll
-            # QMessageBox.Discard	QMessageBox.Close	QMessageBox.Apply
-            # QMessageBox.Reset	QMessageBox.Yes	QMessageBox.YesToAll
-            # QMessageBox.No	QMessageBox.NoToAll	QMessageBox.NoButton
-            # QMessageBox.RestoreDefaults	QMessageBox.Abort	QMessageBox.Retry
-            # QMessageBox.Ignore
-            if buttonReply == QMessageBox.Yes:
-                print("Yes clicked")
-            elif buttonReply == QMessageBox.No:
-                print("No clicked")
-            elif buttonReply == QMessageBox.Open:
-                print("Open clicked")
-            # ... # 等等其他事件
-            else:
-                print("No one clicked")
-            # self.show()
-            print("Enter finished")
-
-    app = QApplication(sys.argv)
-    ex = App()
-    sys.exit(app.exec_())
-
-def pyqt_lineedit_test():
-    class App(QMainWindow):
-        """QMainWindow 继承 QWidget"""
-        def __init__(self):
-            super().__init__()
-            self.title = "pyqt_lineedit_test"
-            self.left = 100
-            self.top = 100
-            self.width = 640
-            self.height = 480
-            self.initUI() # init
-
-        def initUI(self):
-            self.setWindowTitle(self.title) # The window title is set using setWindowTitle(title)
-            self.setGeometry(self.left, self.top, self.width, self.height) # We set the window size using the setGeometry(left,top,width,height) method.
-
-            # create a textbox in the window
-            self.textbox = QLineEdit(self)
-            self.textbox.move(20, 20) # absolutely move position
-            self.textbox.resize(1000, 80)
-
-            # create a button in the window
-            self.button = QPushButton('Show Text', self)
-            self.button.move(100, 100)
-            self.button.clicked.connect(self.on_clock)
-            self.show()
-
-        @Slot()
-        def on_clock(self):
-            print("Pyside2 button clicked")
-            textboxVal = self.textbox.text()
-            QMessageBox.question(self, 'Message', 'You Typed:' + textboxVal, QMessageBox.Ok, QMessageBox.Ok)
-            self.textbox.clear()
-
-    app = QApplication(sys.argv)
-    ex = App()
-    sys.exit(app.exec_())
-
-
 def pyqt_table_test():
     class App(QWidget):
         """
@@ -370,69 +254,6 @@ def pyqt_inputdialog_test():
     ex = App()
     sys.exit(app.exec_())
 
-def pyqt_dialog_test():
-    class App(QWidget):
-        """The methods used are QFileDialog.getOpenFileName(), QFileDialog.getOpenFileNames(),
-        QFileDialog.getSaveFileName(). The method parameters let you specify the default directory,
-        filetypes and the default filename."""
-        def __init__(self):
-            super().__init__()
-            self.title = "pyqt_menu_test"
-            self.left = 10
-            self.top = 10
-            self.width = 320
-            self.height = 100
-            self.initUI() # init
-
-        def initUI(self):
-            self.setWindowTitle(self.title) # The window title is set using setWindowTitle(title)
-            self.setGeometry(self.left, self.top, self.width, self.height) # We set the window size using the setGeometry(left,top,width,height) method.
-
-            # self.openFileNameDialog()
-            # self.openFileNamesDialog()
-            self.saveFileDialog()
-
-            self.show()
-
-        def openFileNameDialog(self):
-            """如果这个设置为按钮的槽函数不就是打开文件的功能了吗"""
-            options = QFileDialog.Options()
-            options |= QFileDialog.DontUseNativeDialog # ???
-            fileName, _ = QFileDialog.getOpenFileName(self, \
-                                                      "获取打开文件", \
-                                                      "", \
-                                                      "All Files (*);;Python Files (*.py);;C Files(*.c)", \
-                                                      options = options)
-            if fileName:
-                print(fileName)
-
-        def openFileNamesDialog(self):
-            """"""
-            options = QFileDialog.Options()
-            options |= QFileDialog.DontUseNativeDialog # ???
-            files, _ = QFileDialog.getOpenFileNames(self,
-                                                    "获取打开得文件", "",
-                                                    "All Files (*);;Python Files (*.py);;C Files(*.c)",
-                                                    options = options)
-            if files:
-                print(files)
-
-        def saveFileDialog(self):
-            options = QFileDialog.Options()
-            options |= QFileDialog.DontUseNativeDialog # ???
-            fileName, _ = QFileDialog.getSaveFileName(self, "获取保存文件", "",
-                                                      "All Files (*);;Python Files (*.py);;C Files(*.c)",
-                                                      options = options)
-            if fileName:
-                print(fileName)
-
-        @Slot()
-        def on_click(self):
-            print("Clicked")
-
-    app = QApplication(sys.argv)
-    ex = App()
-    sys.exit(app.exec_())
 
 def pyqt_image_test():
     class App(QWidget):
@@ -723,6 +544,7 @@ def pyqt_pyqt_fontdailog_test():
 
 
 def pyqt_matplotlib_test():
+    """pyqt 配合 matplotlib """
     class App(QWidget):
         """Matplotlib offers powerful visualizations that can be seamlessly integrated into a
         PyQt5 application. For this, specific libraries and imports are required.."""
@@ -1189,14 +1011,13 @@ if __name__ == '__main__':
     # pyqt_signal_test1()
     # pyqt_window_test()
     # pyqt_mainwindow_test()
-    # pyqt_pushbutton_test()
     # pyqt_signal_test()
     # pyqt_messagebox_test()
     # pyqt_lineedit_test()
     # pyqt_menu_test()
     # pyqt_table_test()
     # pyqt_horizontal_layout_test()
-    # pyqt_dialog_test()
+    pyqt_dialog_test()
     # pyqt_grid_layout_test()
     # pyqt_inputdialog_test()
     # pyqt_image_test()
@@ -1208,7 +1029,7 @@ if __name__ == '__main__':
     # pyqt_matplotlib_test()
     # pyqt_browser_test()
     # pyqt_treeview_test()
-    pyqt_directory_view_test()
+    # pyqt_directory_view_test()
     # pyqt_qformlayout_test()
     # pyqt_boxlayout_test()
     # pyqt_qWizardPage_test()
