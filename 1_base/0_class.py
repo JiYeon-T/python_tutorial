@@ -145,6 +145,53 @@ def oob_base_test():
     # wc.eat(1, 2) #
     # print(Cat.CLASS_TYPE) # 外部可以直接访问公有成员
 
+
+def _inherit_test():
+    """类的公有/私有/受保护的方法被继承时的表现"""
+    class Parent:
+        def __init__(self):
+            print(f'{self} Parent 构造函数被调用')
+            self.public_var = "public"
+            self._protected_var = "protected"
+            self.__private_var = "private"
+
+        def __del__(self):
+            print(f'{self} Parent 析构函数被调用')
+
+        def public_fun(self):
+            print(f'{self} Parent 公共方法被调用')
+
+        def _protected_fun(self):
+            print(f'{self} Parent 受保护方法被调用')
+
+        def __privated_fun(self):
+            print(f'{self} Parent 私有方法被调用')
+
+        def __str__(self):
+            return "Parent"
+
+    class Child(Parent):
+
+        def __init__(self):
+            super(Child, self).__init__()
+            print(f'{self}构造函数被调用')
+
+        def __del__(self):
+            print(f'{self}析构函数被调用')
+
+        def __str__(self):
+            return "Child"
+
+    child = Child()
+    child.public_fun()
+    child._protected_fun()  # 受保护方法被继承
+    # child.__privated_fun()  # ERROR,没有被继承, 无法使用
+    print(f"{child.public_var}")
+    print(f"{child._protected_var}")  # 子类继承该成员
+    # print(f"{child.__private_var}")  # ERROR, TODO: 为什么 debug 的时候在 protected_attribute 多了 _Parent__private_var ？？？
+    print(f"{child._Parent__private_var}")  # TODO: 为什么子类可以通过这种方法访问父类的私有成员???;
+
+
 def multi_parent_test():
     class people:
         """人"""
@@ -302,5 +349,6 @@ def operatore_overload_test():
 
 if __name__ == '__main__':
     # oob_base_test()
+    _inherit_test()
     # multi_parent_test()
-    operatore_overload_test()
+    # operatore_overload_test()

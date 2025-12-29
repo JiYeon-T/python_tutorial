@@ -1,7 +1,18 @@
 import base64
 from Crypto.Cipher import DES
 from binascii import b2a_hex, a2b_hex
-
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad, unpad
+# RSA 非堆成加密
+from Crypto import Random
+from Crypto.PublicKey import RSA
+from Crypto.Cipher import PKCS1_v1_5
+import base64
+# AES-GCM 加密/解密
+import base64
+import random
+import string
+from Crypto.Cipher import AES
 # TODO:
 # 《密码学》
 
@@ -52,16 +63,15 @@ def my_des_test():
     print(f"encrypt_data:{encrypt_data}")
     print(f"decrypt_data:{decrypt_data}")
 
-from Crypto.Cipher import AES
-from Crypto.Util.Padding import pad, unpad
 
-# AES-ECB 加密/解密
 def aes_encrypt(key, data):
     """
+    AES-ECB 加密/解密
     encrypt data with AES algorithm
     :param key
     :param data
     """
+
     data = bytes(data, encoding="utf-8")
     # 填充数据采用 pkcs7
     data = pad(data, block_size=16, style="pkcs7")
@@ -91,11 +101,6 @@ def my_aes_ecb_test():
     print(f"encrypt_data:{encrypt_data}")
     print(f"decrypt_data:{decrypt_data}")
 
-# AES-GCM 加密/解密
-import base64
-import random
-import string
-from Crypto.Cipher import AES
 
 def aes_gcm_encrypt(key, data, associated_data=None, nonce=None):
     """
@@ -150,11 +155,6 @@ def my_aes_gcm_test():
     print(f"encrypt_data:{encrypt_data}")
     print(f"decrypt_data:{decrypt_data}")
 
-# RSA 非堆成加密
-from Crypto import Random
-from Crypto.PublicKey import RSA
-from Crypto.Cipher import PKCS1_v1_5
-import base64
 
 def get_key():
     """生成公钥&私钥"""
