@@ -14,7 +14,10 @@ https://doc.qt.io/archives/qtforpython-5/overviews/qtwidgets-mainwindows-menus-e
 
 https://doc.qt.io/qt-6/zh/qtabbar.html
 
-
+https://doc.qt.io/archives/qtforpython-5/PySide2/QtWidgets/QProgressDialog.html
+https://doc.qt.io/qt-6/zh/qtwidgets-dialogs-standarddialogs-example.html
+https://doc.qt.io/archives/qtforpython-5/PySide2/QtWidgets/QMessageBox.html
+https://doc.qt.io/archives/qtforpython-5/PySide2/QtWidgets/QFileDialog.html
 
 
 
