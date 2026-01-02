@@ -42,7 +42,7 @@
       <recent name="D:\Files\GitFile\python_tutorial\1_base" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.crypto_test">
+  <component name="RunManager" selected="Python.qdialog_test">
     <configuration name="0_class" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="python_tutorial" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -150,9 +150,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.qdialog_test" />
         <item itemvalue="Python.crypto_test" />
         <item itemvalue="Python.0_class" />
-        <item itemvalue="Python.qdialog_test" />
         <item itemvalue="Python.qlineedit_test" />
         <item itemvalue="Python.qslider_test" />
       </list>

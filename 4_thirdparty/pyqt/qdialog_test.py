@@ -1,12 +1,14 @@
 import sys
+import time
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QDialog
 from PyQt5.QtWidgets import QRadioButton, QPushButton, QGroupBox, QLabel
 from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QStackedLayout, QGridLayout
 from PyQt5.QtWidgets import QStackedWidget, QComboBox, QMessageBox, QLineEdit
 from PyQt5.QtWidgets import QAction, QCompleter, QSlider
 from PyQt5.QtWidgets import QDialog, QFileDialog, QInputDialog, QFontDialog, QProgressDialog, QColorDialog
+# from PyQt5.QtWidgets import
 from PyQt5.QtWidgets import QDialogButtonBox
-from PyQt5.QtCore import Qt, QFile, pyqtSlot
+from PyQt5.QtCore import Qt, QFile, pyqtSlot, QThread, pyqtSignal
 from PyQt5.QtGui import QPainter, QValidator, QIntValidator, QRegExpValidator
 
 
@@ -364,8 +366,116 @@ def custome_dialog_test():
         print("对话框被取消")
 
 
+def qprogress_dialog_tes():
+
+    class WorkerThread(QThread):
+        """子线程执行耗时操作并 emit 信号到 UI 线程"""
+
+        # 定义信号，用于传递进度值
+        progress_updated = pyqtSignal(int)
+        # 定义信号，用于传递完成状态
+        finished_signal = pyqtSignal()
+
+        def __init__(self):
+            super().__init__()
+            self._is_canceled = False
+
+        def run(self):
+            # 模拟长时间运行的任务
+            for i in range(100 + 1):
+                if self._is_canceled:
+                    break
+                # 发送进度更新信号
+                self.progress_updated.emit(i)
+                # 模拟工作负载
+                time.sleep(0.01)
+            # 任务完成后发送完成信号
+            self.finished_signal.emit()
+            print(f"Child {self} exit")
+
+        def cancel(self):
+            """仅测试测试, 这里仅仅终止线程
+            真正使用要利率恢复原状把？"""
+            self._is_canceled = True  # 这里被取消会触发发出完成的信号
+
+    class MainWindow(QMainWindow):
+        def __init__(self):
+            super().__init__()
+            self.setWindowTitle("QProgressDialog 示例")
+            self.setGeometry(100, 100, 300, 150)
+
+            # 创建中央部件和布局
+            central_widget = QWidget()
+            self.setCentralWidget(central_widget)
+            layout = QVBoxLayout(central_widget)
+
+            # 创建按钮
+            self.start_button = QPushButton("开始长时间任务")
+            self.start_button.clicked.connect(self.start_long_task)
+            layout.addWidget(self.start_button)
+
+            # 初始化进度对话框
+            self.progress_dialog = None
+            self.worker_thread = None
+
+        def start_long_task(self):
+            # 创建进度对话框
+            self.progress_dialog = QProgressDialog("正在处理...", "取消", 0, 100, self)
+            self.progress_dialog.setWindowModality(Qt.WindowModality.WindowModal)  # 模态对话框
+            # self.progress_dialog.setWindowModality(Qt.WindowModality.ApplicationModal)
+            # 无模式进度对话框适用于在后台进行的操作，用户可以在后台与应用程序进行交互。
+            # self.progress_dialog.setWindowModality(Qt.WindowModality.NonModal)  # 无模态
+
+            # self.progress_dialog.setMinimum(0)
+            # self.progress_dialog.setMaximum(10)
+            # 如果任务的预期持续时间小于 minimumDuration，则根本不会出现对话框。
+            # 这可以防止对话框在任务很快结束时弹出。对于预计超过最短持续时间的任务，
+            # 对话框将在最短持续时间结束后或设置任何进度后立即弹出。
+            # 如果设置为 0，则始终在设置任何进度后立即显示对话框
+            # self.progress_dialog.setMinimumDuration(1000000)
+            self.progress_dialog.setMinimumDuration(0)  # 立即显示
+            self.progress_dialog.setAutoClose(True)  # 自动关闭对话框
+            # self.progress_dialog.setAutoReset(True)
+            self.progress_dialog.setLabelText('拷贝中')
+            self.progress_dialog.setWindowTitle("进度对话框")
+
+            # 连接取消按钮信号
+            self.progress_dialog.canceled.connect(self.cancel_task)
+
+            # 创建并启动工作线程
+            self.worker_thread = WorkerThread()
+            self.worker_thread.progress_updated.connect(self.update_progress)  # 连接更新事件以及槽函数
+            self.worker_thread.finished_signal.connect(self.task_finished)  # 连接完成信号
+            self.worker_thread.start()
+
+        def update_progress(self, value):
+            # 更新进度对话框的值
+            if self.progress_dialog:
+                self.progress_dialog.setValue(value)
+
+        def cancel_task(self):
+            # 取消任务
+            if self.worker_thread:
+                self.worker_thread.cancel()
+
+        def task_finished(self):
+            # 任务完成后的处理
+            if self.progress_dialog:
+                # self.progress_dialog.close()  # 关闭对话框
+                self.progress_dialog = None
+            if self.worker_thread:
+                self.worker_thread = None
+
+    app = QApplication(sys.argv)
+    window = MainWindow()
+    window.show()
+    sys.exit(app.exec_())
+
+
+
 if __name__ == '__main__':
     # qdialog_test()
-    # qfiledialog_test()
-    qmessagebox_test()
+    qfiledialog_test()
+    # qmessagebox_test()
     # custome_dialog_test()
+    # qprogress_dialog_tes()
