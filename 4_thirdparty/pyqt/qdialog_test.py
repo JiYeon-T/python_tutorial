@@ -201,10 +201,14 @@ def qdialog_test():
 
 
 def qfiledialog_test():
+    """
+    QFileDialog 类可让用户遍历文件系统，选择一个或多个文件或目录。
+    """
     class App(QWidget):
         """The methods used are QFileDialog.getOpenFileName(), QFileDialog.getOpenFileNames(),
         QFileDialog.getSaveFileName(). The method parameters let you specify the default directory,
-        filetypes and the default filename."""
+        filetypes and the default filename.
+        """
         def __init__(self):
             super().__init__()
             self.title = "pyqt_menu_test"
@@ -212,34 +216,35 @@ def qfiledialog_test():
             self.top = 200
             self.width = 800
             self.height = 600
-            self.initUI() # init
+            self.initUI()  # init
 
         def initUI(self):
             self.setWindowTitle(self.title) # The window title is set using setWindowTitle(title)
-            self.setGeometry(self.left, self.top, self.width, self.height) # We set the window size using the setGeometry(left,top,width,height) method.
+            self.setGeometry(self.left, self.top, self.width, self.height)  # We set the window size using the setGeometry(left,top,width,height) method.
 
-            button = QPushButton('Unknown', self)
+            button = QPushButton('选择文件', self)
             button.move(int(self.width / 2), int(self.height / 2))
 
             # button.clicked.connect(self.saveFileDialog)
             button.clicked.connect(self.openFileNameDialog)
             # button.clicked.connect(self.openFileNamesDialog)
 
-
         def openFileNameDialog(self):
             """如果这个设置为按钮的槽函数不就是打开文件的功能了吗"""
             options = QFileDialog.Options()
-            options |= QFileDialog.DontUseNativeDialog # ???
-            fileName, _ = QFileDialog.getOpenFileName(self, \
-                                                      "获取打开文件", \
-                                                      "", \
-                                                      "All Files (*);;Python Files (*.py);;C Files(*.c)", \
+            # options: Union[QFileDialog.Options, QFileDialog.Option]
+            options |= QFileDialog.DontUseNativeDialog  # ???
+            fileName, _ = QFileDialog.getOpenFileName(self,
+                                                      "获取打开文件",
+                                                      "",
+                                                      "All Files (*);;Python Files (*.py);;C Files(*.c)",
                                                       options = options)
             if fileName:
                 print(fileName)
+                print(_)  # 返回的第二个输入框,过滤的文件类型
 
         def openFileNamesDialog(self):
-            """"""
+            """可以选择很多文件"""
             options = QFileDialog.Options()
             options |= QFileDialog.DontUseNativeDialog  # ???
             files, _ = QFileDialog.getOpenFileNames(self,
@@ -251,7 +256,7 @@ def qfiledialog_test():
 
         def saveFileDialog(self):
             options = QFileDialog.Options()
-            options |= QFileDialog.DontUseNativeDialog # ???
+            options |= QFileDialog.DontUseNativeDialog  # ???
             fileName, _ = QFileDialog.getSaveFileName(self,
                                                       "获取保存文件", "",
                                                       "All Files (*);;Python Files (*.py);;C Files(*.c)",
