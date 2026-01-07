@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import QAction, QCompleter, QSlider
 from PyQt5.QtWidgets import QDialog, QFileDialog, QInputDialog, QFontDialog, QProgressDialog, QColorDialog
 # from PyQt5.QtWidgets import
 from PyQt5.QtWidgets import QDialogButtonBox
-from PyQt5.QtCore import Qt, QFile, pyqtSlot, QThread, pyqtSignal
+from PyQt5.QtCore import Qt, QFile, pyqtSlot, QThread, pyqtSignal, QStringListModel
 from PyQt5.QtGui import QPainter, QValidator, QIntValidator, QRegExpValidator
 
 
@@ -274,6 +274,51 @@ def qfiledialog_test():
     sys.exit(app.exec_())
 
 
+def qfiledialog_test2():
+    """自己创建对话"""
+    class App(QWidget):
+        """The methods used are QFileDialog.getOpenFileName(), QFileDialog.getOpenFileNames(),
+        QFileDialog.getSaveFileName(). The method parameters let you specify the default directory,
+        filetypes and the default filename.
+        """
+        def __init__(self):
+            super().__init__()
+            self.title = "pyqt_menu_test"
+            self.left = 200
+            self.top = 200
+            self.width = 800
+            self.height = 600
+            self.initUI()  # init
+
+        def initUI(self):
+            self.setGeometry(self.left, self.top, self.width, self.height)
+            # We set the window size using the setGeometry(left,top,width,height) method.
+
+            btn = QPushButton("选择文件", self)
+            btn.clicked.connect(self.choose_file_dialog)
+
+        def choose_file_dialog(self):
+            dialog = QFileDialog(self)
+            # dialog.setFileMode(QFileDialog.AnyFile)  # 设置要选择的文件/文件夹
+            # dialog.setFileMode(QFileDialog.ExistingFile)
+            dialog.setFileMode(QFileDialog.Directory)
+            # dialog.setFileMode(QFileDialog.ExistingFiles)
+            dialog.setViewMode(QFileDialog.Detail)  # 设置显示模式
+            # dialog.setViewMode(QFileDialog.List)
+            dialog.setDirectory("D:")  # 设置工作目录
+            # list = d
+            # dialog.show()
+            if dialog.exec():
+                sel = dialog.selectedFiles()
+                print(sel)
+            else:
+                print("cancel")
+
+    app = QApplication(sys.argv)
+    ex = App()
+    ex.show()
+    sys.exit(app.exec_())
+
 def qprogressdialog_test():
     pass
 
@@ -480,7 +525,8 @@ def qprogress_dialog_tes():
 
 if __name__ == '__main__':
     # qdialog_test()
-    qfiledialog_test()
+    # qfiledialog_test()
+    qfiledialog_test2()
     # qmessagebox_test()
     # custome_dialog_test()
     # qprogress_dialog_tes()
