@@ -226,8 +226,10 @@ def qfiledialog_test():
             button.move(int(self.width / 2), int(self.height / 2))
 
             # button.clicked.connect(self.saveFileDialog)
-            button.clicked.connect(self.openFileNameDialog)
+            # button.clicked.connect(self.openFileNameDialog)
             # button.clicked.connect(self.openFileNamesDialog)
+            # button.clicked.connect(self.getExistingDirDialog)
+            button.clicked.connect(self.get_url())
 
         def openFileNameDialog(self):
             """如果这个设置为按钮的槽函数不就是打开文件的功能了吗"""
@@ -264,6 +266,31 @@ def qfiledialog_test():
             if fileName:
                 print(fileName)
 
+        def getExistingDirDialog(self):
+            """选择文件夹"""
+            dir = QFileDialog.getExistingDirectory(self,
+                                                   "打开文件夹",
+                                                   "D:",
+                                                   QFileDialog.ShowDirsOnly | QFileDialog.DontResolveSymlinks)
+            # 在 Unix/X11 上，文件对话框的正常行为是解析和跟踪符号链接。
+            # 例如，如果/usr/tmp 是指向/var/tmp 的符号链接，则在输入/usr/tmp 后，文件对话框会更改为/var/tmp 。
+            # 如果options 包括DontResolveSymlinks ，文件对话框会将符号链接视为常规目录。
+            print(f"dir {dir} type:{type(dir)}")
+
+        def getOpenFileContentDialog(self):
+            # 该函数是异步的，会立即返回。选择文件并将其内容读入内存后，将调用fileOpenCompleted 回调。
+            # QFileDialog.getOpenFileCotent
+            pass
+
+        def get_url(self):
+            # getOpenFileUrl 可以选择网络文件
+            # 与QFileDialog::getOpenFileName() 的主要区别在于用户可以选择远程文件。
+            # 这就是为什么dir 的返回类型和类型都是QUrl 的原因。
+            qurl, str = QFileDialog.getOpenFileUrl(self,
+                                             "选择文件(包括网络文件)",
+                                             # "D:",
+                                             "All Files (*);;")
+            print(qurl, str)
         @pyqtSlot()
         def on_click(self):
             print("Clicked")
@@ -299,13 +326,21 @@ def qfiledialog_test2():
 
         def choose_file_dialog(self):
             dialog = QFileDialog(self)
-            # dialog.setFileMode(QFileDialog.AnyFile)  # 设置要选择的文件/文件夹
+            dialog.setFileMode(QFileDialog.AnyFile)  # 设置要选择的文件/文件夹
             # dialog.setFileMode(QFileDialog.ExistingFile)
-            dialog.setFileMode(QFileDialog.Directory)
+            # dialog.setFileMode(QFileDialog.Directory)
             # dialog.setFileMode(QFileDialog.ExistingFiles)
             dialog.setViewMode(QFileDialog.Detail)  # 设置显示模式
             # dialog.setViewMode(QFileDialog.List)
             dialog.setDirectory("D:")  # 设置工作目录
+            dialog.setNameFilter("Images (*.png *.xpm *.jpg)")
+            dialog.setAcceptMode(QFileDialog.AcceptSave)  # 设置打开还是保存文件
+            # dialog.setAcceptMode(QFileDialog.AcceptOpen)  # 设置打开还是保存文件
+            dialog.setDefaultSuffix(".txt")
+            # dialog.setOption(QFileDialog.ReadOnly)
+            # 设置选项, 可以设置不使用本地对话框等
+            # dialog.setOption(QFileDialog.HideNameFilterDetails)
+            dialog.setOptions(QFileDialog.HideNameFilterDetails | QFileDialog.ReadOnly)
             # list = d
             # dialog.show()
             if dialog.exec():
@@ -525,8 +560,8 @@ def qprogress_dialog_tes():
 
 if __name__ == '__main__':
     # qdialog_test()
-    # qfiledialog_test()
-    qfiledialog_test2()
+    qfiledialog_test()
+    # qfiledialog_test2()
     # qmessagebox_test()
     # custome_dialog_test()
     # qprogress_dialog_tes()
