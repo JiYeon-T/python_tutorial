@@ -2,6 +2,7 @@ import threading
 import time
 import logging
 
+
 # get thread-local implementation, either from the thread
 # module, or from the python fallback
 # try:
@@ -14,6 +15,8 @@ import logging
 # 属性字典, 通过 key 进行访问
 # 应用场景: 这个 local 类有什么用呢??
 # TODO:
+
+
 
 
 format = "%(asctime)s - %(message)s"

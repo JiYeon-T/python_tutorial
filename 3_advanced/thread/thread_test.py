@@ -1,8 +1,10 @@
-import threading as t  # 高級支持
+import threading  # 高級支持
 import time
 # import _thread  # 支持功能較少，一般不適用這個,主線程結束後，其他縣城自動結束等等很多不足
+
 # 进程,线程,协程
 # TODO: https://cloud.tencent.com/developer/article/2389367
+# https://www.runoob.com/python3/python3-multithreading.html
 
 ##########################################################################
 # 1.threading
@@ -18,25 +20,35 @@ import time
 # 方法2：继承 Thread 实现多线程， 适用于线程复杂的时候
 # 用法:  复杂线程时
 # 重载 run 放法
+
+
 def thread_basic_example1():
 	def sing(name, num):
 		"""@NOTE:元組方式傳參必須保證元組中元素的順序與形參順序一樣"""
 
 		for ix in range(num):
 			print(name + 'is singing... ' + str(ix))
+			time.sleep(1)
 
 
 	def dance(name, num):
 		"""@NOTE:字典的key必須和任務的參數一樣，才可以使用字典類型傳參"""
 		for ix in range(num):
 			print(name + 'is dancing... ' + str(ix))
+			time.sleep(1)
 
 	singer = ("James", 3000)
 	dancer = {'name': "Lebron", 'num': 4000}
-	t1 = t.Thread(target=sing, args=singer)
-	t2 = t.Thread(target=dance, kwargs=dancer)
+	t1 = threading.Thread(target=sing, args=singer, name="singer")
+	t2 = threading.Thread(target=dance, kwargs=dancer, name="dancer")
 	t1.start()
 	t2.start()
+
+	while True:
+		time.sleep(2)
+		thread_list = threading.enumerate() # 返回一个包含正在运行的线程的列表。正在运行指线程启动后、结束前，不包括启动前和终止后的线程。
+		print(f"list:{thread_list}")
+		thread = threading.active_count()  # 返回正在运行的线程数量，与 len(threading.enumerate()) 有相同的结果。
 
 
 def daemon_thread_test():
@@ -55,10 +67,10 @@ def daemon_thread_test():
 			print(f'child thread working {i}')
 			time.sleep(1)
 
-	sub_thread = t.Thread(target=work)
+	sub_thread = threading.Thread(target=work)
 	# 创建新线程， 不设置守护线程, 子线程不受控制， 主线程结束, 子线程还在自己跑
-	#(1) Daemon 设置子线程为守护线程, 听主线程的话
-	#(2) join() 让主线程阻塞等待子线程结束, 然后自己再结束
+	#(1) Daemon 设置子线程为守护线程, 听主线程的话. 即主线程退出, 则子线程也退出.
+	#(2) join() 主线程阻塞等待子线程结束, 然后自己再结束
 	sub_thread.setDaemon(True)  # 設置守護主線程,主線程結束，子線程就自動銷毀,
 	sub_thread.start()
 
@@ -119,7 +131,7 @@ def _thread_test():
 
 
 if __name__ == '__main__':
-	# thread_basic_example1()
+	thread_basic_example1()
 	# daemon_thread_test()
 	# thread_running_sequence_test()
-	_thread_test()
+	# _thread_test()

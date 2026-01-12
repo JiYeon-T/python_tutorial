@@ -35,6 +35,10 @@ def base_info():
     name = "Lebron James"
     print("first:{} last:{}".format(name[0], name[-1]))
 
+    # if else 可以写在同一行
+    print(f"sum={sum} 是 {'偶数' if sum % 2 == 0 else '奇数'}")
+
+
 def str_op():
     """字符串操作测试"""
     # 字符串切片 str[start:end]，其中 start（包含）是切片开始的索引，end（不包含）是切片结束的索引。
@@ -658,88 +662,6 @@ def operator_base_test():
     print("二进制:", bin(100)) #Return the binary representation of an integer.
     print("数字中1的个数:", bin(7).count('1'), type(bin(7)))
 
-def math_base_test():
-    """数学函数"""
-    import math
-    print("{}".format(abs(-1))) # abs(x) 返回数字的绝对值，如abs(-10) 返回 10
-    print("{}".format(math.ceil(4.5))) # ceil(x)	返回数字的上入整数，如math.ceil(4.1) 返回 5
-    print("{}".format(math.floor(-10))) # floor(x) 返回数字的下舍整数，如math.floor(4.9)返回 4
-    print("{}".format(math.exp(1))) #exp(x) 返回e的x次幂(ex),如math.exp(1) 返回2.718281828459045
-    print("{}".format(math.fabs(-10))) #fabs(x) 以浮点数形式返回数字的绝对值，如math.fabs(-10) 返回10.0
-    print("{}".format(math.log(math.e))) # log(x)	如math.log(math.e)返回1.0,math.log(100,10)返回2.0
-    print("{}".format(math.log10(100))) # log10(x) 返回以10为基数的x的对数，如math.log10(100)返回 2.0
-    print("{}".format(max(-10, 10)))
-    print("{}".format(min(-10, 10)))
-    print("{}".format(math.modf(100.598))) # modf(x) 返回x的整数部分与小数部分，两部分的数值符号与x相同，整数部分以浮点型表示。
-    print("{}".format(math.pow(10, 2))) # pow(x, y)	x**y 运算后的值。
-    print("{}".format(round(2.1111))) # 返回浮点数 x 的四舍五入值，如给出 n 值，则代表舍入到小数点后的位数。
-    print("{}".format(math.sqrt(16))) # sqrt(x)	返回数字x的平方根。
-    def round_fun_test():
-        """四舍五入的问题不同 python 版本还不同??
-        本地 python2.7 windows 环境测试:都是四舍五入
-        使用 env python3.9 环境测试:4舍6入5看齐
-        “4舍6入5看齐,奇进偶不进”——我觉得并不是因为浮点数在计算机表示的问题。
-        计算机浮点数的表示是 ieee 定义的标准规则，如果 python 中存在，没道理其他语言中不存在。
-        事实上是因为该取舍方法比过去的 "四舍五入" 方法在科学计算中更准确。
-        而国家标准也已经规定使用 “4舍6入5看齐,奇进偶不进” 取代"四舍五入".
-        从统计学的角度上来讲,如果大量数据无脑的采用四舍五入会造成统计结果偏大。
-        而"奇进偶舍"可以将舍入误差降到最低。
-        奇进偶舍是一种比较精确比较科学的计数保留法，是一种数字修约规则。
-        其具体要求如下（以保留两位小数为例）：
-         （1）要求保留位数的后一位如果是4或者4以下的数字，则舍去， 例如 5.214保留两位小数为5.21。
-         （2）如果保留位数的后一位如果是6或者6以上的数字，则进上去， 例如5.216保留两位小数为5.22。
-         （3）如果保留位数是保留整数部分或保留一位小数，则要根据保留位来决定奇进偶舍：
-          (4) 如果保留位数的后一位如果是5，且该位数后有数字。则进上去，
-          例如5.2152保留两位小数为5.22，5.2252保留两位小数为5.23，5.22500001保留两位小数为5.23
-        从统计学的角度，“奇进偶舍”比“四舍五入”要科学，在大量运算时，
-        它使舍入后的结果误差的均值趋于零，而不是像四舍五入那样逢五就入，导致结果偏向大数，
-        使得误差产生积累进而产生系统误差，“奇进偶舍”使测量结果受到舍入误差的影响降到最低。"""
-        print(round(10.4)) # 10
-        print(round(10.5)) # 10, 这里不是简单的四舍五入了
-        print(round(10.6)) # 11
-        print(round(11.4)) # 11
-        print(round(11.5))  # 12
-        print(round(11.6))  # 12
-        print(round(1.5, 0) == round(2.5, 0)) # 如果保留位数是保留整数部分或保留一位小数，则要根据保留位来决定奇进偶舍：
-    round_fun_test()
-
-    # 三角函数：acos/asin/atan/atan2/sin/cos/tan/degrees、radians/radians
-    # hypot() hypot(x, y)	返回欧几里德范数 sqrt(x*x + y*y)。
-    # print("{}".format(random.sqrt(16)))
-
-    import random
-    # print("choice:{}".format(random.choice(range(100)))) # choice(seq) 从序列的元素中随机挑选一个元素，比如random.choice(range(10))，从0到9中随机挑选一个整数。
-    # print("{}".format(random.randrange(0, 99, 2))) # randrange ([start,] stop [,step])	从指定范围内，按指定基数递增的集合中获取一个随机数，基数默认值为 1
-    # print("random:{}".format(random.random())) # random() 随机生成下一个实数，它在[0,1)范围内。
-    # print("seed:{}".format(random.seed(16))) # seed([x])	改变随机数生成器的种子seed。如果你不了解其原理，你不必特别去设定seed，Python会帮你选择seed。
-    # c = [1, 2, 3]
-    # random.shuffle(c)
-    # print("shuffle:{}".format(c)) # shuffle(lst) 将序列的所有元素随机排序
-    # print("uniform:{}".format(random.uniform(1, 100))) # uniform(x, y)	随机生成下一个实数，它在[x,y]范围内。
-    # print("randint:{}".format(random.randint(1000, 2000))) # #随机生一个整数int类型，可以指定这个整数的范围
-    # print("sample:{}".format(random.sample('abcdefg1234567', 4))) # 可以从指定的序列中，随机的截取指定长度的片断，不修改原序列。
-
-    import operator # Python3中已经不能使用cmp()函数了，被如下五个函数替代:
-    print("gt:{}".format(operator.gt(1, 2))) # 意思是greater than（大于）
-    print("gt:{}".format(operator.ge(1, 2))) # 意思是greater and equal（大于等于）
-    print("gt:{}".format(operator.eq(1, 2))) # 意思是equal（等于）
-    print("gt:{}".format(operator.le(1, 2))) # 意思是less and equal（小于等于）
-    print("gt:{}".format(operator.lt(1, 2))) # 意思是less than（小于）
-
-    import fractions # fractions 模块提供了分数类型的支持。
-    #分子（numerator）和分母（denominator）
-    d = fractions.Fraction(1, 3)
-    e = fractions.Fraction(4, 6)
-    print("d:{} {}".format(d, type(d)))
-    print("e:{} {}".format(e, type(e)))
-    print(d + e)
-
-    import decimal # decimal 模块提供了一个 Decimal 数据类型用于浮点数计算，拥有更高的精度。
-    print(decimal.Decimal.from_float(1.05))
-
-    import numpy as np
-    num_array = np.array([1, 2, 3])
-    print(num_array)
 
 def condition_control_test():
     """条件控制"""
@@ -1497,7 +1419,7 @@ def os_base_test():
         print(__file__) # 当前文件名
         print(os.path.abspath(__file__)) # 当前文件名的绝对路径
         print(os.path.dirname(os.path.abspath(__file__))) # 返回当前文件所在文件夹的路径
-        new_path = os.path.join('D:', "root", "test", "test.py")
+        new_path = os.path.join('D:', "root", "test", "timer_test.py")
         print(os.path.normpath(new_path))
     os_path_test()
 
@@ -1710,6 +1632,67 @@ def assert_test():
     foo(1)
 
 
+def exchange_var_test():
+
+    def exchange1():
+        a = 1
+        b = 2
+        a, b = b, a
+        print(f"a={a} b={b}")
+
+    def exchange2():
+        """不使用中间变量交换变量"""
+        a = 1
+        b = 2
+        a = a + b
+        b = a - b
+        a = a - b
+        print(f"a={a} b={b}")
+
+    # exchange1()
+    exchange2()
+
+
+def leap_year_test():
+    """
+    平年和闰年的设置主要用于调整公历日历年与地球公转周期之间的差异，确保日历与季节变化保持同步。‌
+    地球公转周期约为365.2422天‌，但公历规定平年为365天，每年会多出约0.2422天（约5小时48分46秒）。
+    如果长期不修正，累积误差会导致季节逐渐偏移，例如每100年可能偏移约24天。通过设置闰年（366天），
+    并在每四年增加一天（2月29日），可以补偿这部分误差，维持日历的准确性。‌
+    https://www.runoob.com/python3/python3-leap-year.html
+    """
+    def is_leap_year():
+        year = int(input("输入一个年份: "))
+        if (year % 4) == 0:
+            if (year % 100) == 0:  # 是整百年, 还需要可以被 400 整除才是润年
+                if (year % 400) == 0:
+                    print("{0} 是闰年".format(year))  # 1.整百年能被400整除的是闰年
+                else:
+                    print("{0} 不是闰年".format(year))
+            else:
+                print("{0} 是闰年".format(year))  # 2.非整百年只需要能被4整除——即为闰年
+        else:
+            print("{0} 不是闰年".format(year))
+
+    def is_leap_year2():
+        """python 标准库"""
+        import calendar
+        year = int(input("输入一个年份: "))
+        leap = calendar.isleap(year)
+        print(f"{year} 是 {'闰年' if leap else '平年'}")
+
+    # is_leap_year()
+    is_leap_year2()
+
+
+def max_num_test():
+    """max()"""
+    print(f"{max([1, 2, 3])}")
+    print(f"{max(1, 2, 3)}")
+
+
+
+
 if __name__ == '__main__':
     # base_info()
     # str_op()
@@ -1737,6 +1720,11 @@ if __name__ == '__main__':
     # oob_base_test()
     # namespace_test()
     # type_hints_test()
-    assert_test()
+    # assert_test()
+    # exchange_var_test()
+    # is_number_test()
+    # even_num_test()
+    # leap_year_test()
+    max_num_test()
 else:
     print("我来自另一模块")

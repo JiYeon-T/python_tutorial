@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import QAction, QCompleter, QSlider
 from PyQt5.QtWidgets import QDialog, QFileDialog, QInputDialog, QFontDialog, QProgressDialog, QColorDialog
 # from PyQt5.QtWidgets import
 from PyQt5.QtWidgets import QDialogButtonBox
-from PyQt5.QtCore import Qt, QFile, pyqtSlot, QThread, pyqtSignal, QStringListModel
+from PyQt5.QtCore import Qt, QFile, pyqtSlot, QThread, pyqtSignal, QStringListModel, QUrl
 from PyQt5.QtGui import QPainter, QValidator, QIntValidator, QRegExpValidator
 
 
@@ -203,6 +203,7 @@ def qdialog_test():
 def qfiledialog_test():
     """
     QFileDialog 类可让用户遍历文件系统，选择一个或多个文件或目录。
+    https://doc.qt.io/qt-6/zh/qfiledialog.html
     """
     class App(QWidget):
         """The methods used are QFileDialog.getOpenFileName(), QFileDialog.getOpenFileNames(),
@@ -229,7 +230,7 @@ def qfiledialog_test():
             # button.clicked.connect(self.openFileNameDialog)
             # button.clicked.connect(self.openFileNamesDialog)
             # button.clicked.connect(self.getExistingDirDialog)
-            button.clicked.connect(self.get_url())
+            button.clicked.connect(self.get_url)
 
         def openFileNameDialog(self):
             """如果这个设置为按钮的槽函数不就是打开文件的功能了吗"""
@@ -283,14 +284,25 @@ def qfiledialog_test():
             pass
 
         def get_url(self):
+            """
+            参数说明:该函数的用法与QFileDialog::getSaveFileName() 类似。
+            尤其是parent,caption,dir,filter,selectedFilter 和options 的使用方式完全相同。
+            """
             # getOpenFileUrl 可以选择网络文件
             # 与QFileDialog::getOpenFileName() 的主要区别在于用户可以选择远程文件。
             # 这就是为什么dir 的返回类型和类型都是QUrl 的原因。
+            #
+            # 在可能的情况下，此静态函数使用本地文件对话框，而不是QFileDialog 。
+            # 在不支持选择远程文件的平台上，Qt XML 将只允许选择本地文件。
             qurl, str = QFileDialog.getOpenFileUrl(self,
                                              "选择文件(包括网络文件)",
-                                             # "D:",
+                                             QUrl("D:"),
                                              "All Files (*);;")
+            # QFileDialog.getExistingDirectoryUrl()
+            # QFileDialog.getOpenFileUrls()
+            # QFileDialog.getSaveFileUrl()
             print(qurl, str)
+
         @pyqtSlot()
         def on_click(self):
             print("Clicked")
@@ -341,6 +353,7 @@ def qfiledialog_test2():
             # 设置选项, 可以设置不使用本地对话框等
             # dialog.setOption(QFileDialog.HideNameFilterDetails)
             dialog.setOptions(QFileDialog.HideNameFilterDetails | QFileDialog.ReadOnly)
+            # dialog.setSidebarUrls(QUrl("D:"))  # 在侧边栏显示额外的 url
             # list = d
             # dialog.show()
             if dialog.exec():
@@ -560,8 +573,8 @@ def qprogress_dialog_tes():
 
 if __name__ == '__main__':
     # qdialog_test()
-    qfiledialog_test()
-    # qfiledialog_test2()
+    # qfiledialog_test()
+    qfiledialog_test2()
     # qmessagebox_test()
     # custome_dialog_test()
     # qprogress_dialog_tes()

@@ -8,9 +8,10 @@ class Timer:
 		self.stop_time = [0]
 		self.last_time = [0]
 
-	def __str__(self):  # 重写 __repr__
+	def __str__(self):
 		return self.print_str
-	__repr__ = __str__
+
+	__repr__ = __str__    # 重写 __repr__
 
 	# add object: t1 + t2
 	def __add__(self, other):  # 重写 __add__

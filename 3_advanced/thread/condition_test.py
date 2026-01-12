@@ -1,14 +1,15 @@
-"""
-一个简单的生产消费者模型，通过条件变量的控制产品数量的增减，调用一次生产者产品就是+1，调用一次消费者产品就会-1.
-"""
- 
-"""
-使用 Condition 类来完成，由于它也可以像锁机制那样用，所以它也有 acquire 方法和 release 方法，
-而且它还有wait， notify， notifyAll 方法 —— 可以用于线程同步。
-"""
- 
 import threading
 import queue,time,random
+
+
+
+ 
+
+# 使用 Condition 类来完成，由于它也可以像锁机制那样用，所以它也有 acquire 方法和 release 方法，
+# 而且它还有wait， notify， notifyAll 方法 —— 可以用于线程同步。
+
+ 
+
  
 class Goods:#产品类
     def __init__(self):
@@ -20,13 +21,19 @@ class Goods:#产品类
             self.count -= 1
     def empty(self):
         return self.count <= 0
- 
-class Producer(threading.Thread):#生产者类
+
+
+class Producer(threading.Thread):
+    """
+    一个简单的生产消费者模型，通过条件变量的控制产品数量的增减，
+    调用一次生产者产品就是+1，调用一次消费者产品就会-1.
+    """
     def __init__(self,condition,goods,sleeptime = 1):#sleeptime=1
         threading.Thread.__init__(self)
         self.cond = condition
         self.goods = goods
         self.sleeptime = sleeptime
+
     def run(self):
         cond = self.cond
         goods = self.goods
@@ -37,13 +44,15 @@ class Producer(threading.Thread):#生产者类
             cond.notifyAll()#唤醒所有等待的线程--》其实就是唤醒消费者进程
             cond.release()#解锁资源
             time.sleep(self.sleeptime)
- 
-class Consumer(threading.Thread):#消费者类
-    def __init__(self,condition,goods,sleeptime = 2):#sleeptime=2
+
+
+class Consumer(threading.Thread):
+    def __init__(self, condition, goods, sleeptime = 2):
         threading.Thread.__init__(self)
         self.cond = condition
         self.goods = goods
         self.sleeptime = sleeptime
+
     def run(self):
         cond = self.cond
         goods = self.goods
@@ -55,12 +64,18 @@ class Consumer(threading.Thread):#消费者类
             goods.sub()
             print("产品数量:",goods.count,"消费者线程")
             cond.release()#解锁资源
- 
-g = Goods()
-c = threading.Condition()
- 
-pro = Producer(c,g)
-pro.start()
- 
-con = Consumer(c,g)
-con.start()
+
+
+def _test():
+    g = Goods()
+    c = threading.Condition()
+
+    pro = Producer(c,g)
+    pro.start()
+
+    con = Consumer(c,g)
+    con.start()
+
+
+if __name__ == '__main__':
+    _test()

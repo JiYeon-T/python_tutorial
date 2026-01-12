@@ -65,6 +65,7 @@ def exception_base_test():
             print(f'close file:{repr(f)}')
     file_op_exception_test()
 
+
 def my_exception_module_test():
     # 当创建一个模块有可能抛出多种不同的异常时，一种通常的做法是为这个包建立一个基础异常类，
     # 然后基于这个基础类为不同的错误情况创建不同的子类:
@@ -117,11 +118,13 @@ def my_exception_module_test():
     finally:
         print("无论如何都会执行的代码")
 
+
 def capture_all():
     try:
         a = 1/ 0
     except Exception as e:  # 捕获所有异常
         print(repr(e))
+
 
 if __name__ == '__main__':
     # exception_base_test()

@@ -19,6 +19,9 @@ https://doc.qt.io/archives/qtforpython-5/PySide2/QtWidgets/QMessageBox.html
 https://doc.qt.io/archives/qtforpython-5/PySide2/QtWidgets/QFileDialog.html
 https://doc.qt.io/qt-6/zh/qfiledialog.html
 
+# document:
+https://docs.python.org/3/library/
+
 
 1_base/algorithm_test
 # https://www.runoob.com/python3/python3-examples.html

@@ -3,8 +3,8 @@ import pickle
 
 os.getcwd()
 # TODO: 这种写法并不好,代码移植性很差
-os.chdir('/home/qz/Desktop/python/weather_forecast/')
-os.getcwd()
+# os.chdir('/home/qz/Desktop/python/weather_forecast/')
+# os.getcwd()
 
 def weather_forcast_test1():
     city = {
@@ -33,5 +33,15 @@ def weather_forcat_test2():
 
 # other program  use this dictionary to accomplish the weather forcast funcion
 
+def celsius2fahrenheit_test():
+    def celsius2fahrenheit(degree):
+        """设置温度转华氏温度测试"""
+        return degree * 1.8 + 32
+
+    degree = 37
+    print(f"{degree} 对应的华氏温度 {celsius2fahrenheit(degree)}")
+
+
 if __name__ == '__main__':
-    weather_forcat_test2()
+    # weather_forcat_test2()
+    celsius2fahrenheit_test()

@@ -1,5 +1,6 @@
 import os
 import io
+# pip install qrcode
 import qrcode  # TODO: qrcode
 
 
@@ -23,6 +24,7 @@ def qrcode_test():
         image = qrcode.make(url)
         save_path = os.path.join(BASE_DIR, image_name)
         image.save(save_path)
+        print(f"write to {save_path}")
         return
 
     # make_qrcoe("www.baidu.com")

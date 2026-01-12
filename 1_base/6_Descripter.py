@@ -6,10 +6,10 @@ class MyDescriptor:
 	##
 	def __get__(self, instance, owner):
 		print('getting', self, instance, owner)
-	##
+
 	def __set__(self, instance, value):
 		print('setting', self, instance, value)
-	##
+
 	def __delete__(self, instance):			# bu neng yu del chong ming
 		print('deleting',self, instance)
 ##

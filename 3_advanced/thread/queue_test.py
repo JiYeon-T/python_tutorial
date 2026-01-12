@@ -53,6 +53,8 @@ def queue_taskdone_test():
 	https://blog.csdn.net/qq_43030934/article/details/132755839
 	生产者线程可以调用 join() 阻塞
 	消费者每处理完一条消息调用一次 task_done(), 队列中所有的消息处理完后, join() 接触阻塞
+	Queue.task_done() 在完成一项工作之后，Queue.task_done()函数向任务已经完成的队列发送一个信号
+	Queue.join() 实际上意味着等到队列为空，再执行别的操作
 	"""
 	def worker(idx, q):
 		while True:
