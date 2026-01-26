@@ -24,7 +24,7 @@ def queue_basic_example():
 		def __init__(self, index, queue):
 			th.Thread.__init__(self)
 			self.index = index
-			self.queue = queue	# 創建一個隊列
+			self.queue = queue  # 創建一個隊列
 
 		def run(self):
 			while True:
@@ -40,28 +40,30 @@ def queue_basic_example():
 	# 一个小于等于0的数，那么默认会认为该队列的容量是无限的.
 	q = queue.Queue(10)
 
+	# 2個線程同時處理隊列中的消息, 2 个消费者子线程
 	for idx in range(2):
-		thread_i = ConsumerThread(idx, q)  # 2個線程同時處理隊列中的消息, 2 个消费者子线程
+		thread_i = ConsumerThread(idx, q)
 		thread_i.start()
 
-	for i in range(10):  # 主线程模擬向隊列中賽數據
+	for i in range(10):  # 主线程模擬向隊列中賽數據, 生产者
 		q.put(i)
 		time.sleep(2)
+
 
 def queue_taskdone_test():
 	"""
 	https://blog.csdn.net/qq_43030934/article/details/132755839
 	生产者线程可以调用 join() 阻塞
-	消费者每处理完一条消息调用一次 task_done(), 队列中所有的消息处理完后, join() 接触阻塞
+	消费者每处理完一条消息调用一次 task_done(), 队列中所有的消息处理完(队列为空)后, join() 解除阻塞
 	Queue.task_done() 在完成一项工作之后，Queue.task_done()函数向任务已经完成的队列发送一个信号
 	Queue.join() 实际上意味着等到队列为空，再执行别的操作
 	"""
-	def worker(idx, q):
+	def worker(idx, q:queue.Queue):
 		while True:
 			item = q.get()
-			print(f'worker {idx} process {item}')
-			time.sleep(0.5)  # 模拟队列处理耗时
-			q.task_done()
+			print(f'worker {idx} process {item} qsize:{q.qsize()}')
+			time.sleep(1)  # 模拟队列处理耗时
+			q.task_done()  # 如果这里不调用 task_done(), 即使队列中没有元素, join() 也不会解除阻塞
 
 	q = queue.Queue()
 
@@ -69,13 +71,14 @@ def queue_taskdone_test():
 		q.put(i)
 
 	# 创建 3 个线程
-	for idx in range(3):
+	for idx in range(2):
 		t = threading.Thread(target=worker, args=(idx, q))
 		t.daemon = True
 		t.start()
 
-	q.join()  # 阻塞等待处理结束
+	q.join()  # 阻塞等待处理结束(队列为空)
 	print(f'all item process done, main thread exit')
+
 
 def queue_task_done_example2():
 	"""
@@ -114,8 +117,40 @@ def queue_task_done_example2():
 	t3.start()
 	time.sleep(10)
 
+
+def __lifo_queue_test():
+	"""Last input First output"""
+	q = queue.LifoQueue()
+
+	q.put(1)
+	q.put(2)
+	q.put(3)
+
+	print(q.get())
+	print(q.get())
+	print(q.get())
+
+
+def __priority_queue_test():
+	"""优先级队列
+	Entries are typically tuples of the form:  (priority number, data).
+	入队时可以给元素增加一个优先级参数
+	出队时按照优先级出队, 数字越小, 优先级越高
+	"""
+	q = queue.PriorityQueue()
+
+	q.put((2, 'AAAA'))
+	q.put((1, 'BBBB'))
+	q.put((3, 'CCCC'))
+
+	print(q.get())
+	print(q.get())
+	print(q.get())
+
+
 if __name__ == '__main__':
 	# queue_basic_example()
 	# queue_taskdone_test()
-	queue_task_done_example2()
-
+	# queue_task_done_example2()
+	# __lifo_queue_test()
+	__priority_queue_test()

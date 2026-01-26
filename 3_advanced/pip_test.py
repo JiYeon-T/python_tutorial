@@ -1,7 +1,7 @@
 
 # python 包管理工具:
 # https://www.runoob.com/python3/python3-pip.html
-
+# https: // pypi.org /
 
 # pip install xxx
 # pip uninstall xxx

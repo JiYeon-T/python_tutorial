@@ -26,6 +26,8 @@ def fun3(test_list):
 def fun4(test_list):
     res = [i for n, i in enumerate(test_list) if i not in test_list[:n]]
     return res
+
+
 #(5)完成特殊任务中最快的方法。它先是将列表中的重复项移除并返回一个字典，最后转换成列表。这种方法对于字符串也可以进行处理。
 def fun5(test_list):
     import collections

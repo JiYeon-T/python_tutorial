@@ -12,10 +12,12 @@ class MyDescriptor:
 
 	def __delete__(self, instance):			# bu neng yu del chong ming
 		print('deleting',self, instance)
-##
+
+
 class Test:
 	x = MyDescriptor()
-##
+
+
 test = Test()
 test.x				#get
 test.x = 'I love you'		#set --automaticlly call

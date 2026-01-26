@@ -120,7 +120,7 @@ def str_test2():
         print("No")
 
 
-def enter_test():
+def terminal_input_test():
     """"""
     import sys
     import math
@@ -534,6 +534,7 @@ def dict_base_base_test():
         return eval(stat[code])
     print(status(400))
 
+
 def bytes_base_test():
     """bytes 类型表示的是不可变的二进制序列（byte sequence）。
     与字符串类型不同的是，bytes 类型中的元素是整数值（0 到 255 之间的整数），而不是 Unicode 字符。
@@ -557,6 +558,7 @@ def bytes_base_test():
     print("")
     # ord() 函数用于将字符转换为相应的整数值
     print("%d" % ord("A"))
+
 
 def var_type_change():
     """Python数据类型转换"""
@@ -677,7 +679,6 @@ def condition_control_test():
     #     case _:
     #         < action_wildcard >
 
-    #e.g. 当前使用 3.9 版本 python, 不支持
     # a = 1
     # match a:
     #     case 1:
@@ -710,6 +711,7 @@ def condition_control_test():
     for i, j in enumerate(a):
         print("[{}]={}".format(i, j), sep=",", end=",")
     print("")
+
 
 def python_comprehension():
     """"""
@@ -753,6 +755,7 @@ def python_comprehension():
     g = (x**2 for x in range(10) if x % 3 == 0)  # 元组推导式返回的是生成器对象
     print(type(g), g, sep=", ") # <generator object python_comprehension.<locals>.<genexpr> at 0x000001E79FC98120>
     print(tuple(g), end="\n\n") # 使用 tuple() 函数，可以直接将生成器对象转换成元组
+
 
 def iterator_base_test():
     """Python3 迭代器与生成器
@@ -1691,13 +1694,295 @@ def max_num_test():
     print(f"{max(1, 2, 3)}")
 
 
+def sys_test():
+    """
+    https://www.runoob.com/python3/python-sys.html
+    sys 是 Python 标准库中的一个模块，提供了与 Python 解释器及其环境交互的功能。
+    通过 sys 库，你可以访问与 Python 解释器相关的变量和函数，例如命令行参数、标准输入输出、程序退出等。
+    """
+    import sys
+    print(dir(sys))
+    # sys.path 是一个列表，包含了 Python 解释器在导入模块时搜索的路径。
+    # 你可以修改这个列表来添加自定义的模块搜索路径。
+    print("模块搜索路径:", sys.path)
+    sys.path.append('/custom/path')
+    print("更新后的模块搜索路径:", sys.path)
+    print("argv:", sys.argv)
+    # sys.exit() 用于退出程序。你可以传递一个整数作为退出状态码，通常 0 表示成功，非零值表示错误。
+    # sys.exit(-1)
+
+    def stdout_test():
+        """
+        sys.stdin、sys.stdout 和 sys.stderr 分别代表标准输入、标准输出和标准错误流。
+        你可以重定向这些流以实现自定义的输入输出行为。
+        """
+        # 重定向标准输出到文件
+        with open('output.txt', 'w', encoding='utf-8') as f:
+            sys.stdout = f
+            print("这行内容将写入 output.txt")
+
+        # 恢复标准输出
+        sys.stdout = sys.__stdout__
+        print("这行内容将显示在控制台")
+
+    # stdout_test()
+
+    # sys.version 和 sys.version_info 提供了当前 Python 解释器的版本信息。
+    print(f"version:{sys.version}\n{sys.version_info}")
+
+    # sys 模块常用属性
+    # sys.argv	命令行参数列表，sys.argv[0] 是脚本名称
+    # sys.path	Python 模块搜索路径（PYTHONPATH）
+    # sys.modules	已加载模块的字典
+    print("platform:", sys.platform)  # sys.platform	操作系统平台标识（如 'win32', 'linux', 'darwin'）
+    # sys.version	Python 解释器版本信息
+    print(f"python:", sys.executable)  # sys.executable	Python 解释器的绝对路径
+    # sys.stdin	标准输入流（文件对象）
+    # sys.stdout	标准输出流（文件对象）
+    # sys.stderr	标准错误流（文件对象）
+    print(f"byteorder:{sys.byteorder}")  # sys.byteorder	字节序（'little' 或 'big'）
+    print(f"max:{sys.maxsize}")# sys.maxsize	最大整数值（2**31-1 或 2**63-1）
+
+    # sys 模块常用方法
+    # sys.exit([status])	退出程序，status=0 表示正常退出
+    print("sizeof:", sys.getsizeof("abc"))  # sys.getsizeof(obj)	返回对象占用的内存字节数
+    print(f"encoding:{sys.getdefaultencoding()}")  # sys.getdefaultencoding()	获取默认字符串编码（通常 'utf-8'）
+    # sys.setrecursionlimit(limit)	设置递归深度限制（默认 1000）
+    print(f"recursion:{sys.getrecursionlimit()}")# sys.getrecursionlimit()	获取当前递归深度限制
+    # sys.getrefcount(obj)	返回对象的引用计数
+    try:
+        1/0
+    except:
+        print(f"exe_info:{sys.exc_info()}")  # sys.exc_info()	获取当前异常信息（(type, value, traceback)）
+        print(sys.exc_info()[0])
+        print(sys.exc_info()[1])
+        print(sys.exc_info()[2])
+
+    # sys.settrace(tracefunc)	设置调试跟踪函数
+    # sys.setprofile(profilefunc)	设置性能分析函数
+
+
+def builtin_fun_test():
+    """
+    https://www.runoob.com/python3/python3-built-in-functions.html
+    """
+    class C:
+        name = "class C"
+
+    print(f"abs:{abs(-100)}")  # abs() 函数返回数字的绝对值。
+    print(f"dict{dict([(1, 'a'), (2, 'b'), (3, 'c')])}")  # dict() 函数用于创建一个字典。
+    print(f"dict:{dict(a='a', b='b', c=b'c')}")
+
+    # print(f"help:{help(help)}")  # help function
+
+    print(f"min:{min(-100, 0, 100)}")
+
+    c = C()
+    print(f"setattr:{setattr(c, 'age', 18)}")  # 如果属性不存在会创建一个新的对象属性，并对属性赋值：
+    print(f"getattr:{getattr(c, 'age')}")
+
+    # all() 函数用于判断给定的可迭代参数 iterable 中的所有元素是否都为 TRUE，如果是返回 True，否则返回 False。
+    # 元素除了是 0、空、None、False 外都算 True。
+    print(f"all:{all([1, 2, 3, 0])}")
+    # any() 函数用于判断给定的可迭代参数 iterable 是否全部为 False，则返回 False，
+    # 如果有一个为 True，则返回 True。
+    # 元素除了是 0、空、FALSE 外都算 TRUE。
+    print(f"any:{any([1, 2, 3, 0])}")
+
+    # dir() 函数不带参数时，返回当前范围内的变量、方法和定义的类型列表；
+    # 带参数时，返回参数的属性、方法列表。
+    # 如果参数包含方法__dir__()，该方法将被调用。
+    # 如果参数不包含__dir__()，该方法将最大限度地收集参数信息。
+    # print(f"dir:{dir([])}")  # 返回列表的所有方法
+
+    # hex() 函数用于将一个指定数字转换为 16 进制数。
+    # print(f"hex:{hex(13)} type:{type(hex(13))}")
+    # oct() 函数将一个整数转换成 8 进制字符串，8 进制以 0o 作为前缀表示。
+    # print(f"oct:{oct(13)} type:{type(oct(13))}")
+    # bin() 返回一个整数 int 或者长整数 long int 的二进制表示。 前缀为: "ob"
+    # print(f"bin:{bin(13)} type:{type(bin(13))}")
+    # int() 函数用于将一个字符串或数字转换为整型。十进制, 没有前缀
+    # print(f"int:{int('13')} type:{type(int('13'))}")
+    # ord() 函数是 chr() 函数（对于 8 位的 ASCII 字符串）的配对函数，
+    # 它以一个字符串（Unicode 字符）作为参数，返回对应的 ASCII 数值，或者 Unicode 数值。
+    # print(f"ord:{ord('a')} type:{type(ord('a'))}")
+
+    # next() 返回迭代器的下一个项目。
+    # next() 函数要和生成迭代器的 iter() 函数一起使用。
+    def iter_test():
+        # 首先获得Iterator对象:
+        it = iter([1, 3, 5, 7, 9])
+        while True:
+            try:
+                # 获得下一个值:
+                x = next(it)
+                print(x, end=", ")
+            except StopIteration:
+                # 遇到StopIteration就退出循环
+                break
+    # iter_test()
+
+    # slice() 函数实现切片对象，主要用在切片操作函数里的参数传递。
+    # class slice(stop)
+    # class slice(start, stop[, step])
+    # my_slice = slice(5)
+    # print(f"slice:{my_slice} type:{type(my_slice)}")
+    # arr = [x for x in range(10)]
+    # print(f"subarr:{arr[my_slice]}")
+
+    # Python divmod() 函数接收两个数字类型（非复数）参数，返回一个包含商和余数的元组(a // b, a % b)。
+    # 在 python 3.x 版本该函数不支持复数。
+    # 函数语法
+    # divmod() 函数接受两个参数，通常是两个数字，并返回一个包含两个值的元组。
+    # 第一个值是第一个参数除以第二个参数的商（即整数部分），第二个值是余数。
+    # divmod(a, b)
+    # 参数说明：
+    # a: 数字，非复数。
+    # b: 数字，非复数。
+    # 如果参数 a 与 参数 b 都是整数，函数返回的结果相当于 (a // b, a % b)。
+    secs = 3986
+    hours, sec = divmod(secs, 3600)
+    mins, sec = divmod(sec, 60)
+    print(f"divmod {secs}sec = {hours}h {mins}m {sec}s")  # 返回3986秒对应的小时数以及剩余的秒数
+
+    # id() 函数返回对象的唯一标识符，标识符是一个整数。
+    # CPython 中 id() 函数用于获取对象的内存地址。
+    # print(f"id:{id(secs)}")
+
+    # object() 函数返回一个空对象，我们不能向该对象添加新的属性或方法。
+    # object() 函数返回的对象是所有类的基类，它没有任何属性和方法，只有 Python 内置对象所共有的一些特殊属性和方法，
+    # 例如 __doc__ 、__class__、__delattr__、__getattribute__ 等。
+    # object() 是 Python 中最基本的对象，其他所有对象都是由它派生出来的。
+    # 因此，object() 对象是所有 Python 类的最顶层的超类（或者称为基类或父类），所有的内置类型、用户定义的类以及任何
+    # 其他类型都直接或间接地继承自它。
+    # print(f"object:{id(object())}")
+
+    def sorted_test():
+        """
+        sorted() 函数对所有可迭代的对象进行排序操作。
+        sort 与 sorted 区别：
+        sort 是应用在 list 上的方法，sorted 可以对所有可迭代的对象进行排序操作。
+        list 的 sort 方法返回的是对已经存在的列表进行操作，
+        而内建函数 sorted 方法返回的是一个新的 list，而不是在原来的基础上进行的操作。
+
+        语法
+        sorted 语法：
+        sorted(iterable, key=None, reverse=False)
+        参数说明：
+        iterable -- 可迭代对象。
+        key -- 主要是用来进行比较的元素，只有一个参数，具体的函数的参数就是取自于可迭代对象中，指定可迭代对象中的一个元素来进行排序。
+        reverse -- 排序规则，reverse = True 降序 ， reverse = False 升序（默认）。
+        """
+        print(sorted([1, 3, 2, 5, 4]))  # 默认为升序
+
+        # 另一个区别在于list.sort() 方法只为 list 定义。
+        # 而 sorted() 函数可以接收任何的 iterable。
+        print(sorted({1: 'D', 2: 'B', 3: 'B', 4: 'E', 5: 'A'}))
+
+        # 利用key进行倒序排序
+        example_list = [5, 0, 6, 1, 2, 7, 3, 4]
+        # 利用key进行倒序排序
+        print(sorted(example_list, key=lambda x: x * -1))
+    # sorted_test()
+
+    # ascii() 函数类似 repr() 函数, 返回一个表示对象的字符串, 但是对于字符串中的非 ASCII 字符则返回通过 repr()
+    # 函数使用 \x, \u 或 \U 编码的字符。 生成字符串类似 Python2 版本中 repr() 函数的返回值。
+    # print(ascii("12345abcde--..##我"))
+
+    # enumerate() 函数用于将一个可遍历的数据对象(如列表、元组或字符串)组合为一个索引序列，
+    # 同时列出数据和数据下标，一般用在 for 循环当中。
+    # example_list = [5, 0, 6, 1, 2, 7, 3, 4]
+    # print(f"enumerate:{enumerate(example_list)} type:{type(enumerate(example_list))}")
+    # for i, elem in enumerate(example_list):
+    #     print(i, elem, end=", ")
+
+    # Python3.x 中 input() 函数接受一个标准输入数据，返回为 string 类型。
+    # 注意：在 Python3.x 中 raw_input() 和 input() 进行了整合，去除了 raw_input( )，仅保留了input( )函数，
+    # 其接收任意任性输入，将所有输入默认为字符串处理，并返回字符串类型。
+    # print(f"input:{input('输入:')}")
+
+    # python staticmethod 返回函数的静态方法。
+    # 该方法不强制要求传递参数，如下声明一个静态方法
+    # class C(object):
+    #     @staticmethod
+    #     def f(arg1, arg2, ...):
+    #         ...
+    # 以上实例声明了静态方法 f，从而可以实现实例化使用 C().f()，当然也可以不实例化调用该方法 C.f()。
+
+    # 注意： eval() 函数执行的代码具有潜在的安全风险。
+    # 如果使用不受信任的字符串作为表达式，则可能导致代码注入漏洞，因此，
+    # 应谨慎使用 eval() 函数，并确保仅执行可信任的字符串表达式。
+    # eval() 函数用来执行一个字符串表达式，并返回表达式的值。
+    # 字符串表达式可以包含变量、函数调用、运算符和其他 Python 语法元素。
+    # 语法
+    # 以下是 eval() 方法的语法:
+    # eval(expression[, globals[, locals]])
+    # 参数
+    # expression -- 表达式。
+    # globals -- 变量作用域，全局命名空间，如果被提供，则必须是一个字典对象。
+    # locals -- 变量作用域，局部命名空间，如果被提供，可以是任何映射对象。
+    # eval() 函数将字符串 expression 解析为 Python 表达式，并在指定的命名空间中执行它。
+    # print(f"eval:{eval('pow(2, 2)')}")
+    # x = 2
+    # print(f"eval:{eval('x*2')}")
+    # exec 执行储存在字符串或文件中的 Python 语句，相比于 eval，exec 可以执行更复杂的 Python 代码。
+    # 语法
+    # 以下是 exec 的语法:
+    # exec(object[, globals[, locals]])
+    # 参数
+    # object：必选参数，表示需要被指定的 Python 代码。它必须是字符串或 code 对象。
+    # 如果 object 是一个字符串，该字符串会先被解析为一组 Python 语句，然后再执行（除非发生语法错误）。
+    # 如果 object 是一个 code 对象，那么它只是被简单的执行。
+    # globals：可选参数，表示全局命名空间（存放全局变量），如果被提供，则必须是一个字典对象。
+    # locals：可选参数，表示当前局部命名空间（存放局部变量），如果被提供，可以是任何映射对象。如果该参数被忽略，那么它将会取与 globals 相同的值。
+    # 返回值
+    # exec 返回值永远为 None。
+    # exec('print("Hello, world")')
+    def exec_test():
+        x = 10
+        expr = """
+z = 30
+sum = x + y + z
+print(f"sum={sum}")
+        """
+
+        def func():
+            y = 20
+            # exec(expr)  # x 未定义
+            exec(expr, {'x': 1, 'y': 2})  # 全局变量
+            exec(expr, {'x': 1, 'y': 2}, {'y': 3, 'z': 4})  # 传入全局变量以及局部变量
+
+        func()
+    exec_test()
+
+    # str() 函数将对象转化为适于人阅读的形式。
+    # print(str(123))
+    # bool() 函数用于将给定参数转换为布尔类型，如果没有参数，返回 False。
+    # bool 是 int 的子类。
+    # print(f"bool:{bool(123)}")
+
+    # isinstance() 函数来判断一个对象是否是一个已知的类型，类似 type()。
+    # isinstance() 与 type() 区别：
+    # type() 不会认为子类是一种父类类型，不考虑继承关系。
+    # isinstance() 会认为子类是一种父类类型，考虑继承关系。
+    # 如果要判断两个类型是否相同推荐使用 isinstance()。
+    # print(f"isinstance:{isinstance(secs, list)}")
+
+    # sum() 方法对序列进行求和计算。
+    # 语法
+    # 以下是 sum() 方法的语法:
+    # sum(iterable[, start])
+    # 参数
+    # iterable -- 可迭代对象，如：列表、元组、集合。
+    # start -- 指定相加的参数，如果没有设置这个值，默认为0。
+    # print(f"sum:{sum([1, 2, 3])}")
 
 
 if __name__ == '__main__':
     # base_info()
     # str_op()
     # str_test2()
-    # enter_test()
+    # terminal_input_test()
     # var_type_test()
     # list_base_test()
     # tuple_base_test()
@@ -1725,6 +2010,8 @@ if __name__ == '__main__':
     # is_number_test()
     # even_num_test()
     # leap_year_test()
-    max_num_test()
+    # max_num_test()
+    # sys_test()
+    builtin_fun_test()
 else:
     print("我来自另一模块")

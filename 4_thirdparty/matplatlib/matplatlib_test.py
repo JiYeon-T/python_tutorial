@@ -2,7 +2,8 @@
 from matplotlib import pyplot as plt
 import numpy
 import numpy as np
-
+# Pandas 是一个功能强大的开源数据处理和分析库，专门设计用于高效地进行数据分析和操作。
+import pandas as pd
 
 # https://matplotlib.org/
 # https://github.com/matplotlib/matplotlib
@@ -25,7 +26,8 @@ def show_quadratic(a, b, c):
     :return: 方程的解（可能为实数或复数）
     """
     # 创建 x 的数组,
-    x = numpy.linspace(-3, 3, 40000)  # 从-10到10生成400个点
+    x = numpy.linspace(-3, 3, 100)  # 从-10到10生成400个点
+    print(type(x))
 
     # 计算 y 的值:
     y = a * x ** 2 + b * x + c

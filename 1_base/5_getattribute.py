@@ -15,6 +15,8 @@ class C:
 	def __delattr__(self, name):
 		print('__delattr__')
 		super().__delattr__(name)
+
+
 ##Note:先調用__getattr__,當__getattr__沒有獲取到這個屬性時候，再調用__getattribute__
 class Rectangle(object):
 	def __init__(self, length = 0, width = 0):
